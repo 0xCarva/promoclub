@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Cupons de desconto Amazon verificados e atualizados. Economize com códigos válidos hoje.">
+<title>Cupons Amazon — OfertaTop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 14px; scroll-behavior: smooth; }
+body {
+  font-family: 'Instrument Sans', -apple-system, sans-serif;
+  background: #f3f3f3;
+  color: #0f1111;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; }
+
+:root {
+  --orange: #FF9900;
+  --orange-d: #e47911;
+  --navy: #131921;
+  --navy2: #232f3e;
+  --white: #fff;
+  --bg: #f3f3f3;
+  --border: #ddd;
+  --border2: #e8e8e8;
+  --text: #0f1111;
+  --text2: #565959;
+  --text3: #999;
+  --red: #B12704;
+  --green: #067D62;
+  --green-bg: #f0faf6;
+  --green-border: #b7dfd1;
+  --blue: #0066c0;
+  --r: 8px;
+  --r-sm: 4px;
+}
+
+/* ── TOPBAR ─────────────────────────────────────────────── */
+.topbar {
+  background: var(--navy);
+  height: 56px;
+  padding: 0 clamp(12px,4vw,40px);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky; top: 0; z-index: 100;
+}
+.topbar-logo { font-size: 20px; font-weight: 700; color: #fff; }
+.topbar-logo span { color: var(--orange); }
+.topbar-back {
+  display: flex; align-items: center; gap: 6px;
+  color: #ccc; font-size: 13px;
+  margin-left: auto;
+  transition: color .15s;
+}
+.topbar-back:hover { color: var(--orange); }
+.topbar-back svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* ── HERO ────────────────────────────────────────────────── */
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, #1a2a3a 100%);
+  padding: 40px clamp(12px,4vw,40px) 0;
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.hero-text { flex: 1; min-width: 260px; padding-bottom: 36px; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,153,0,0.15);
+  border: 1px solid rgba(255,153,0,0.3);
+  color: var(--orange);
+  font-size: 11px; font-weight: 600;
+  padding: 4px 12px; border-radius: 99px;
+  text-transform: uppercase; letter-spacing: .6px;
+  margin-bottom: 14px;
+}
+.pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+.hero h1 {
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.hero h1 span { color: var(--orange); }
+.hero-sub { font-size: 14px; color: #aaa; max-width: 460px; line-height: 1.65; margin-bottom: 24px; }
+.hero-stats {
+  display: flex; gap: 24px; flex-wrap: wrap;
+}
+.hero-stat strong { display: block; font-size: 22px; font-weight: 700; color: #fff; line-height: 1; }
+.hero-stat span { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: .4px; }
+
+.hero-visual {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  padding-bottom: 0;
+}
+.hero-tag-card {
+  background: var(--white);
+  border-radius: var(--r) var(--r) 0 0;
+  padding: 20px 20px 28px;
+  width: 160px;
+  text-align: center;
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.3);
+}
+.hero-tag-card.tall { padding-bottom: 40px; }
+.hero-tag-value {
+  font-family: 'Geist Mono', monospace;
+  font-size: 26px; font-weight: 600;
+  color: var(--red);
+  margin-bottom: 4px;
+}
+.hero-tag-label { font-size: 11px; color: var(--text2); }
+.hero-tag-code {
+  font-family: 'Geist Mono', monospace;
+  font-size: 13px; font-weight: 600;
+  background: var(--navy);
+  color: var(--orange);
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 8px;
+}
+
+/* ── MAIN ────────────────────────────────────────────────── */
+.page { max-width: 1200px; margin: 0 auto; padding: 24px clamp(12px,4vw,40px) 48px; }
+
+/* ── HOW TO USE ──────────────────────────────────────────── */
+.how-bar {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px;
+  background-color: var(--border);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.how-step {
+  background: var(--white);
+  padding: 18px 16px;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.how-num {
+  width: 24px; height: 24px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 12px; font-weight: 700;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.how-step-text strong { display: block; font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+.how-step-text span { font-size: 12px; color: var(--text2); line-height: 1.4; }
+
+/* ── FILTER BAR ─────────────────────────────────────────── */
+.filter-bar {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 20px; flex-wrap: wrap;
+}
+.filter-pill {
+  background: var(--white);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  font-size: 12px; font-weight: 500;
+  padding: 7px 16px; border-radius: 99px;
+  cursor: pointer; transition: all .15s;
+  white-space: nowrap;
+}
+.filter-pill:hover { border-color: var(--orange); color: var(--orange-d); }
+.filter-pill.active { background: var(--orange); border-color: var(--orange); color: #fff; font-weight: 600; }
+.filter-count { margin-left: auto; font-size: 12px; color: var(--text2); }
+
+/* ── COUPON GRID ─────────────────────────────────────────── */
+.coupons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 12px;
+}
+
+/* ── COUPON CARD ─────────────────────────────────────────── */
+.c-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  transition: box-shadow .2s, transform .2s;
+  position: relative;
+}
+.c-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,.1);
+  transform: translateY(-2px);
+}
+.c-card.prime { border-color: #00a8e0; }
+.c-card.expired { opacity: .55; pointer-events: none; }
+
+/* left accent bar */
+.c-card::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px;
+  border-radius: 8px 0 0 8px;
+}
+.c-card.type-code::before { background: var(--orange); }
+.c-card.type-offer::before { background: var(--green); }
+.c-card.type-prime::before { background: #00a8e0; }
+.c-card.type-app::before { background: #8b5cf6; }
+
+.c-inner { padding: 16px 16px 16px 20px; }
+
+.c-top {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 12px;
+  margin-bottom: 10px;
+}
+.c-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.c-badge {
+  font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 3px;
+  text-transform: uppercase; letter-spacing: .3px;
+}
+.badge-code { background: #fff3e0; color: #e47911; }
+.badge-offer { background: var(--green-bg); color: var(--green); }
+.badge-prime { background: #e0f5ff; color: #0073a8; }
+.badge-app { background: #f3f0ff; color: #6d28d9; }
+.badge-verified { background: #f0faf6; color: var(--green); border: 1px solid var(--green-border); }
+.badge-expired { background: #f8f8f8; color: var(--text3); }
+.badge-hot { background: #fff0f0; color: var(--red); }
+
+.c-value {
+  font-family: 'Geist Mono', monospace;
+  font-size: 22px; font-weight: 600;
+  color: var(--red);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.c-title {
+  font-size: 14px; font-weight: 600;
+  color: var(--text);
+  margin-bottom: 5px;
+  line-height: 1.35;
+}
+.c-desc {
+  font-size: 12px; color: var(--text2);
+  line-height: 1.55; margin-bottom: 12px;
+}
+
+.c-meta {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.c-meta-item {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 11px; color: var(--text2);
+}
+.c-meta-item svg { width: 13px; height: 13px; stroke: var(--text3); fill: none; stroke-width: 1.8; flex-shrink: 0; }
+.c-meta-item strong { color: var(--text); font-weight: 600; }
+
+.c-bottom { display: flex; gap: 8px; align-items: center; }
+
+/* code box */
+.c-code-wrap {
+  flex: 1;
+  display: flex;
+  background: #f8f8f8;
+  border: 1px dashed var(--border);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+}
+.c-code-text {
+  flex: 1;
+  font-family: 'Geist Mono', monospace;
+  font-size: 15px; font-weight: 600;
+  color: var(--navy);
+  padding: 9px 12px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.c-code-copy {
+  background: var(--orange);
+  color: #fff;
+  font-size: 12px; font-weight: 600;
+  padding: 0 14px;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  transition: background .15s;
+  display: flex; align-items: center; gap: 5px;
+}
+.c-code-copy:hover { background: var(--orange-d); }
+.c-code-copy svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
+.c-code-copy.copied { background: var(--green); }
+
+/* offer button (no code) */
+.c-offer-btn {
+  flex: 1;
+  background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
+  border: 1px solid #a88734;
+  border-radius: var(--r-sm);
+  padding: 9px 16px;
+  font-size: 13px; font-weight: 500;
+  color: var(--text);
+  text-align: center;
+  transition: filter .15s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.c-offer-btn:hover { filter: brightness(.96); }
+.c-offer-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+.c-fav {
+  width: 34px; height: 34px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .15s;
+  font-size: 14px; flex-shrink: 0;
+}
+.c-fav:hover { border-color: var(--red); background: #fff0f0; }
+.c-fav.on { background: #fff0f0; border-color: var(--red); }
+
+/* usage bar */
+.c-usage {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border2);
+  display: flex; align-items: center; gap: 10px;
+}
+.c-usage-bar-wrap {
+  flex: 1;
+  height: 5px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.c-usage-bar { height: 100%; background: var(--orange); border-radius: 99px; transition: width .5s; }
+.c-usage-label { font-size: 11px; color: var(--text2); white-space: nowrap; }
+
+/* ── PRIME BANNER ────────────────────────────────────────── */
+.prime-banner {
+  background: linear-gradient(135deg, #00a8e0 0%, #007eb8 100%);
+  border-radius: var(--r);
+  padding: 20px 24px;
+  display: flex; align-items: center; gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.prime-badge-big {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  font-size: 13px; font-weight: 700;
+  padding: 6px 16px; border-radius: 4px;
+  letter-spacing: .3px;
+  white-space: nowrap;
+}
+.prime-banner-text strong { display: block; color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+.prime-banner-text span { color: rgba(255,255,255,0.8); font-size: 13px; }
+.prime-banner-btn {
+  margin-left: auto;
+  background: #fff;
+  color: #007eb8;
+  font-size: 13px; font-weight: 700;
+  padding: 9px 20px; border-radius: var(--r-sm);
+  white-space: nowrap;
+  transition: filter .15s;
+  display: flex; align-items: center; gap: 6px;
+}
+.prime-banner-btn:hover { filter: brightness(.96); }
+.prime-banner-btn svg { width: 14px; height: 14px; }
+
+/* ── UPDATE NOTICE ───────────────────────────────────────── */
+.update-notice {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--orange);
+  border-radius: 0 var(--r) var(--r) 0;
+  padding: 12px 16px;
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px;
+  font-size: 13px; color: var(--text2);
+}
+.update-notice svg { width: 16px; height: 16px; stroke: var(--orange); fill: none; stroke-width: 2; flex-shrink: 0; }
+.update-notice strong { color: var(--text); }
+
+/* ── SECTION HEADER ─────────────────────────────────────── */
+.sec-hd {
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 2px solid var(--orange);
+  padding-bottom: 8px;
+  margin-bottom: 14px; gap: 12px;
+}
+.sec-hd h2 { font-size: 17px; font-weight: 700; }
+.sec-hd span { font-size: 12px; color: var(--text2); }
+
+/* ── EMPTY ───────────────────────────────────────────────── */
+.empty {
+  grid-column: 1/-1; text-align: center;
+  padding: 60px 20px;
+}
+.empty p { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.empty span { font-size: 13px; color: var(--text2); }
+
+/* ── TOAST ───────────────────────────────────────────────── */
+.toast {
+  position: fixed; bottom: 24px; right: 24px; z-index: 300;
+  background: var(--navy);
+  color: #fff; font-size: 13px;
+  padding: 11px 18px; border-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.25);
+  border-left: 3px solid var(--orange);
+  transform: translateY(80px); opacity: 0;
+  transition: all .25s cubic-bezier(.34,1.56,.64,1);
+  pointer-events: none;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+footer {
+  background: var(--navy);
+  padding: 24px clamp(12px,4vw,40px);
+  text-align: center;
+  margin-top: 48px;
+}
+footer .flogo { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+footer .flogo span { color: var(--orange); }
+footer p { font-size: 11px; color: #555; line-height: 1.7; max-width: 600px; margin: 0 auto; }
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .hero-visual { display: none; }
+  .coupons-grid { grid-template-columns: 1fr; }
+  .how-bar { grid-template-columns: 1fr 1fr; }
+  .prime-banner-btn { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="topbar-logo">Oferta<span>Top</span></a>
+  <a href="index.html" class="topbar-back">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    Voltar às ofertas
+  </a>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow"><span class="pulse"></span> Atualizado hoje — 21/05/2026</div>
+      <h1>Cupons de desconto<br><span>Amazon</span> verificados</h1>
+      <p class="hero-sub">Códigos e promoções ativos agora. Copiamos, testamos e organizamos tudo por categoria pra você não perder tempo.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong id="statAtivos">0</strong><span>cupons ativos</span></div>
+        <div class="hero-stat"><strong id="statMax">—</strong><span>maior desconto</span></div>
+        <div class="hero-stat"><strong id="statUsos">0</strong><span>usados hoje</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-tag-card">
+        <div class="hero-tag-value">10%</div>
+        <div class="hero-tag-label">OFF a partir de R$150</div>
+        <div class="hero-tag-code">CAMISA1</div>
+      </div>
+      <div class="hero-tag-card tall">
+        <div class="hero-tag-value">R$250</div>
+        <div class="hero-tag-label">OFF acima de R$1.500</div>
+        <div class="hero-tag-code">TORCIDA12</div>
+      </div>
+      <div class="hero-tag-card">
+        <div class="hero-tag-value">15%</div>
+        <div class="hero-tag-label">OFF a partir de R$300</div>
+        <div class="hero-tag-code">CAMISA2</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- UPDATE NOTICE -->
+  <div class="update-notice">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span>Cupons verificados em <strong>21/05/2026</strong>. Códigos podem expirar a qualquer momento — confira a validade antes de usar. Tem um cupom novo? <strong>Nos avise!</strong></span>
+  </div>
+
+  <!-- HOW TO USE -->
+  <div class="how-bar">
+    <div class="how-step">
+      <div class="how-num">1</div>
+      <div class="how-step-text">
+        <strong>Copie o código</strong>
+        <span>Clique no botão ao lado do código para copiar</span>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">2</div>
+      <div class="how-step-text">
+        <strong>Adicione ao carrinho</strong>
+        <span>Coloque o produto desejado no carrinho da Amazon</span>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">3</div>
+      <div class="how-step-text">
+        <strong>Cole na finalização</strong>
+        <span>No checkout, procure "código promocional" e cole</span>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">4</div>
+      <div class="how-step-text">
+        <strong>Desconto aplicado</strong>
+        <span>O valor é abatido antes do pagamento</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIME BANNER -->
+  <div class="prime-banner">
+    <div class="prime-badge-big">prime</div>
+    <div class="prime-banner-text">
+      <strong>Alguns cupons são exclusivos para membros Amazon Prime</strong>
+      <span>Frete grátis, Prime Video, Prime Reading e acesso antecipado a ofertas por R$14,90/mês</span>
+    </div>
+    <a href="https://www.amazon.com.br/prime?tag=carva00-20" target="_blank" rel="nofollow noopener" class="prime-banner-btn">
+      Experimente grátis 30 dias
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+    </a>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-bar">
+    <button class="filter-pill active" onclick="filterCoupons('todos',this)">Todos</button>
+    <button class="filter-pill" onclick="filterCoupons('codigo',this)">Com código</button>
+    <button class="filter-pill" onclick="filterCoupons('oferta',this)">Sem código</button>
+    <button class="filter-pill" onclick="filterCoupons('prime',this)">Prime</button>
+    <button class="filter-pill" onclick="filterCoupons('app',this)">App</button>
+    <span class="filter-count" id="filterCount"></span>
+  </div>
+
+  <!-- COUPON GRID -->
+  <div class="sec-hd">
+    <h2>Cupons ativos agora</h2>
+    <span id="lastCheck">Verificado hoje</span>
+  </div>
+  <div class="coupons-grid" id="couponsGrid"></div>
+
+</div>
+
+<footer>
+  <div class="flogo">Oferta<span>Top</span></div>
+  <p>Cupons coletados de fontes públicas e verificados manualmente. Este site participa do Programa de Associados da Amazon. Descontos sujeitos a alteração sem aviso prévio.</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── CUPONS DATA ──────────────────────────────────────────
+// Para adicionar um cupom: copie um bloco { ... } e cole na lista.
+// tipo: 'codigo' | 'oferta' | 'prime' | 'app'
+// usos: número de pessoas que usaram hoje (opcional)
+// validade: texto de validade (opcional)
+// link: link da Amazon com sua tag (obrigatório para tipo 'oferta')
+
+const CUPONS = [
+  {
+    id: 'c1',
+    tipo: 'codigo',
+    codigo: 'CAMISA1',
+    valor: '10% OFF',
+    titulo: '10% de desconto em pedidos a partir de R$150',
+    descricao: 'Válido para produtos selecionados. Desconto aplicado automaticamente no checkout ao digitar o código.',
+    condicao: 'Mínimo R$150',
+    validade: 'Tempo limitado',
+    usos: 255,
+    popularidade: 70,
+    verificado: true,
+    categorias: ['Geral'],
+  },
+  {
+    id: 'c2',
+    tipo: 'codigo',
+    codigo: 'CAMISA2',
+    valor: '15% OFF',
+    titulo: '15% OFF em compras acima de R$300',
+    descricao: 'Desconto máximo de R$100. Válido para itens selecionados em diversas categorias da Amazon.',
+    condicao: 'Mínimo R$300 · Máx. R$100 off',
+    validade: 'Tempo limitado',
+    usos: 84,
+    popularidade: 55,
+    verificado: true,
+    categorias: ['Geral'],
+  },
+  {
+    id: 'c3',
+    tipo: 'codigo',
+    codigo: 'TORCIDA12',
+    valor: 'R$250 OFF',
+    titulo: 'R$250 de desconto em pedidos acima de R$1.500',
+    descricao: 'Ideal para compras de alto valor como TVs, notebooks e eletrodomésticos. Um dos maiores descontos disponíveis.',
+    condicao: 'Mínimo R$1.500',
+    validade: 'Tempo limitado',
+    usos: 252,
+    popularidade: 90,
+    verificado: true,
+    hot: true,
+    categorias: ['Eletrônicos', 'Eletrodomésticos'],
+  },
+  {
+    id: 'c4',
+    tipo: 'codigo',
+    codigo: 'CAMISA3',
+    valor: 'R$250 OFF',
+    titulo: 'Mais R$250 OFF aplicando cupom no carrinho',
+    descricao: 'Aplique no campo de código promocional durante a finalização da compra. Confira os produtos elegíveis no link.',
+    condicao: 'Produtos selecionados',
+    validade: 'Tempo limitado',
+    usos: 23,
+    popularidade: 40,
+    verificado: true,
+    categorias: ['Geral'],
+  },
+  {
+    id: 'c5',
+    tipo: 'codigo',
+    codigo: 'CAMISA6',
+    valor: 'R$250 OFF',
+    titulo: 'Super promoção: R$250 off em pedidos acima de R$1.500',
+    descricao: 'Desconto válido para compras de maior valor. Confira se seu produto está na lista de elegíveis antes de usar.',
+    condicao: 'Mínimo R$1.500',
+    validade: 'Tempo limitado',
+    usos: 9,
+    popularidade: 30,
+    verificado: true,
+    categorias: ['Geral'],
+  },
+  {
+    id: 'c6',
+    tipo: 'codigo',
+    codigo: 'RANGEL15',
+    valor: '15% OFF',
+    titulo: '15% OFF a partir de R$150 — máximo R$100 de desconto',
+    descricao: 'Cupom de uso geral com bom custo-benefício para compras medianas. Desconto limitado a R$100 por pedido.',
+    condicao: 'Mínimo R$150 · Máx. R$100 off',
+    validade: 'Tempo limitado',
+    usos: 62,
+    popularidade: 60,
+    verificado: true,
+    categorias: ['Geral'],
+  },
+  {
+    id: 'c7',
+    tipo: 'app',
+    codigo: null,
+    valor: 'R$20 OFF',
+    titulo: 'R$20 OFF em compras acima de R$80 pelo app Amazon',
+    descricao: 'Exclusivo para compras realizadas pelo aplicativo Amazon. Baixe o app, faça login e o desconto aparece automaticamente em produtos elegíveis.',
+    condicao: 'Mínimo R$80 · Somente no app',
+    validade: 'Maio 2026',
+    usos: 180,
+    popularidade: 75,
+    verificado: true,
+    hot: true,
+    link: 'https://www.amazon.com.br?tag=carva00-20',
+    categorias: ['App'],
+  },
+  {
+    id: 'c8',
+    tipo: 'prime',
+    codigo: null,
+    valor: 'Frete grátis',
+    titulo: 'Frete grátis ilimitado com Amazon Prime',
+    descricao: 'Membros Prime têm frete grátis em milhões de produtos, além de acesso ao Prime Video, Prime Music e Prime Reading. Experimente 30 dias grátis.',
+    condicao: 'Assinantes Prime · R$14,90/mês',
+    validade: 'Oferta contínua',
+    usos: 1200,
+    popularidade: 95,
+    verificado: true,
+    link: 'https://www.amazon.com.br/prime?tag=carva00-20',
+    categorias: ['Prime'],
+  },
+  {
+    id: 'c9',
+    tipo: 'prime',
+    codigo: null,
+    valor: '5% cashback',
+    titulo: 'Até 5% de volta comprando com Cartão Amazon Prime',
+    descricao: 'Membros Prime que usam o Cartão Amazon Prime (Bradesco) ganham 5% de volta nas compras na Amazon em pontos resgatáveis.',
+    condicao: 'Prime + Cartão Amazon Bradesco',
+    validade: 'Oferta contínua',
+    usos: 430,
+    popularidade: 80,
+    verificado: true,
+    link: 'https://www.amazon.com.br/prime?tag=carva00-20',
+    categorias: ['Prime'],
+  },
+  {
+    id: 'c10',
+    tipo: 'oferta',
+    codigo: null,
+    valor: 'até 40%',
+    titulo: 'Cupons de produto na página de cupons Amazon',
+    descricao: 'A Amazon tem uma seção própria de cupons onde você clipa o desconto direto no produto antes de comprar. Sem código — é só ativar na página.',
+    condicao: 'Varia por produto',
+    validade: 'Atualizado diariamente',
+    usos: 800,
+    popularidade: 88,
+    verificado: true,
+    link: 'https://www.amazon.com.br/gp/browse.html?node=21492557011&tag=carva00-20',
+    categorias: ['Geral'],
+  },
+  {
+    id: 'c11',
+    tipo: 'oferta',
+    codigo: null,
+    valor: 'Desconto',
+    titulo: 'Ofertas do Dia — descontos de até 80% por tempo limitado',
+    descricao: 'Produtos com desconto que duram poucas horas ou até esgotar o estoque. Acesse diariamente para não perder.',
+    condicao: 'Estoque e tempo limitados',
+    validade: 'Diariamente',
+    usos: 2100,
+    popularidade: 99,
+    verificado: true,
+    hot: true,
+    link: 'https://www.amazon.com.br/deals?tag=carva00-20',
+    categorias: ['Geral'],
+  },
+  {
+    id: 'c12',
+    tipo: 'app',
+    codigo: null,
+    valor: 'Exclusivo',
+    titulo: 'Ofertas exclusivas disponíveis somente no app Amazon',
+    descricao: 'Baixe o aplicativo Amazon e acesse ofertas e cupons que não aparecem no site. Muitas promoções relâmpago são liberadas primeiro no app.',
+    condicao: 'App Amazon iOS / Android',
+    validade: 'Variável',
+    usos: 560,
+    popularidade: 72,
+    verificado: true,
+    link: 'https://www.amazon.com.br?tag=carva00-20',
+    categorias: ['App'],
+  },
+];
+
+// ── STATE ─────────────────────────────────────────────────
+let activeFilter = 'todos';
+let favCoupons = JSON.parse(localStorage.getItem('ot_fav_cupons') || '[]');
+
+// ── INIT ──────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderStats();
+  renderCoupons();
+});
+
+function renderStats() {
+  const ativos = CUPONS.filter(c => !c.expirado).length;
+  const maxVal = ['R$250 OFF', '15% OFF', '10% OFF', 'R$20 OFF'];
+  const usos = CUPONS.reduce((s, c) => s + (c.usos || 0), 0);
+  animNum('statAtivos', ativos, '');
+  animNum('statUsos', usos, '');
+  document.getElementById('statMax').textContent = 'R$250 OFF';
+  document.getElementById('filterCount').textContent = `${ativos} cupons`;
+}
+
+function animNum(id, target, suffix) {
+  let curr = 0; const step = Math.ceil(target / 40);
+  const el = document.getElementById(id);
+  const t = setInterval(() => {
+    curr = Math.min(curr + step, target);
+    el.textContent = curr.toLocaleString('pt-BR') + suffix;
+    if (curr >= target) clearInterval(t);
+  }, 25);
+}
+
+// ── FILTER ────────────────────────────────────────────────
+function filterCoupons(f, btn) {
+  activeFilter = f;
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  renderCoupons();
+}
+
+// ── RENDER ────────────────────────────────────────────────
+function renderCoupons() {
+  let list = [...CUPONS];
+  if (activeFilter !== 'todos') list = list.filter(c => c.tipo === activeFilter);
+  // hot first, then by popularity
+  list.sort((a, b) => (b.hot ? 1 : 0) - (a.hot ? 1 : 0) || b.popularidade - a.popularidade);
+
+  document.getElementById('filterCount').textContent = `${list.length} cupom${list.length !== 1 ? 's' : ''}`;
+  const grid = document.getElementById('couponsGrid');
+
+  if (!list.length) {
+    grid.innerHTML = `<div class="empty"><p>Nenhum cupom nessa categoria</p><span>Tente outro filtro</span></div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map(c => cardHTML(c)).join('');
+
+  // animate usage bars after render
+  setTimeout(() => {
+    grid.querySelectorAll('.c-usage-bar').forEach(bar => {
+      bar.style.width = bar.dataset.pct + '%';
+    });
+  }, 80);
+}
+
+// ── CARD ──────────────────────────────────────────────────
+function cardHTML(c) {
+  const isFav = favCoupons.includes(c.id);
+  const typeLabel = { codigo: 'Código', oferta: 'Oferta', prime: 'Prime', app: 'Exclusivo App' };
+  const typeBadge = { codigo: 'badge-code', oferta: 'badge-offer', prime: 'badge-prime', app: 'badge-app' };
+  const usosLabel = c.usos > 999 ? `+${(c.usos/1000).toFixed(1)}k usados hoje` : `${c.usos} usados hoje`;
+
+  const bottomHTML = c.codigo
+    ? `<div class="c-code-wrap">
+        <span class="c-code-text">${c.codigo}</span>
+        <button class="c-code-copy" onclick="copyCoupon(event,'${c.codigo}','${c.id}')" id="copy-${c.id}">
+          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copiar
+        </button>
+      </div>`
+    : `<a class="c-offer-btn" href="${c.link || '#'}" target="_blank" rel="nofollow noopener">
+        Ver oferta na Amazon
+        <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>`;
+
+  return `
+  <div class="c-card type-${c.tipo} ${c.expirado ? 'expired' : ''}">
+    <div class="c-inner">
+      <div class="c-top">
+        <div class="c-badges">
+          <span class="c-badge ${typeBadge[c.tipo]}">${typeLabel[c.tipo]}</span>
+          ${c.verificado ? '<span class="c-badge badge-verified">Verificado</span>' : ''}
+          ${c.hot ? '<span class="c-badge badge-hot">Popular</span>' : ''}
+          ${c.expirado ? '<span class="c-badge badge-expired">Expirado</span>' : ''}
+        </div>
+        <span class="c-value">${c.valor}</span>
+      </div>
+
+      <div class="c-title">${c.titulo}</div>
+      <div class="c-desc">${c.descricao}</div>
+
+      <div class="c-meta">
+        <div class="c-meta-item">
+          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M12 3a9 9 0 1 0 0 18A9 9 0 0 0 12 3z"/></svg>
+          <span><strong>Condição:</strong> ${c.condicao}</span>
+        </div>
+        <div class="c-meta-item">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span><strong>Validade:</strong> ${c.validade}</span>
+        </div>
+      </div>
+
+      <div class="c-bottom">
+        ${bottomHTML}
+        <button class="c-fav ${isFav ? 'on' : ''}" onclick="toggleFav('${c.id}')" title="${isFav ? 'Remover favorito' : 'Salvar'}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="${isFav ? '#B12704' : 'none'}" stroke="#B12704" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+
+      <div class="c-usage">
+        <div class="c-usage-bar-wrap">
+          <div class="c-usage-bar" data-pct="${c.popularidade}" style="width:0%"></div>
+        </div>
+        <span class="c-usage-label">${usosLabel}</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── COPY ──────────────────────────────────────────────────
+function copyCoupon(e, code, id) {
+  e.stopPropagation();
+  navigator.clipboard.writeText(code).then(() => {
+    const btn = document.getElementById('copy-' + id);
+    if (btn) {
+      btn.classList.add('copied');
+      btn.textContent = 'Copiado!';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = `<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar`;
+      }, 2500);
+    }
+    toast('Código ' + code + ' copiado!');
+  });
+}
+
+// ── FAV ───────────────────────────────────────────────────
+function toggleFav(id) {
+  const i = favCoupons.indexOf(id);
+  if (i >= 0) { favCoupons.splice(i, 1); toast('Removido dos salvos'); }
+  else { favCoupons.push(id); toast('Cupom salvo!'); }
+  localStorage.setItem('ot_fav_cupons', JSON.stringify(favCoupons));
+  renderCoupons();
+}
+
+// ── TOAST ─────────────────────────────────────────────────
+let tt;
+function toast(msg) {
+  clearTimeout(tt);
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  tt = setTimeout(() => el.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
