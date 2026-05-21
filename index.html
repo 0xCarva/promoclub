@@ -948,6 +948,7 @@ footer {
   .hero-slide-info { padding: 24px 20px; }
 }
 </style>
+<script src="produtos.js"></script>
 </head>
 <body>
 
@@ -1154,7 +1155,6 @@ footer {
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<script src="produtos.js"></script>
 <script>
 // ── STATE ────────────────────────────────────────────────
 let activeCat = 'todos';
@@ -1164,7 +1164,10 @@ let favs = JSON.parse(localStorage.getItem('ot_favs') || '[]');
 let heroIdx = 0;
 
 // ── BOOT ─────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
+function init() {
+  if (typeof PRODUTOS === 'undefined' || typeof tagAmazonURL === 'undefined') {
+    return setTimeout(init, 30); // aguarda produtos.js
+  }
   buildHero();
   buildHotTrack();
   buildCatStrip();
@@ -1176,7 +1179,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // auto-advance hero
   setInterval(() => { heroIdx = (heroIdx + 1) % heroSlides().length; gotoSlide(heroIdx); }, 5000);
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 
 function doSearch() { query = document.getElementById('searchInput').value.toLowerCase(); render(); }
 
@@ -1390,7 +1399,50 @@ function subscribePh() {
 }
 
 // ── TRACK ─────────────────────────────────────────────────
-function trackClick(id) { console.log('[OfertaTop] click:', id); }
+function trackClick(id) {
+  const p = PRODUTOS.find(x => x.id === id);
+  console.log('[OfertaTop] click:', id, '→', p ? p.link : '?');
+}
+
+// ─── INTERCEPTOR GLOBAL ─ veja abaixo
+
+
+// ─── INTERCEPTOR GLOBAL DE LINKS AMAZON ─────────────────
+// Camada de segurança extra: captura QUALQUER clique em link
+// amazon.com.br na página e injeta a tag antes de abrir,
+// mesmo links que você não cadastrou no produtos.js.
+
+document.addEventListener('click', function(e) {
+  const a = e.target.closest('a[href]');
+  if (!a) return;
+  const href = a.getAttribute('href') || '';
+  if (!href.includes('amazon.com') && !href.includes('amzn.to') && !href.includes('amzn.com')) return;
+
+  // Só intercepta se a tag não está correta
+  if (href.includes('tag=' + AFILIADO_TAG)) return;
+
+  e.preventDefault();
+  const tagged = tagAmazonURL(href);
+  window.open(tagged, '_blank', 'noopener,noreferrer');
+}, true);
+
+// Corrige também qualquer link que for gerado dinamicamente
+// antes de ser inserido no DOM (MutationObserver)
+const _observer = new MutationObserver(mutations => {
+  mutations.forEach(m => {
+    m.addedNodes.forEach(node => {
+      if (node.nodeType !== 1) return;
+      const links = node.tagName === 'A' ? [node] : Array.from(node.querySelectorAll('a[href]'));
+      links.forEach(a => {
+        const h = a.getAttribute('href') || '';
+        if ((h.includes('amazon.com') || h.includes('amzn.to')) && !h.includes('tag=' + AFILIADO_TAG)) {
+          a.setAttribute('href', tagAmazonURL(h));
+        }
+      });
+    });
+  });
+});
+_observer.observe(document.body, { childList: true, subtree: true });
 
 // ── TOAST ─────────────────────────────────────────────────
 let toastTimer;
