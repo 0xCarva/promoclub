@@ -56,9 +56,9 @@ const PRODUTOS = [
       "Processador: Chip A19 Pro (3nm) – até 40% mais rápido que a geração anterior",
       "Memória e Armazenamento: 12 GB RAM | 256 GB / 512 GB / 1 TB / 2 TB",
       "Câmeras Traseiras: 48 MP Principal (f/1.6, OIS), 48 MP Ultra-wide, 48 MP Telefoto (zoom óptico 4x–8x), Scanner LiDAR",
-      "Câmera Frontal: 18 MP com Center Stage"
-      "Bateria: Maior da história do iPhone (até 39 horas de reprodução de vídeo)"
-      "Conectividade: 5G, Wi-Fi 7, USB-C 3.2, UWB de 2ª geração"
+      "Câmera Frontal: 18 MP com Center Stage",
+      "Bateria: Maior da história do iPhone (até 39 horas de reprodução de vídeo)",
+      "Conectividade: 5G, Wi-Fi 7, USB-C 3.2, UWB de 2ª geração",
       "Outros: iOS 26, IP68, Face ID, alto-falantes estéreo, suporte a Apple Intelligence"
     ]
   },
