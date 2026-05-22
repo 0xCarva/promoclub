@@ -35,7 +35,7 @@ const PRODUTOS = [
 
     // ─── iPhone ─────────────────────────────────────────────────
   {
-    id: "tcl-32s5k-google-tv",
+    id: "apple-b0fqhgm3b1-iphone",
     nome: "Apple iPhone 17 Pro Max (1 TB) - Laranja cósmico",
     categoria: "Eletrônicos",
     emoji: "📱",
