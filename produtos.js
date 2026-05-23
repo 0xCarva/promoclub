@@ -20,7 +20,7 @@ const PRODUTOS = [
     badge: "hot",
     destaque: true,
     estoque: "Mais de 500 vendidos esse mês",
-    parcelamento: "12x de R$ 87,62 sem juros",
+    parcelamento: "10x de R$ 102,51 sem juros",
     link: "https://www.amazon.com.br/TCL-Polegadas-Bluetooth-Google-32S5K/dp/B0FTGL2XBC?linkCode=ll2&tag=carva00-20&linkId=651b459ccf8c5c0db04c85b6113815e1&ref_=as_li_ss_tl",
     imagem: "https://m.media-amazon.com/images/I/61jW+tFc5DL._AC_SL1000_.jpg",
     descricao: "Smart TV compacta com painel QLED Full HD, Google TV nativo com acesso a Netflix, YouTube e Disney+, Chromecast integrado, 20W RMS de som e design sem bordas. Ideal para quarto, escritório ou cozinha.",
