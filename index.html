@@ -1319,9 +1319,10 @@ function cardHTML(p) {
       </div>
       <div class="p-pricing">
         <div class="p-price-old">${p.preco_de}</div>
+        ${p.menor_preco ? '<div class="p-lowest-price">Menor preço em 365 dias</div>' : ''}
         <div class="p-price-row">
           <span class="p-price">${p.preco_por}</span>
-          <span class="p-discount">–${p.desconto}</span>
+          ${p.desconto ? `<span class="p-discount">–${p.desconto}</span>` : ''}
         </div>
         ${inst ? `<div class="p-installment">${inst}</div>` : ''}
       </div>
@@ -1344,7 +1345,19 @@ function openModal(id) {
   document.getElementById('mDesc').textContent = p.descricao || 'Produto selecionado com base nas melhores avaliações da Amazon.';
   document.getElementById('mOld').textContent = `De: ${p.preco_de}`;
   document.getElementById('mPrice').textContent = p.preco_por;
-  document.getElementById('mDisc').textContent = `–${p.desconto}`;
+  const discEl = document.getElementById('mDisc');
+  if (p.menor_preco) {
+    discEl.textContent = 'Menor preço em 365 dias';
+    discEl.className = 'modal-lowest-price';
+    discEl.style.display = 'inline-block';
+  } else if (p.desconto) {
+    discEl.textContent = `–${p.desconto}`;
+    discEl.className = 'modal-disc';
+    discEl.style.display = 'inline-block';
+  } else {
+    discEl.textContent = '';
+    discEl.style.display = 'none';
+  }
   const inst = price(p) > 0 ? `ou em até 12x de R$ ${(price(p)/12).toFixed(2).replace('.',',')} no cartão` : '';
   document.getElementById('mInstall').textContent = inst;
   document.getElementById('mBtn').href = p.link;
