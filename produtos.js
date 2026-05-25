@@ -41,7 +41,7 @@ const PRODUTOS = [
     emoji: "📱",
     preco_de: "R$ 15.499,00",
     preco_por: "R$ 11.789,10",
-    desconto: "Menor preço em 365 dias",
+    desconto: "24% (Menor preço em 365 dias)",
     avaliacao: 4.4,
     avaliacoes: "88",
     badge: "hot",
