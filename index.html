@@ -272,30 +272,21 @@ img{display:block;max-width:100%}
 }
 .hero-card-btn:hover{background:var(--orange2);box-shadow:0 0 24px var(--orange-glow)}
 /* floating badges */
-.hero-badge{
-  position:absolute;
-  background:var(--bg2);border:1px solid var(--border2);
+.hero-inline-stats{
+  display:flex;align-items:center;gap:16px;
+  background:var(--bg2);border:1px solid var(--border);
   border-radius:var(--r-sm);padding:10px 14px;
-  box-shadow:var(--shadow);backdrop-filter:blur(8px);
+  margin-top:12px;
 }
-.hero-badge-stat{
-  bottom:-20px;left:-20px;
-  display:flex;align-items:center;gap:10px;
-}
-.hero-badge-stat-icon{
-  width:36px;height:36px;border-radius:var(--r-sm);
-  background:rgba(34,197,94,0.15);
-  display:flex;align-items:center;justify-content:center;
-}
-.hero-badge-stat-icon svg{width:18px;height:18px;stroke:var(--green);fill:none;stroke-width:2}
-.hero-badge-stat strong{display:block;font-size:15px;font-weight:700;color:var(--text);line-height:1}
-.hero-badge-stat span{font-size:11px;color:var(--text2)}
-.hero-badge-update{
-  top:20px;right:-16px;
-  font-size:11px;color:var(--text2);
+.hero-inline-stat{
   display:flex;align-items:center;gap:6px;
+  font-size:12px;color:var(--text2);
 }
-.hero-badge-update-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.hero-inline-stat strong{color:var(--text);font-weight:700;font-size:14px}
+.hero-inline-dot{
+  width:7px;height:7px;border-radius:50%;
+  animation:pulse 2s infinite;flex-shrink:0;
+}
 
 /* ─── COUNTDOWN ──────────────────────────────────────────── */
 .countdown-bar{
@@ -868,7 +859,6 @@ footer{
 @media(max-width:1024px){
   .hero-inner{grid-template-columns:1fr;gap:40px;padding-bottom:40px}
   .hero-visual{max-width:520px}
-  .hero-badge-update{right:0}
   .community-inner{grid-template-columns:1fr}
   .community-panel{display:none}
   .prime-inner{grid-template-columns:1fr}
@@ -963,14 +953,10 @@ footer{
         <span>Mais de <strong>12.000 pessoas</strong> economizando na comunidade</span>
       </div>
       <div class="partners-strip">
-        <span class="partners-label">Parceiros</span>
+        <span class="partners-label">Parceiro oficial</span>
         <div class="partners-divider"></div>
         <div class="partners-logos">
           <span>AMAZON</span>
-          <span>SAMSUNG</span>
-          <span>APPLE</span>
-          <span>TCL</span>
-          <span>AOC</span>
         </div>
       </div>
     </div>
@@ -991,18 +977,15 @@ footer{
           </a>
         </div>
       </div>
-      <div class="hero-badge hero-badge-stat">
-        <div class="hero-badge-stat-icon">
-          <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      <div class="hero-inline-stats">
+        <div class="hero-inline-stat">
+          <span class="hero-inline-dot" style="background:var(--green)"></span>
+          <span>Atualizado agora</span>
         </div>
-        <div>
+        <div class="hero-inline-stat">
           <strong id="statSavings">0%</strong>
           <span>desconto médio</span>
         </div>
-      </div>
-      <div class="hero-badge hero-badge-update">
-        <span class="hero-badge-update-dot"></span>
-        Atualizado agora
       </div>
     </div>
   </div>
@@ -1413,6 +1396,7 @@ function filterCat(cat, btn) {
 
 // ── RENDER ───────────────────────────────────────────────
 function render() {
+  if (!PRODUTOS || !PRODUTOS.length) { console.warn('[PromoClub] PRODUTOS vazio'); return; }
   let list = [...PRODUTOS];
   if (activeCat !== 'todos') list = list.filter(p => p.categoria === activeCat);
   if (query) list = list.filter(p => p.nome.toLowerCase().includes(query) || p.categoria.toLowerCase().includes(query) || (p.descricao||'').toLowerCase().includes(query));
@@ -1420,10 +1404,14 @@ function render() {
   else if (sortBy === 'price-asc') list.sort((a,b) => price(a)-price(b));
   else if (sortBy === 'price-desc') list.sort((a,b) => price(b)-price(a));
   else list.sort((a,b) => a.nome.localeCompare(b.nome));
-  document.getElementById('resultsInfo').textContent = `${list.length} produto${list.length!==1?'s':''} encontrado${list.length!==1?'s':''}`;
-  document.getElementById('mainGrid').innerHTML = list.length
+  const grid = document.getElementById('mainGrid');
+  const info = document.getElementById('resultsInfo');
+  if (!grid) { console.warn('[PromoClub] mainGrid not found'); return; }
+  if (info) info.textContent = `${list.length} produto${list.length!==1?'s':''} encontrado${list.length!==1?'s':''}`;
+  grid.innerHTML = list.length
     ? list.map(p => cardHTML(p)).join('')
     : `<div class="empty-state"><p>Nenhum produto encontrado</p><span>Tente outro filtro ou termo de busca</span></div>`;
+  console.log('[PromoClub] render ok —', list.length, 'produtos');
 }
 const pct = p => parseInt(p.desconto) || 0;
 const price = p => parseFloat((p.preco_por||'0').replace(/[^\d,]/g,'').replace(',','.')) || 0;
