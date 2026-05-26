@@ -1292,27 +1292,8 @@ footer{
 <script src="produtos.js"></script>
 <script>
 
-// Fallback caso produtos.js ainda não tenha carregado
+// Tag de afiliado — fallback caso produtos.js demore
 if (typeof AFILIADO_TAG === 'undefined') var AFILIADO_TAG = 'carva00-20';
-if (typeof tagAmazonURL === 'undefined') {
-  var tagAmazonURL = function(url) {
-    if (!url || typeof url !== 'string') return url;
-    try {
-      if (url.includes('amzn.to') || (url.includes('amzn.') && !url.includes('amazon.com'))) {
-        var clean = url.replace(/([?&])tag=[^&]*/g, '$1').replace(/[?&]$/, '');
-        var sep = clean.includes('?') ? '&' : '?';
-        return clean + sep + 'tag=' + AFILIADO_TAG;
-      }
-      if (url.includes('amazon.com')) {
-        var u = new URL(url);
-        u.searchParams.set('tag', AFILIADO_TAG);
-        if (!u.searchParams.get('linkCode')) u.searchParams.set('linkCode', 'll2');
-        return u.toString();
-      }
-    } catch(e) {}
-    return url;
-  };
-}
 
 // ── STATE ────────────────────────────────────────────────
 let activeCat = 'todos', sortBy = 'discount', query = '';
@@ -1320,7 +1301,7 @@ let favs = JSON.parse(localStorage.getItem('ot_favs') || '[]');
 
 // ── BOOT ─────────────────────────────────────────────────
 function init() {
-  if (typeof PRODUTOS === 'undefined' || typeof tagAmazonURL === 'undefined') return setTimeout(init, 30);
+  if (typeof PRODUTOS === 'undefined' || !Array.isArray(PRODUTOS) || PRODUTOS.length === 0) return setTimeout(init, 30);
   buildHeroCard();
   buildHotTrack();
   buildCouponStrip();
