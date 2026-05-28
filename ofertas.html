@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as ofertas da Amazon com filtros por categoria, avaliação e desconto.">
+<title>Ofertas — PromoClub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:15px}
+body{font-family:'Inter',-apple-system,sans-serif;background:#0b1326;color:#dae2fd;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none}
+img{display:block;max-width:100%}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:#0b1326}
+::-webkit-scrollbar-thumb{background:#2d3449;border-radius:99px}
+
+:root{
+  --bg:#0b1326;--bg2:#131b2e;--bg3:#171f33;--bg4:#222a3d;--bg5:#2d3449;
+  --border:rgba(255,255,255,0.05);--border2:rgba(255,255,255,0.1);--border3:rgba(255,255,255,0.2);
+  --text:#dae2fd;--text2:#c7c4d7;--text3:#908fa0;
+  --primary:#c0c1ff;--primary2:#8083ff;--primary-glow:rgba(192,193,255,0.2);
+  --secondary:#ddb7ff;
+  --tertiary:#89ceff;
+  --green:#22c55e;--red:#ef4444;--orange:#ff6b35;
+  --r:8px;--r-sm:6px;--r-lg:12px;--r-xl:16px;--r-2xl:24px;
+  --shadow:0 4px 24px rgba(0,0,0,0.4);--shadow-lg:0 8px 48px rgba(0,0,0,0.5);
+  --glass:rgba(15,23,42,0.6);--glass-border:rgba(255,255,255,0.05);
+}
+
+/* ── NAV ─────────────────────────────────────────────────── */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(11,19,38,0.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 clamp(16px,4vw,40px);
+  box-shadow:0 20px 40px -10px rgba(0,0,0,0.3);
+}
+.nav-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:12px;height:64px}
+.nav-logo{
+  display:flex;align-items:center;gap:8px;
+  font-size:18px;font-weight:800;color:var(--text);
+  flex-shrink:0;margin-right:16px;
+}
+.nav-logo-icon{
+  width:28px;height:28px;
+  background:linear-gradient(135deg,#c0c1ff,#8083ff);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:900;color:#1000a9;flex-shrink:0;
+}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-link{
+  color:var(--text3);font-size:13px;font-weight:500;
+  padding:6px 12px;border-radius:var(--r-sm);
+  transition:all .15s;white-space:nowrap;letter-spacing:.05em;
+  text-transform:uppercase;font-size:11px;
+}
+.nav-link:hover{color:var(--text);background:var(--bg3)}
+.nav-link.active{color:var(--primary);border-bottom:2px solid var(--primary);border-radius:0;padding-bottom:4px}
+.nav-search{
+  flex:1;max-width:380px;margin:0 16px;
+  display:flex;align-items:center;
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r-xl);padding:0 14px;gap:8px;
+  transition:border-color .15s;
+}
+.nav-search:focus-within{border-color:rgba(192,193,255,0.4);box-shadow:0 0 0 3px rgba(192,193,255,0.08)}
+.nav-search svg{width:14px;height:14px;stroke:var(--text3);fill:none;stroke-width:2;flex-shrink:0}
+.nav-search input{background:none;border:none;outline:none;color:var(--text);font-family:inherit;font-size:13px;width:100%;padding:10px 0}
+.nav-search input::placeholder{color:var(--text3)}
+.nav-actions{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.nav-btn-ghost{color:var(--text3);font-size:13px;font-weight:500;padding:7px 14px;border-radius:var(--r-sm);border:1px solid var(--border2);transition:all .15s;white-space:nowrap}
+.nav-btn-ghost:hover{color:var(--text);border-color:var(--border3)}
+.nav-btn-primary{
+  background:linear-gradient(180deg,var(--primary) 0%,var(--primary2) 100%);
+  color:#1000a9;font-size:13px;font-weight:700;
+  padding:8px 18px;border-radius:var(--r-xl);
+  box-shadow:0 4px 16px rgba(128,131,255,0.3);
+  transition:all .15s;white-space:nowrap;
+}
+.nav-btn-primary:hover{filter:brightness(1.1);box-shadow:0 6px 24px rgba(128,131,255,0.4);transform:scale(1.02)}
+.nav-hamburger{
+  display:none;background:none;border:1px solid var(--border);
+  color:var(--text3);border-radius:var(--r-sm);
+  width:36px;height:36px;align-items:center;justify-content:center;margin-left:auto;
+}
+.nav-hamburger svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
+.nav-drawer{display:none;position:fixed;inset:0;z-index:300}
+.nav-drawer-bg{position:absolute;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px)}
+.nav-drawer-panel{position:absolute;right:0;top:0;bottom:0;width:280px;background:var(--bg2);border-left:1px solid var(--border);padding:24px;display:flex;flex-direction:column;gap:6px;overflow-y:auto}
+.nav-drawer-close{align-self:flex-end;background:none;color:var(--text3);font-size:20px;padding:4px;margin-bottom:12px}
+.nav-drawer-link{color:var(--text3);font-size:15px;font-weight:500;padding:12px 16px;border-radius:var(--r-sm);transition:all .15s;border:1px solid transparent}
+.nav-drawer-link:hover,.nav-drawer-link.active{color:var(--text);background:var(--bg3);border-color:var(--border)}
+.nav-drawer-link.active{color:var(--primary)}
+.nav-drawer.open{display:block}
+
+/* ── PAGE ────────────────────────────────────────────────── */
+.page-wrap{max-width:1280px;margin:0 auto;padding:32px clamp(16px,4vw,40px) 64px;display:flex;gap:24px;align-items:flex-start}
+
+/* ── SIDEBAR ─────────────────────────────────────────────── */
+.sidebar{
+  width:240px;flex-shrink:0;
+  background:var(--glass);backdrop-filter:blur(12px);
+  border:1px solid var(--glass-border);
+  border-radius:var(--r-xl);padding:24px;
+  position:sticky;top:88px;
+}
+.sidebar-section{margin-bottom:28px}
+.sidebar-section:last-child{margin-bottom:0}
+.sidebar-title{
+  font-size:10px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--primary);
+  margin-bottom:14px;
+}
+.sidebar-check{
+  display:flex;align-items:center;gap:10px;
+  padding:6px 0;cursor:pointer;
+}
+.sidebar-check input[type=checkbox]{
+  width:15px;height:15px;border-radius:3px;
+  accent-color:var(--primary);cursor:pointer;
+  background:var(--bg4);border:1px solid var(--border2);
+}
+.sidebar-check span{font-size:13px;color:var(--text3);transition:color .15s}
+.sidebar-check:hover span{color:var(--text)}
+.sidebar-check.active span{color:var(--text)}
+/* range slider */
+.sidebar-range{
+  width:100%;height:4px;border-radius:99px;
+  accent-color:var(--primary);cursor:pointer;
+  background:var(--bg5);appearance:none;outline:none;
+}
+.sidebar-range::-webkit-slider-thumb{
+  appearance:none;width:16px;height:16px;border-radius:50%;
+  background:var(--primary);cursor:pointer;
+  box-shadow:0 0 8px rgba(192,193,255,0.4);
+}
+.range-labels{display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--text3)}
+.range-value{text-align:center;font-size:12px;font-weight:600;color:var(--primary);margin-top:6px}
+/* star rating */
+.star-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 0;cursor:pointer;background:none;
+  color:var(--text3);font-size:12px;font-weight:500;
+  transition:color .15s;width:100%;
+}
+.star-btn:hover,.star-btn.active{color:var(--text)}
+.star-btn.active .star-icon{color:var(--primary)}
+.star-icon{color:var(--primary);font-size:14px}
+.star-empty{color:var(--bg5);font-size:14px}
+.sidebar-clear{
+  width:100%;padding:10px;
+  background:var(--bg4);border:1px solid var(--border);
+  color:var(--text2);font-size:12px;font-weight:500;
+  border-radius:var(--r-sm);transition:all .15s;
+  margin-top:4px;
+}
+.sidebar-clear:hover{background:var(--primary2);color:#fff;border-color:var(--primary2)}
+
+/* ── MAIN ────────────────────────────────────────────────── */
+.main-content{flex:1;min-width:0}
+.main-header{
+  display:flex;flex-direction:column;gap:20px;
+  margin-bottom:28px;
+}
+.main-title-row{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+.main-title{
+  font-size:clamp(22px,3vw,36px);font-weight:800;
+  letter-spacing:-1px;color:var(--text);line-height:1.1;
+}
+.tab-group{
+  display:flex;background:var(--bg3);padding:3px;
+  border-radius:var(--r-lg);border:1px solid var(--border);gap:2px;
+}
+.tab-btn{
+  padding:7px 18px;border-radius:var(--r-sm);
+  font-size:12px;font-weight:600;color:var(--text3);
+  transition:all .15s;
+}
+.tab-btn.active{
+  background:var(--bg5);color:var(--text);
+  box-shadow:0 2px 8px rgba(0,0,0,0.3);
+}
+/* search+sort row */
+.search-sort-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.main-search{
+  flex:1;min-width:200px;
+  display:flex;align-items:center;
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r-xl);padding:0 14px;gap:8px;
+  transition:border-color .15s;
+}
+.main-search:focus-within{border-color:rgba(192,193,255,0.3)}
+.main-search svg{width:15px;height:15px;stroke:var(--text3);fill:none;stroke-width:2;flex-shrink:0}
+.main-search input{background:none;border:none;outline:none;color:var(--text);font-family:inherit;font-size:13px;width:100%;padding:12px 0}
+.main-search input::placeholder{color:var(--text3)}
+.sort-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);white-space:nowrap}
+.sort-select{
+  background:var(--bg3);border:1px solid var(--border);color:var(--text);
+  font-family:inherit;font-size:12px;padding:10px 28px 10px 12px;
+  border-radius:var(--r-xl);outline:none;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23908fa0' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;cursor:pointer;min-width:180px;
+}
+.sort-select:focus{border-color:rgba(192,193,255,0.3)}
+
+/* results count */
+.results-count{font-size:12px;color:var(--text3);margin-bottom:16px}
+.results-count strong{color:var(--text2)}
+
+/* ── PRODUCT GRID ─────────────────────────────────────────── */
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:16px;
+}
+
+/* ── PRODUCT CARD ─────────────────────────────────────────── */
+.p-card{
+  background:var(--glass);backdrop-filter:blur(12px);
+  border:1px solid var(--glass-border);
+  border-radius:var(--r-2xl);overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:border-color .2s,transform .2s,box-shadow .2s;
+  cursor:pointer;position:relative;
+}
+.p-card:hover{
+  border-color:var(--border3);
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-lg);
+}
+/* spotlight on hover — same as Stitch */
+.p-card-badge{
+  position:absolute;top:12px;left:12px;z-index:2;
+  font-size:10px;font-weight:700;padding:3px 10px;
+  border-radius:99px;letter-spacing:.3px;text-transform:uppercase;
+}
+.badge-hot{background:var(--red);color:#fff}
+.badge-new{background:var(--tertiary);color:#001e2f}
+.badge-top{background:var(--green);color:#000}
+.badge-last{background:#ff6b35;color:#fff}
+
+.p-card-fav{
+  position:absolute;top:12px;right:12px;z-index:2;
+  width:32px;height:32px;
+  background:rgba(11,19,38,0.8);backdrop-filter:blur(8px);
+  border:1px solid var(--border2);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.p-card-fav:hover{background:rgba(239,68,68,0.2);border-color:var(--red)}
+.p-card-fav.on{background:rgba(239,68,68,0.15);border-color:var(--red)}
+
+.p-img{
+  aspect-ratio:4/3;background:var(--bg4);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.p-img img{width:100%;height:100%;object-fit:contain;padding:16px;transition:transform .4s}
+.p-card:hover .p-img img{transform:scale(1.08)}
+
+.p-body{padding:16px;flex:1;display:flex;flex-direction:column;gap:8px}
+.p-cat{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tertiary)}
+.p-name{
+  font-size:14px;font-weight:600;color:var(--text);line-height:1.35;flex:1;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.p-rating{display:flex;align-items:center;justify-content:space-between}
+.p-stars{display:flex;gap:1px}
+.p-stars svg{width:12px;height:12px}
+.p-rating-val{font-size:11px;color:var(--text3)}
+/* pricing */
+.p-pricing{display:flex;flex-direction:column;gap:3px}
+.p-lowest{display:inline-block;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;width:fit-content}
+.p-price-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.p-disc{font-size:15px;font-weight:700;color:var(--red)}
+.p-price{font-family:'Geist Mono',monospace;font-size:18px;font-weight:600;color:var(--primary);letter-spacing:-0.5px}
+.p-old{font-size:11px;color:var(--text3);text-decoration:line-through}
+.p-install{font-size:11px;color:var(--text3)}
+.p-stock{font-size:11px;color:var(--tertiary);font-weight:500}
+
+.p-btn{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  background:var(--primary);color:#1000a9;
+  font-size:13px;font-weight:700;
+  padding:11px;border-radius:var(--r-xl);
+  transition:all .2s;margin-top:4px;
+}
+.p-btn:hover{
+  filter:brightness(1.1);
+  box-shadow:0 0 20px rgba(192,193,255,0.4);
+}
+
+/* ── EMPTY ───────────────────────────────────────────────── */
+.empty-state{
+  grid-column:1/-1;text-align:center;padding:80px 20px;
+}
+.empty-icon{font-size:3rem;margin-bottom:16px;opacity:.3}
+.empty-state p{font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px}
+.empty-state span{font-size:13px;color:var(--text3)}
+
+/* ── PAGINATION ──────────────────────────────────────────── */
+.pagination{display:flex;justify-content:center;align-items:center;gap:6px;padding-top:40px}
+.page-btn{
+  width:38px;height:38px;border-radius:var(--r-lg);
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg3);border:1px solid var(--border);
+  color:var(--text3);font-size:13px;font-weight:500;
+  cursor:pointer;transition:all .15s;
+}
+.page-btn:hover{border-color:rgba(192,193,255,0.3);color:var(--text)}
+.page-btn.active{background:var(--primary);color:#1000a9;font-weight:700;border-color:var(--primary)}
+.page-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── MOBILE BOTTOM NAV ───────────────────────────────────── */
+.bottom-nav{
+  display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;
+  background:rgba(11,19,38,0.95);backdrop-filter:blur(16px);
+  border-top:1px solid var(--border);height:60px;
+  align-items:center;justify-content:around;
+}
+.bottom-nav-btn{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  gap:3px;color:var(--text3);font-size:9px;font-weight:700;
+  letter-spacing:.05em;text-transform:uppercase;padding:8px 0;
+}
+.bottom-nav-btn.active{color:var(--primary)}
+.bottom-nav-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8}
+
+/* ── TOAST ───────────────────────────────────────────────── */
+.toast{
+  position:fixed;bottom:80px;right:20px;z-index:500;
+  background:var(--bg3);border:1px solid var(--border2);
+  color:var(--text);font-size:13px;padding:11px 18px;
+  border-radius:var(--r-sm);box-shadow:var(--shadow);
+  border-left:3px solid var(--primary);
+  transform:translateY(80px);opacity:0;
+  transition:all .25s cubic-bezier(.34,1.56,.64,1);pointer-events:none;
+}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* ── MODAL ───────────────────────────────────────────────── */
+.modal-bg{
+  position:fixed;inset:0;z-index:400;
+  background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;padding:16px;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.modal-bg.open{opacity:1;pointer-events:all}
+.modal-box{
+  background:var(--bg2);border:1px solid var(--border2);
+  border-radius:var(--r-2xl);width:100%;max-width:720px;
+  max-height:90vh;overflow-y:auto;
+  transform:scale(.97) translateY(8px);transition:transform .2s;position:relative;
+}
+.modal-bg.open .modal-box{transform:scale(1) translateY(0)}
+.modal-close{
+  position:absolute;top:14px;right:14px;
+  width:32px;height:32px;background:var(--bg3);
+  border:1px solid var(--border);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--text3);cursor:pointer;z-index:1;transition:all .15s;
+}
+.modal-close:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.modal-grid{display:grid;grid-template-columns:1fr 1.2fr}
+.modal-img-panel{
+  background:var(--bg3);display:flex;align-items:center;justify-content:center;
+  padding:32px;min-height:280px;border-radius:var(--r-2xl) 0 0 var(--r-2xl);
+}
+.modal-img-panel img{max-height:240px;width:100%;object-fit:contain}
+.modal-info{padding:28px 24px}
+.modal-cat{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tertiary);margin-bottom:8px}
+.modal-name{font-size:17px;font-weight:700;line-height:1.3;margin-bottom:12px;color:var(--text)}
+.modal-desc{font-size:13px;color:var(--text3);line-height:1.65;margin-bottom:16px}
+.modal-lowest{display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;margin-bottom:6px;width:fit-content}
+.modal-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.modal-disc{font-size:20px;font-weight:700;color:var(--red)}
+.modal-price{font-family:'Geist Mono',monospace;font-size:26px;font-weight:600;color:var(--primary);letter-spacing:-1px}
+.modal-old{font-size:12px;color:var(--text3);text-decoration:line-through;margin-bottom:8px}
+.modal-install{font-size:12px;color:var(--text3);margin-bottom:16px}
+.modal-feats{margin-bottom:20px}
+.modal-feat{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text3)}
+.modal-feat:last-child{border:none}
+.modal-feat-check{width:16px;height:16px;background:rgba(34,197,94,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.modal-feat-check svg{width:9px;height:9px;stroke:var(--green);fill:none;stroke-width:3}
+.modal-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;background:var(--primary);color:#1000a9;
+  font-size:14px;font-weight:700;padding:13px;border-radius:var(--r-xl);
+  transition:all .2s;
+}
+.modal-btn:hover{filter:brightness(1.1);box-shadow:0 0 24px var(--primary-glow)}
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+footer{
+  background:var(--bg2);border-top:1px solid var(--border);
+  padding:32px clamp(16px,4vw,40px);
+}
+.footer-inner{
+  max-width:1280px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+}
+.footer-logo{font-size:16px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:8px}
+.footer-logo-icon{width:24px;height:24px;background:linear-gradient(135deg,var(--primary),var(--primary2));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#1000a9}
+.footer-note{font-size:11px;color:var(--text3);max-width:560px;line-height:1.65;text-align:center}
+.footer-copy{font-size:11px;color:var(--text3)}
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media(max-width:900px){
+  .sidebar{display:none}
+  .page-wrap{flex-direction:column;padding-top:24px}
+  .bottom-nav{display:flex}
+}
+@media(max-width:768px){
+  .nav-links,.nav-search,.nav-btn-ghost{display:none}
+  .nav-hamburger{display:flex}
+  .products-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .modal-grid{grid-template-columns:1fr}
+  .modal-img-panel{border-radius:var(--r-2xl) var(--r-2xl) 0 0;min-height:200px}
+  .footer-inner{flex-direction:column;text-align:center}
+}
+@media(max-width:380px){
+  .products-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">P</div>
+      PromoClub
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="ofertas.html" class="nav-link active">Ofertas</a>
+      <a href="cupons.html" class="nav-link">Cupons</a>
+      <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener" class="nav-link">Comunidade</a>
+    </div>
+    <div class="nav-search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Buscar produtos, marcas...">
+    </div>
+    <div class="nav-actions">
+      <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener" class="nav-btn-primary">Entrar no Telegram</a>
+    </div>
+    <button class="nav-hamburger" onclick="openDrawer()" aria-label="Menu">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="navDrawer">
+  <div class="nav-drawer-bg" onclick="closeDrawer()"></div>
+  <div class="nav-drawer-panel">
+    <button class="nav-drawer-close" onclick="closeDrawer()">×</button>
+    <a href="index.html" class="nav-drawer-link">Home</a>
+    <a href="ofertas.html" class="nav-drawer-link active">Ofertas</a>
+    <a href="cupons.html" class="nav-drawer-link">Cupons</a>
+    <a href="https://t.me/carvapromoclub" target="_blank" class="nav-drawer-link">Comunidade Telegram</a>
+    <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
+      <a href="https://t.me/carvapromoclub" target="_blank" class="nav-btn-primary" style="display:flex;justify-content:center;padding:12px">Entrar no Telegram</a>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- SIDEBAR FILTERS -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Categorias</div>
+      <label class="sidebar-check" onclick="toggleCat('Eletrônicos',this)">
+        <input type="checkbox"><span>Eletrônicos</span>
+      </label>
+      <label class="sidebar-check" onclick="toggleCat('Informática',this)">
+        <input type="checkbox"><span>Informática</span>
+      </label>
+      <label class="sidebar-check" onclick="toggleCat('Casa',this)">
+        <input type="checkbox"><span>Casa</span>
+      </label>
+      <label class="sidebar-check" onclick="toggleCat('Cozinha',this)">
+        <input type="checkbox"><span>Cozinha</span>
+      </label>
+      <label class="sidebar-check" onclick="toggleCat('Esportes',this)">
+        <input type="checkbox"><span>Esportes</span>
+      </label>
+      <label class="sidebar-check" onclick="toggleCat('Beleza',this)">
+        <input type="checkbox"><span>Beleza</span>
+      </label>
+      <label class="sidebar-check" onclick="toggleCat('Games',this)">
+        <input type="checkbox"><span>Games</span>
+      </label>
+      <label class="sidebar-check" onclick="toggleCat('Moda',this)">
+        <input type="checkbox"><span>Moda</span>
+      </label>
+      <label class="sidebar-check" onclick="toggleCat('Automotivo',this)">
+        <input type="checkbox"><span>Automotivo</span>
+      </label>
+      <label class="sidebar-check" onclick="toggleCat('Bebê',this)">
+        <input type="checkbox"><span>Bebê</span>
+      </label>
+      <label class="sidebar-check" onclick="toggleCat('Livros',this)">
+        <input type="checkbox"><span>Livros</span>
+      </label>
+      <label class="sidebar-check" onclick="toggleCat('Ferramentas',this)">
+        <input type="checkbox"><span>Ferramentas</span>
+      </label>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Desconto mínimo</div>
+      <input type="range" class="sidebar-range" min="0" max="90" step="5" value="0" id="discRange" oninput="updateRange(this)">
+      <div class="range-labels"><span>0%</span><span>90%</span></div>
+      <div class="range-value" id="rangeVal">0% ou mais</div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Avaliação mínima</div>
+      <button class="star-btn" onclick="setStars(3,this)">
+        <span class="star-icon">★★★</span><span class="star-empty">★★</span>
+        <span style="margin-left:4px">3 & acima</span>
+      </button>
+      <button class="star-btn" onclick="setStars(4,this)">
+        <span class="star-icon">★★★★</span><span class="star-empty">★</span>
+        <span style="margin-left:4px">4 & acima</span>
+      </button>
+      <button class="star-btn" onclick="setStars(4.5,this)">
+        <span class="star-icon">★★★★★</span>
+        <span style="margin-left:4px">4.5 & acima</span>
+      </button>
+    </div>
+
+    <button class="sidebar-clear" onclick="clearFilters()">Limpar filtros</button>
+  </aside>
+
+  <!-- MAIN -->
+  <section class="main-content">
+    <div class="main-header">
+      <div class="main-title-row">
+        <h1 class="main-title">Marketplace de Ofertas</h1>
+        <div class="tab-group">
+          <button class="tab-btn active" onclick="setTab('trending',this)">Trending</button>
+          <button class="tab-btn" onclick="setTab('recent',this)">Recentes</button>
+        </div>
+      </div>
+      <div class="search-sort-row">
+        <div class="main-search">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="mainSearch" placeholder="Buscar produtos, marcas ou categorias...">
+        </div>
+        <span class="sort-label">Ordenar por:</span>
+        <select class="sort-select" id="sortSel">
+          <option value="discount">Mais Desconto</option>
+          <option value="price-asc">Preço: Menor ao Maior</option>
+          <option value="price-desc">Preço: Maior ao Menor</option>
+          <option value="rating">Melhor Avaliação</option>
+          <option value="name">Nome A–Z</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="results-count" id="resultsCount"></div>
+    <div class="products-grid" id="productsGrid"></div>
+    <div class="pagination" id="pagination"></div>
+  </section>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg" onclick="maybeClose(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-grid">
+      <div class="modal-img-panel"><img id="mImg" src="" alt=""></div>
+      <div class="modal-info">
+        <div class="modal-cat" id="mCat"></div>
+        <div class="modal-name" id="mName"></div>
+        <div class="modal-desc" id="mDesc"></div>
+        <div id="mLowest"></div>
+        <div class="modal-price-row">
+          <span class="modal-disc" id="mDisc"></span>
+          <span class="modal-price" id="mPrice"></span>
+        </div>
+        <div class="modal-old" id="mOld"></div>
+        <div class="modal-install" id="mInstall"></div>
+        <div class="modal-feats" id="mFeats"></div>
+        <a class="modal-btn" id="mBtn" href="#" target="_blank" rel="nofollow noopener">
+          Ver na Amazon
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a href="index.html" class="bottom-nav-btn">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </a>
+  <a href="ofertas.html" class="bottom-nav-btn active">
+    <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    Ofertas
+  </a>
+  <a href="cupons.html" class="bottom-nav-btn">
+    <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+    Cupons
+  </a>
+  <a href="https://t.me/carvapromoclub" target="_blank" class="bottom-nav-btn">
+    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    Grupo
+  </a>
+</nav>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="footer-logo-icon">P</div>
+      PromoClub
+    </div>
+    <p class="footer-note">Este site participa do Programa de Associados da Amazon. Somos remunerados por indicações qualificadas, sem custo adicional para você.</p>
+    <span class="footer-copy">© 2025 PromoClub</span>
+  </div>
+</footer>
+
+<script>
+// ── INLINE PRODUTOS ──────────────────────────────────────
+// (copiado do produtos.js — mantenha sincronizado)
+const AFILIADO_TAG = 'carva00-20';
+
+const PRODUTOS = [
+  {
+    id: "tcl-32s5k-google-tv",
+    nome: "Smart TV TCL 32\" QLED Full HD Google TV Wi-Fi Bluetooth HDR10 Dolby Audio 32S5K",
+    categoria: "Eletrônicos",
+    menor_preco: false,
+    preco_de: "R$ 1.299,00",
+    preco_por: "R$ 1.048,10",
+    desconto: "19%",
+    avaliacao: 4.4,
+    avaliacoes: "88",
+    badge: "hot",
+    destaque: true,
+    estoque: "Mais de 500 vendidos esse mês",
+    parcelamento: "12x de R$ 87,37 sem juros",
+    link: "https://www.amazon.com.br/TCL-Polegadas-Bluetooth-Google-32S5K/dp/B0FTGL2XBC?linkCode=ll2&tag=carva00-20",
+    imagem: "https://m.media-amazon.com/images/I/61jW+tFc5DL._AC_SL1000_.jpg",
+    descricao: "Smart TV compacta com painel QLED Full HD, Google TV nativo com acesso a Netflix, YouTube e Disney+, Chromecast integrado, 20W RMS de som e design sem bordas.",
+    features: ["Tela QLED Full HD 32\" com HDR10 e Dolby Audio","Google TV — acesso à Play Store, YouTube, Netflix, Disney+","Chromecast e Miracast integrados","Wi-Fi, Bluetooth 5.0, 2x HDMI, 1x USB, LAN","20W RMS — som mais potente que TVs comuns de 32\""]
+  },
+  {
+    id: "apple-b0fqhgm3b1-iphone",
+    nome: "Apple iPhone 17 Pro Max (1 TB) — Laranja cósmico",
+    categoria: "Eletrônicos",
+    menor_preco: true,
+    preco_de: "R$ 15.499,00",
+    preco_por: "R$ 11.789,10",
+    desconto: "24%",
+    avaliacao: 4.4,
+    avaliacoes: "88",
+    badge: "hot",
+    destaque: true,
+    estoque: "Mais de 500 vendidos esse mês",
+    parcelamento: "12x de R$ 1.091,62 sem juros",
+    link: "https://www.amazon.com.br/Apple-iPhone-17-Pro-Max/dp/B0FQHGM3B1?linkCode=ll2&tag=carva00-20",
+    imagem: "https://m.media-amazon.com/images/I/51k0qRQFcuL._AC_SL1000_.jpg",
+    descricao: "O iPhone 17 Pro Max é o smartphone mais avançado da Apple em 2025, com chip A19 Pro, câmera tripla 48MP, tela Super Retina XDR 6,9\" ProMotion 120Hz e bateria recorde.",
+    features: ["Tela 6,9\" Super Retina XDR OLED ProMotion 1-120Hz","Chip A19 Pro (3nm) — até 40% mais rápido","12 GB RAM | até 2 TB de armazenamento","Câmeras 48MP Principal + Ultra-wide + Telefoto","iOS 26, IP68, Face ID, Wi-Fi 7, USB-C 3.2"]
+  },
+  {
+    id: "aoc-25g3zm-monitor",
+    nome: "Monitor Gamer AOC Destiny 24,5 Polegadas 25G3ZM",
+    categoria: "Informática",
+    menor_preco: true,
+    preco_de: "R$ 1.799,00",
+    preco_por: "R$ 999,00",
+    desconto: "44%",
+    avaliacao: 4.4,
+    avaliacoes: "1.358",
+    badge: "hot",
+    destaque: true,
+    estoque: "Mais de 100 compras no mês passado",
+    parcelamento: "12x de R$ 83,25 sem juros",
+    link: "https://www.amazon.com.br/Monitor-AOC-DESTINY-FreeSync-25G3ZM/dp/B0CJ9NVNW6?linkCode=ll2&tag=carva00-20",
+    imagem: "https://m.media-amazon.com/images/I/61aBgNvGk0L._AC_SL1000_.jpg",
+    descricao: "Monitor Gamer AOC 240Hz com painel IPS 0,5ms, AMD FreeSync Premium, resolução Full HD e design sem bordas para imersão total.",
+    features: ["240Hz de taxa de atualização","0,5ms de tempo de resposta","AMD FreeSync Premium","Resolução Full HD 1920x1080","Flicker Free e Low Blue Light"]
+  }
+];
+
+// Inject affiliate tag
+function tagURL(url) {
+  if (!url) return url;
+  try {
+    if (url.includes('amazon.com')) {
+      const u = new URL(url);
+      u.searchParams.set('tag', AFILIADO_TAG);
+      return u.toString();
+    }
+  } catch(e) {}
+  return url;
+}
+PRODUTOS.forEach(p => { if (p.link) p.link = tagURL(p.link); });
+
+// ── STATE ────────────────────────────────────────────────
+let activeCats = new Set();
+let minDiscount = 0;
+let minRating = 0;
+let sortBy = 'discount';
+let query = '';
+let activeTab = 'trending';
+let favs = JSON.parse(localStorage.getItem('pc_favs') || '[]');
+const PER_PAGE = 12;
+let currentPage = 1;
+
+// ── BOOT ─────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  render();
+  document.getElementById('sortSel').addEventListener('change', e => { sortBy = e.target.value; currentPage = 1; render(); });
+  document.getElementById('mainSearch').addEventListener('input', e => { query = e.target.value.toLowerCase(); currentPage = 1; render(); });
+  document.getElementById('searchInput').addEventListener('input', e => {
+    document.getElementById('mainSearch').value = e.target.value;
+    query = e.target.value.toLowerCase(); currentPage = 1; render();
+  });
+});
+
+// ── FILTERS ──────────────────────────────────────────────
+function toggleCat(cat, label) {
+  const cb = label.querySelector('input');
+  if (activeCats.has(cat)) { activeCats.delete(cat); cb.checked = false; label.classList.remove('active'); }
+  else { activeCats.add(cat); cb.checked = true; label.classList.add('active'); }
+  currentPage = 1; render();
+}
+function updateRange(el) {
+  minDiscount = parseInt(el.value);
+  document.getElementById('rangeVal').textContent = minDiscount + '% ou mais';
+  currentPage = 1; render();
+}
+function setStars(val, btn) {
+  document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('active'));
+  if (minRating === val) { minRating = 0; }
+  else { minRating = val; btn.classList.add('active'); }
+  currentPage = 1; render();
+}
+function clearFilters() {
+  activeCats.clear();
+  minDiscount = 0; minRating = 0; query = '';
+  document.querySelectorAll('.sidebar-check input').forEach(cb => { cb.checked = false; });
+  document.querySelectorAll('.sidebar-check').forEach(l => l.classList.remove('active'));
+  document.querySelector('.star-btn.active')?.classList.remove('active');
+  document.getElementById('discRange').value = 0;
+  document.getElementById('rangeVal').textContent = '0% ou mais';
+  document.getElementById('mainSearch').value = '';
+  document.getElementById('searchInput').value = '';
+  currentPage = 1; render();
+}
+function setTab(tab, btn) {
+  activeTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentPage = 1; render();
+}
+
+// ── RENDER ────────────────────────────────────────────────
+function render() {
+  let list = [...PRODUTOS];
+  if (activeCats.size > 0) list = list.filter(p => activeCats.has(p.categoria));
+  if (query) list = list.filter(p => p.nome.toLowerCase().includes(query) || p.categoria.toLowerCase().includes(query) || (p.descricao||'').toLowerCase().includes(query));
+  if (minDiscount > 0) list = list.filter(p => pct(p) >= minDiscount);
+  if (minRating > 0) list = list.filter(p => (p.avaliacao||0) >= minRating);
+  if (sortBy === 'discount') list.sort((a,b) => pct(b)-pct(a));
+  else if (sortBy === 'price-asc') list.sort((a,b) => price(a)-price(b));
+  else if (sortBy === 'price-desc') list.sort((a,b) => price(b)-price(a));
+  else if (sortBy === 'rating') list.sort((a,b) => (b.avaliacao||0)-(a.avaliacao||0));
+  else list.sort((a,b) => a.nome.localeCompare(b.nome));
+
+  const total = list.length;
+  const pages = Math.ceil(total / PER_PAGE);
+  currentPage = Math.min(currentPage, pages || 1);
+  const slice = list.slice((currentPage-1)*PER_PAGE, currentPage*PER_PAGE);
+
+  document.getElementById('resultsCount').innerHTML = `<strong>${total}</strong> produto${total!==1?'s':''} encontrado${total!==1?'s':''}`;
+  document.getElementById('productsGrid').innerHTML = slice.length
+    ? slice.map(p => cardHTML(p)).join('')
+    : `<div class="empty-state"><div class="empty-icon">🔍</div><p>Nenhum produto encontrado</p><span>Tente outros filtros ou termos de busca</span></div>`;
+
+  renderPagination(pages);
+}
+
+const pct = p => parseInt(p.desconto) || 0;
+const price = p => parseFloat((p.preco_por||'0').replace(/[^\d,]/g,'').replace(',','.')) || 0;
+
+// ── STARS ────────────────────────────────────────────────
+function stars(r) {
+  const f = `<svg viewBox="0 0 20 20"><path fill="#c0c1ff" d="M10 1l2.39 7.26H19l-5.57 4.04 2.12 6.7L10 15.27l-5.55 3.73 2.12-6.7L1 8.26h6.61z"/></svg>`;
+  const e = `<svg viewBox="0 0 20 20"><path fill="#2d3449" d="M10 1l2.39 7.26H19l-5.57 4.04 2.12 6.7L10 15.27l-5.55 3.73 2.12-6.7L1 8.26h6.61z"/></svg>`;
+  return Array.from({length:5},(_,i)=>i<Math.round(r)?f:e).join('');
+}
+
+// ── CARD HTML ─────────────────────────────────────────────
+function cardHTML(p) {
+  const isFav = favs.includes(p.id);
+  const inst = price(p) > 0 ? `12x de R$ ${(price(p)/12).toFixed(2).replace('.',',')} s/ juros` : '';
+  const badgeMap = {hot:'badge-hot',new:'badge-new',top:'badge-top'};
+  const badgeLabel = {hot:'Em Alta',new:'Novo',top:'Top'};
+  return `
+  <div class="p-card" onclick="openModal('${p.id}')">
+    ${p.badge ? `<div class="p-card-badge ${badgeMap[p.badge]||'badge-hot'}">${badgeLabel[p.badge]||'Hot'}</div>` : ''}
+    <button class="p-card-fav ${isFav?'on':''}" onclick="toggleFav(event,'${p.id}')" aria-label="Favoritar">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="${isFav?'#ef4444':'none'}" stroke="#ef4444" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </button>
+    <div class="p-img">
+      <img src="${p.imagem}" alt="${p.nome}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22%3E%3Crect fill=%22%23222a3d%22 width=%22120%22 height=%22120%22/%3E%3Ctext x=%2260%22 y=%2265%22 text-anchor=%22middle%22 fill=%22%23464554%22 font-size=%2211%22%3ESem imagem%3C/text%3E%3C/svg%3E'">
+    </div>
+    <div class="p-body">
+      <div class="p-cat">${p.categoria}</div>
+      <div class="p-name">${p.nome}</div>
+      <div class="p-rating">
+        <div class="p-stars">${stars(p.avaliacao||4.5)}</div>
+        <span class="p-rating-val">${p.avaliacao||'—'} (${p.avaliacoes||'0'})</span>
+      </div>
+      <div class="p-pricing">
+        ${p.menor_preco ? '<div class="p-lowest">Menor preço em 365 dias</div>' : ''}
+        <div class="p-price-row">
+          ${p.desconto ? `<span class="p-disc">-${p.desconto}</span>` : ''}
+          <span class="p-price">${p.preco_por}</span>
+          ${p.preco_de ? `<span class="p-old">De: ${p.preco_de}</span>` : ''}
+        </div>
+        ${inst ? `<div class="p-install">${inst}</div>` : ''}
+      </div>
+      ${p.estoque ? `<div class="p-stock">${p.estoque}</div>` : ''}
+      <a class="p-btn" href="${p.link}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();trackClick('${p.id}')">
+        Ver no Site
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </div>`;
+}
+
+// ── PAGINATION ────────────────────────────────────────────
+function renderPagination(pages) {
+  const el = document.getElementById('pagination');
+  if (pages <= 1) { el.innerHTML = ''; return; }
+  let html = `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>`;
+  for (let i = 1; i <= pages; i++) {
+    if (pages > 7 && i > 3 && i < pages-1 && Math.abs(i-currentPage) > 1) {
+      if (i === 4) html += `<span class="page-btn" style="pointer-events:none">…</span>`;
+      continue;
+    }
+    html += `<button class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+  }
+  html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===pages?'disabled':''}>
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>`;
+  el.innerHTML = html;
+}
+function goPage(p) {
+  const pages = Math.ceil(PRODUTOS.length / PER_PAGE);
+  if (p < 1 || p > pages) return;
+  currentPage = p;
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── MODAL ─────────────────────────────────────────────────
+function openModal(id) {
+  const p = PRODUTOS.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('mImg').src = p.imagem;
+  document.getElementById('mImg').alt = p.nome;
+  document.getElementById('mCat').textContent = p.categoria;
+  document.getElementById('mName').textContent = p.nome;
+  document.getElementById('mDesc').textContent = p.descricao || '';
+  document.getElementById('mOld').textContent = p.preco_de ? `De: ${p.preco_de}` : '';
+  document.getElementById('mPrice').textContent = p.preco_por;
+  const lo = document.getElementById('mLowest');
+  lo.textContent = p.menor_preco ? 'Menor preço em 365 dias' : '';
+  lo.className = p.menor_preco ? 'modal-lowest' : '';
+  const de = document.getElementById('mDisc');
+  de.textContent = p.desconto ? `-${p.desconto}` : '';
+  const inst = price(p) > 0 ? `ou 12x de R$ ${(price(p)/12).toFixed(2).replace('.',',')} sem juros` : '';
+  document.getElementById('mInstall').textContent = inst;
+  document.getElementById('mBtn').href = p.link;
+  document.getElementById('mBtn').onclick = () => trackClick(p.id);
+  const chk = `<div class="modal-feat-check"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>`;
+  document.getElementById('mFeats').innerHTML = (p.features||[]).map(f => `<div class="modal-feat">${chk}<span>${f}</span></div>`).join('');
+  document.getElementById('modalBg').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function maybeClose(e) { if (e.target === document.getElementById('modalBg')) closeModal(); }
+function closeModal() { document.getElementById('modalBg').classList.remove('open'); document.body.style.overflow = ''; }
+
+// ── FAVS ──────────────────────────────────────────────────
+function toggleFav(e, id) {
+  e.stopPropagation();
+  const i = favs.indexOf(id);
+  if (i>=0) { favs.splice(i,1); toast('Removido dos salvos'); }
+  else { favs.push(id); toast('Salvo!'); }
+  localStorage.setItem('pc_favs', JSON.stringify(favs));
+  render();
+}
+
+// ── TRACK ─────────────────────────────────────────────────
+function trackClick(id) { console.log('[PromoClub] click:', id); }
+
+// ── DRAWER ────────────────────────────────────────────────
+function openDrawer() { document.getElementById('navDrawer').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeDrawer() { document.getElementById('navDrawer').classList.remove('open'); document.body.style.overflow=''; }
+
+// ── INTERCEPTOR ───────────────────────────────────────────
+document.addEventListener('click', function(e) {
+  const a = e.target.closest('a[href]'); if (!a) return;
+  const href = a.getAttribute('href')||'';
+  if (!href.includes('amazon.com') && !href.includes('amzn.to')) return;
+  if (href.includes('tag='+AFILIADO_TAG)) return;
+  e.preventDefault();
+  window.open(tagURL(href), '_blank', 'noopener,noreferrer');
+}, true);
+
+// ── TOAST ─────────────────────────────────────────────────
+let _tt;
+function toast(msg) {
+  clearTimeout(_tt); const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  _tt=setTimeout(()=>el.classList.remove('show'),3000);
+}
+</script>
+</body>
+</html>
