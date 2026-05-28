@@ -78,8 +78,7 @@ img{display:block;max-width:100%}
   font-size:14px;font-weight:900;color:#fff;
   flex-shrink:0;letter-spacing:0;
 }
-.nav-logo-accent{color:var(--orange)}
-.nav-logo span.nav-logo-accent{color:var(--orange)}
+
 .nav-links{
   display:flex;align-items:center;gap:2px;
   overflow-x:auto;scrollbar-width:none;
@@ -164,27 +163,23 @@ img{display:block;max-width:100%}
   min-height:calc(100vh - 60px);
   display:flex;align-items:center;
 }
-/* radial glow blobs — igual Stitch */
-.hero::before{
-  content:'';position:absolute;
-  top:25%;left:25%;
-  width:384px;height:384px;
-  background:rgba(192,193,255,0.06);
-  border-radius:50%;filter:blur(120px);
-  animation:blobPulse 4s ease-in-out infinite;
-  pointer-events:none;
-}
-.hero::after{
-  content:'';position:absolute;
-  bottom:25%;right:25%;
-  width:384px;height:384px;
-  background:rgba(105,0,179,0.06);
-  border-radius:50%;filter:blur(120px);
-  animation:blobPulse 4s ease-in-out infinite;
-  animation-delay:2s;
-  pointer-events:none;
-}
+/* radial glow — only behind the visual, not the text */
+.hero::before{ content:none; }
+.hero::after{ content:none; }
 @keyframes blobPulse{0%,100%{opacity:.6}50%{opacity:1}}
+/* glow blob lives inside hero-visual, always behind the image */
+.hero-glow{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:520px;height:520px;
+  background:radial-gradient(circle,rgba(47,46,190,0.2) 0%,rgba(105,0,179,0.1) 40%,transparent 70%);
+  border-radius:50%;
+  filter:blur(60px);
+  animation:blobPulse 4s ease-in-out infinite;
+  pointer-events:none;
+  z-index:0;
+}
 .hero-inner{
   max-width:1280px;margin:0 auto;width:100%;
   display:grid;grid-template-columns:1fr 1fr;
@@ -251,6 +246,7 @@ img{display:block;max-width:100%}
 .hero-visual{
   position:relative;
   display:flex;align-items:center;justify-content:center;
+  z-index:1;
 }
 /* float animation — igual Stitch animate-float 6s */
 @keyframes heroFloat{
@@ -272,6 +268,7 @@ img{display:block;max-width:100%}
   animation:heroFloat 6s ease-in-out infinite;
   transition:border-color .3s;
   box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  z-index:1;
 }
 .hero-img-wrap:hover{border-color:rgba(255,255,255,0.15)}
 /* glow overlay pulsing in sync */
@@ -913,9 +910,10 @@ footer{
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><span class="nav-logo-icon">P</span>Promo<span class="nav-logo-accent">Club</span></a>
+    <a href="index.html" class="nav-logo"><span class="nav-logo-icon">P</span>PromoClub</a>
     <div class="nav-links">
       <a href="index.html" class="nav-link active">Home</a>
+      <a href="ofertas.html" class="nav-link">Ofertas</a>
       <a href="cupons.html" class="nav-link">Cupons</a>
       <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener noreferrer" class="nav-link">Comunidade</a>
       <a href="#prime" class="nav-link">Amazon Prime</a>
@@ -940,7 +938,8 @@ footer{
   <div class="nav-drawer-panel">
     <button class="nav-drawer-close" onclick="closeDrawer()">×</button>
     <a href="index.html" class="nav-drawer-link">Home</a>
-    <a href="cupons.html" class="nav-drawer-link">Cupons de Desconto</a>
+    <a href="ofertas.html" class="nav-drawer-link">Ofertas</a>
+    <a href="cupons.html" class="nav-drawer-link">Cupons</a>
     <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener noreferrer" class="nav-drawer-link" onclick="closeDrawer()">Telegram — Comunidade</a>
     <a href="#prime" class="nav-drawer-link" onclick="closeDrawer()">Amazon Prime</a>
     <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
@@ -981,6 +980,7 @@ footer{
       </div>
     </div>
     <div class="hero-visual">
+      <div class="hero-glow"></div>
       <div class="hero-img-wrap">
         <img
           src="hero.png"
@@ -1240,7 +1240,7 @@ footer{
   <div class="footer-inner">
     <div class="footer-top">
       <div>
-        <div class="footer-brand-name"><span class="footer-logo-icon">P</span>Promo<span>Club</span></div>
+        <div class="footer-brand-name"><span class="footer-logo-icon">P</span>PromoClub</div>
         <div class="footer-brand-desc">As melhores ofertas da Amazon, cupons verificados e comunidade gratuita para você economizar todos os dias.</div>
         <div class="footer-social">
           <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="Telegram">
