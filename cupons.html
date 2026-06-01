@@ -223,15 +223,21 @@ button{font-family:inherit;cursor:pointer;border:none}
 .c-copy-btn.done{background:var(--green)}
 .c-copy-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5}
 /* offer button */
-.c-offer-btn{
-  flex:1;background:var(--bg3);border:1px solid var(--border2);
-  border-radius:var(--r-sm);padding:9px 14px;
-  font-size:13px;font-weight:500;color:var(--text2);
-  text-align:center;transition:all .15s;
-  display:flex;align-items:center;justify-content:center;gap:6px;
+.c-reveal-wrap{flex:1;display:flex;flex-direction:column;gap:8px}
+.c-ver-btn{
+  width:100%;
+  background:linear-gradient(135deg,var(--orange),#c0392b);
+  color:#fff;font-size:13px;font-weight:700;
+  padding:10px 14px;border-radius:var(--r-sm);
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  transition:all .2s;
+  box-shadow:0 4px 16px rgba(255,107,53,0.25);
 }
-.c-offer-btn:hover{color:var(--text);border-color:var(--orange);background:var(--orange-glow)}
-.c-offer-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
+.c-ver-btn:hover{filter:brightness(1.1);box-shadow:0 6px 24px rgba(255,107,53,0.4);transform:translateY(-1px)}
+.c-ver-btn svg{flex-shrink:0}
+.c-code-revealed{animation:revealCode .3s ease}
+@keyframes revealCode{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.c-offer-btn{display:none}
 /* fav */
 .c-fav{
   width:36px;height:36px;background:var(--bg4);border:1px solid var(--border);
@@ -309,7 +315,7 @@ footer{
       <p class="hero-sub">Coletamos, testamos e organizamos os melhores cupons da Amazon. Copie o código, cole no checkout e economize de verdade.</p>
       <div class="hero-notice">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        Verificados em <strong>26/05/2025</strong>. Cupons podem expirar — confira antes de usar.
+        Verificados em <strong>28/05/2025</strong>. Cupons podem expirar — confira antes de usar.
       </div>
     </div>
     <div class="hero-stats-cards">
@@ -401,82 +407,103 @@ footer{
 <script>
 const CUPONS = [
   {
-    id:'c1',tipo:'codigo',codigo:'CAMISA1',valor:'10% OFF',
-    titulo:'10% de desconto em pedidos a partir de R$150',
-    descricao:'Válido para produtos selecionados. Desconto aplicado no checkout ao digitar o código.',
-    condicao:'Mínimo R$150',validade:'Tempo limitado',usos:255,popularidade:70,verificado:true,
+    id:'bomdia10', tipo:'codigo', codigo:'BOMDIA10',
+    valor:'10% OFF',
+    titulo:'10% OFF em compras acima de R$200',
+    descricao:'Válido para produtos selecionados na Amazon.',
+    condicao:'Mínimo R$200', validade:'Tempo limitado',
+    usos:312, popularidade:72, verificado:true,
+    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
   },
   {
-    id:'c2',tipo:'codigo',codigo:'CAMISA2',valor:'15% OFF',
-    titulo:'15% OFF em compras acima de R$300',
-    descricao:'Desconto máximo de R$100. Válido para itens selecionados em diversas categorias.',
-    condicao:'Mínimo R$300 · Máx. R$100',validade:'Tempo limitado',usos:84,popularidade:55,verificado:true,
+    id:'maiochegou', tipo:'codigo', codigo:'MAIOCHEGOU',
+    valor:'R$100 OFF',
+    titulo:'R$100 OFF em pedidos acima de R$999',
+    descricao:'Desconto aplicado automaticamente no checkout.',
+    condicao:'Mínimo R$999', validade:'Tempo limitado',
+    usos:198, popularidade:80, verificado:true, hot:true,
+    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
   },
   {
-    id:'c3',tipo:'codigo',codigo:'TORCIDA12',valor:'R$250 OFF',
-    titulo:'R$250 de desconto em pedidos acima de R$1.500',
-    descricao:'Ideal para compras de alto valor como TVs, notebooks e eletrodomésticos.',
-    condicao:'Mínimo R$1.500',validade:'Tempo limitado',usos:252,popularidade:90,verificado:true,hot:true,
+    id:'bomdemais35', tipo:'codigo', codigo:'BOMDEMAIS35',
+    valor:'R$35 OFF',
+    titulo:'R$35 OFF em compras acima de R$299',
+    descricao:'Para produtos selecionados. Cole o código no checkout.',
+    condicao:'Mínimo R$299', validade:'Tempo limitado',
+    usos:421, popularidade:65, verificado:true,
+    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
   },
   {
-    id:'c4',tipo:'codigo',codigo:'CAMISA3',valor:'R$250 OFF',
-    titulo:'Mais R$250 OFF aplicando cupom no carrinho',
-    descricao:'Aplique no campo de código promocional durante a finalização da compra.',
-    condicao:'Produtos selecionados',validade:'Tempo limitado',usos:23,popularidade:40,verificado:true,
+    id:'seumomento', tipo:'codigo', codigo:'SEUMOMENTO',
+    valor:'R$70 OFF',
+    titulo:'R$70 OFF em pedidos acima de R$699',
+    descricao:'Cupom de uso geral em produtos elegíveis da Amazon.',
+    condicao:'Mínimo R$699', validade:'Tempo limitado',
+    usos:154, popularidade:68, verificado:true,
+    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
   },
   {
-    id:'c5',tipo:'codigo',codigo:'CAMISA6',valor:'R$250 OFF',
-    titulo:'Super promoção: R$250 off em pedidos acima de R$1.500',
-    descricao:'Desconto válido para compras de maior valor em produtos elegíveis.',
-    condicao:'Mínimo R$1.500',validade:'Tempo limitado',usos:9,popularidade:30,verificado:true,
+    id:'fazopedido', tipo:'codigo', codigo:'FAZOPEDIDO',
+    valor:'R$50 OFF',
+    titulo:'R$50 OFF em compras acima de R$499',
+    descricao:'Desconto válido para itens selecionados. Verifique elegibilidade.',
+    condicao:'Mínimo R$499', validade:'Tempo limitado',
+    usos:287, popularidade:60, verificado:true,
+    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
   },
   {
-    id:'c6',tipo:'codigo',codigo:'RANGEL15',valor:'15% OFF',
-    titulo:'15% OFF a partir de R$150 — máximo R$100 de desconto',
-    descricao:'Cupom de uso geral com bom custo-benefício para compras medianas.',
-    condicao:'Mínimo R$150 · Máx. R$100',validade:'Tempo limitado',usos:62,popularidade:60,verificado:true,
+    id:'pc150', tipo:'codigo', codigo:'PC150',
+    valor:'R$150 OFF',
+    titulo:'R$150 OFF em PCs e Informática',
+    descricao:'Exclusivo para as categorias PC e Informática. Ideal para notebooks, monitores e periféricos.',
+    condicao:'Categorias: PC e Informática', validade:'Tempo limitado',
+    usos:532, popularidade:92, verificado:true, hot:true,
+    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
   },
   {
-    id:'c7',tipo:'app',valor:'R$20 OFF',
-    titulo:'R$20 OFF em compras acima de R$80 pelo app Amazon',
-    descricao:'Exclusivo para compras pelo aplicativo Amazon. O desconto aparece automaticamente em produtos elegíveis.',
-    condicao:'Mínimo R$80 · Somente no app',validade:'Maio 2025',usos:180,popularidade:75,verificado:true,hot:true,
-    link:'https://www.amazon.com.br?tag=carva00-20',
+    id:'tvsom250', tipo:'codigo', codigo:'TVSOM250',
+    valor:'R$200 OFF',
+    titulo:'R$200 OFF em TVs, Áudio e Som acima de R$1.499',
+    descricao:'Para as categorias TVs, Áudio e Som. Aproveite para comprar aquela TV que você queria.',
+    condicao:'Mínimo R$1.499 · TVs, Áudio e Som', validade:'Tempo limitado',
+    usos:389, popularidade:88, verificado:true, hot:true,
+    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
   },
   {
-    id:'c8',tipo:'prime',valor:'Frete grátis',
-    titulo:'Frete grátis ilimitado com Amazon Prime',
-    descricao:'Membros Prime têm frete grátis em milhões de produtos + Prime Video, Music e Reading. 30 dias grátis para novos assinantes.',
-    condicao:'Assinantes Prime · R$19,90/mês',validade:'Oferta contínua',usos:1200,popularidade:95,verificado:true,
-    link:'https://www.amazon.com.br/prime?tag=carva00-20',
+    id:'prime20app', tipo:'app', codigo:'PRIME20APP',
+    valor:'R$20 OFF',
+    titulo:'R$20 OFF — Cupom Amazon Prime Day no App',
+    descricao:'Exclusivo pelo aplicativo Amazon. Válido para membros Prime durante o Prime Day.',
+    condicao:'App Amazon · Membros Prime', validade:'Prime Day',
+    usos:891, popularidade:85, verificado:true, hot:true,
+    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
   },
   {
-    id:'c9',tipo:'prime',valor:'5% cashback',
-    titulo:'Até 5% de volta com Cartão Amazon Prime Bradesco',
-    descricao:'Membros Prime com o Cartão Amazon Prime ganham 5% de volta em pontos em compras na Amazon.',
-    condicao:'Prime + Cartão Amazon Bradesco',validade:'Oferta contínua',usos:430,popularidade:80,verificado:true,
-    link:'https://www.amazon.com.br/prime?tag=carva00-20',
+    id:'noprimeday40', tipo:'app', codigo:'40NOPRIMEDAY',
+    valor:'R$40 OFF',
+    titulo:'R$40 OFF — Amazon Prime Day no App',
+    descricao:'Cupom exclusivo do Prime Day disponível somente pelo aplicativo Amazon.',
+    condicao:'App Amazon · Membros Prime', validade:'Prime Day',
+    usos:673, popularidade:82, verificado:true,
+    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
   },
   {
-    id:'c10',tipo:'oferta',valor:'até 40%',
-    titulo:'Cupons de produto na página oficial de cupons Amazon',
-    descricao:'A Amazon tem seção própria onde você ativa o desconto direto no produto antes de comprar. Sem código — só clicar.',
-    condicao:'Varia por produto',validade:'Atualizado diariamente',usos:800,popularidade:88,verificado:true,
-    link:'https://www.amazon.com.br/gp/browse.html?node=21492557011&tag=carva00-20',
+    id:'souprime', tipo:'prime', codigo:'SOUPRIME',
+    valor:'R$100 OFF',
+    titulo:'R$100 OFF — Cupom exclusivo Amazon Prime Day',
+    descricao:'Desconto especial para membros Prime no Prime Day. Um dos maiores cupons disponíveis.',
+    condicao:'Membros Amazon Prime', validade:'Prime Day',
+    usos:1240, popularidade:96, verificado:true, hot:true,
+    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
   },
   {
-    id:'c11',tipo:'oferta',valor:'até 80%',
-    titulo:'Ofertas do Dia — descontos por tempo limitado',
-    descricao:'Produtos com desconto que duram poucas horas ou até esgotar o estoque. Acesse diariamente.',
-    condicao:'Estoque e tempo limitados',validade:'Diariamente',usos:2100,popularidade:99,verificado:true,hot:true,
-    link:'https://www.amazon.com.br/deals?tag=carva00-20',
-  },
-  {
-    id:'c12',tipo:'app',valor:'Exclusivo',
-    titulo:'Ofertas exclusivas somente no app Amazon',
-    descricao:'Baixe o aplicativo Amazon e acesse promoções relâmpago que não aparecem no site.',
-    condicao:'App Amazon iOS / Android',validade:'Variável',usos:560,popularidade:72,verificado:true,
-    link:'https://www.amazon.com.br?tag=carva00-20',
+    id:'app20off', tipo:'app', codigo:'APP20OFF',
+    valor:'R$20 OFF',
+    titulo:'R$20 OFF na soma de R$100 em produtos na sacola',
+    descricao:'Adicione pelo menos R$100 em produtos na sacola e use o cupom para ganhar R$20 de desconto.',
+    condicao:'Mínimo R$100 na sacola · App Amazon', validade:'Tempo limitado',
+    usos:445, popularidade:70, verificado:true,
+    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
   },
 ];
 
@@ -526,18 +553,25 @@ function cardHTML(c) {
   const usosLabel = c.usos > 999 ? `+${(c.usos/1000).toFixed(1)}k usados hoje` : `${c.usos} usados hoje`;
   const chk = `<svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>`;
 
-  const bottomHTML = c.codigo
-    ? `<div class="c-code-box">
-        <span class="c-code-val">${c.codigo}</span>
-        <button class="c-copy-btn" id="cc-${c.id}" onclick="copyCoupon(event,'${c.codigo}','${c.id}')">
-          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copiar
-        </button>
-      </div>`
-    : `<a class="c-offer-btn" href="${c.link||'#'}" target="_blank" rel="nofollow noopener">
-        Ver oferta na Amazon
-        <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>`;
+  // All coupons use the new "Ver Cupom" flow:
+  // 1. Button opens affiliate link in new tab
+  // 2. Code box appears inline for copying
+  const bottomHTML = `
+    <div class="c-reveal-wrap" id="reveal-${c.id}">
+      <button class="c-ver-btn" onclick="verCupom(event,'${c.id}','${c.codigo}','${c.link||'#'}')">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Ver Cupom
+      </button>
+      <div class="c-code-revealed" id="code-${c.id}" style="display:none">
+        <div class="c-code-box">
+          <span class="c-code-val">${c.codigo}</span>
+          <button class="c-copy-btn" id="cc-${c.id}" onclick="copyCoupon(event,'${c.codigo}','${c.id}')">
+            <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copiar
+          </button>
+        </div>
+      </div>
+    </div>`;
 
   return `
   <div class="c-card type-${c.tipo}${c.expirado?' c-expired':''}">
@@ -574,6 +608,20 @@ function cardHTML(c) {
       </div>
     </div>
   </div>`;
+}
+
+function verCupom(e, id, code, link) {
+  e.stopPropagation();
+  // Open affiliate link in new tab first
+  window.open(link, '_blank', 'noopener,noreferrer');
+  // Then reveal the code
+  const revealed = document.getElementById('code-' + id);
+  const btn = e.currentTarget;
+  if (revealed) {
+    revealed.style.display = 'block';
+    btn.style.display = 'none';
+  }
+  toast('Link aberto! Copie o código abaixo 👇');
 }
 
 function copyCoupon(e, code, id) {
