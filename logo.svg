@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" width="280" height="100">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c9a84c"/>
+      <stop offset="30%" style="stop-color:#f5d078"/>
+      <stop offset="55%" style="stop-color:#e8b84b"/>
+      <stop offset="80%" style="stop-color:#f5d078"/>
+      <stop offset="100%" style="stop-color:#c9a84c"/>
+    </linearGradient>
+    <linearGradient id="goldLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c9a84c;stop-opacity:0"/>
+      <stop offset="20%" style="stop-color:#f5d078;stop-opacity:1"/>
+      <stop offset="80%" style="stop-color:#f5d078;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#c9a84c;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- top line -->
+  <line x1="30" y1="28" x2="250" y2="28" stroke="url(#goldLine)" stroke-width="0.8"/>
+
+  <!-- tag icon top-right -->
+  <g transform="translate(236,14)">
+    <circle cx="5" cy="3" r="1.5" fill="none" stroke="url(#gold)" stroke-width="1"/>
+    <path d="M3 5 L0 12 L8 12 L11 5 Z" fill="none" stroke="url(#gold)" stroke-width="1" stroke-linejoin="round"/>
+    <circle cx="5.5" cy="8.5" r="1" fill="url(#gold)"/>
+  </g>
+
+  <!-- PROMO -->
+  <text x="140" y="66"
+    font-family="'Inter','Arial Black',sans-serif"
+    font-size="42"
+    font-weight="800"
+    letter-spacing="6"
+    text-anchor="middle"
+    fill="url(#gold)">PROMO</text>
+
+  <!-- bottom line left -->
+  <line x1="30" y1="76" x2="88" y2="76" stroke="url(#goldLine)" stroke-width="0.8"/>
+  <!-- bottom line right -->
+  <line x1="192" y1="76" x2="250" y2="76" stroke="url(#goldLine)" stroke-width="0.8"/>
+
+  <!-- CLUB -->
+  <text x="140" y="92"
+    font-family="'Inter','Arial',sans-serif"
+    font-size="18"
+    font-weight="500"
+    letter-spacing="10"
+    text-anchor="middle"
+    fill="url(#gold)">CLUB</text>
+</svg>

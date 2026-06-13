@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="PromoClub — Cupons de desconto, ofertas e promoções da Amazon, Shopee, Hinode e muito mais.">
+<meta name="description" content="PromoClub — Cupons, ofertas e promoções da Amazon, Shopee, Hinode e mais.">
 <meta property="og:title" content="PromoClub — Promoções, Cupons e Ofertas">
 <meta property="og:description" content="As melhores promoções reunidas em um só lugar. Economize na Amazon, Shopee, Hinode e mais.">
 <title>PromoClub — Promoções, Cupons e Ofertas</title>
@@ -633,6 +633,47 @@ footer{
 @media(max-width:420px){
   .grid{grid-template-columns:repeat(2,1fr);gap:8px}
 }
+
+/* ── SHARED LOGO & NAV ───────────────────────────────────── */
+.logo-svg { display:block; flex-shrink:0; }
+.logo { display:flex; align-items:center; flex-shrink:0; margin-right:12px; transition:opacity .15s; }
+.logo:hover { opacity:.85; }
+
+/* Override accent colors with gold ─────────────────────── */
+:root {
+  --accent:        #c9a84c !important;
+  --accent2:       #f5d078 !important;
+  --accent-bg:     rgba(201,168,76,0.08) !important;
+  --accent-border: rgba(201,168,76,0.2) !important;
+}
+/* nav cta gold */
+.nav-cta {
+  background: linear-gradient(135deg, #c9a84c, #f5d078) !important;
+  color: #080b14 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 0 transparent !important;
+}
+.nav-cta:hover {
+  filter: brightness(1.08) !important;
+  box-shadow: 0 0 18px rgba(245,208,120,0.35) !important;
+  background: linear-gradient(135deg, #b8943e, #e8c96a) !important;
+}
+/* active nav link gold underline */
+.nav-a.on { color: var(--accent2) !important; }
+/* sec-pip gold */
+.sec-pip { background: var(--accent) !important; }
+/* card-btn gold */
+.card-btn, .p-btn {
+  background: linear-gradient(135deg, #c9a84c, #e8c96a) !important;
+  color: #080b14 !important;
+}
+.card-btn:hover, .p-btn:hover {
+  filter: brightness(1.08) !important;
+  box-shadow: 0 0 16px rgba(245,208,120,0.3) !important;
+}
+/* footer brand */
+.footer-brand-name { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+
 </style>
 </head>
 <body>
@@ -859,7 +900,32 @@ footer{
 <footer>
   <div class="footer-grid">
     <div>
-      <div class="footer-brand-name"><div class="logo-mark" style="width:24px;height:24px;font-size:11px">P</div>PromoClub</div>
+      <div class="footer-brand-name"><a href="index.html" aria-label="PromoClub"><svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" height="28" aria-label="PromoClub">
+  <defs>
+    <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c9a84c"/>
+      <stop offset="40%" stop-color="#f5d078"/>
+      <stop offset="70%" stop-color="#e8b84b"/>
+      <stop offset="100%" stop-color="#c9a84c"/>
+    </linearGradient>
+    <linearGradient id="ll" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#f5d078" stop-opacity="1"/>
+      <stop offset="70%" stop-color="#f5d078" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <line x1="4" y1="14" x2="196" y2="14" stroke="url(#ll)" stroke-width="0.7"/>
+  <g transform="translate(172,2) scale(0.85)">
+    <circle cx="6" cy="4" r="2" fill="none" stroke="url(#lg)" stroke-width="1"/>
+    <path d="M2 7 L0 15 L12 15 L14 7 Z" fill="none" stroke="url(#lg)" stroke-width="1" stroke-linejoin="round"/>
+    <circle cx="7" cy="11" r="1.2" fill="url(#lg)"/>
+  </g>
+  <text x="100" y="34" font-family="Inter,'Arial Black',sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#lg)">PROMO</text>
+  <line x1="4" y1="42" x2="54" y2="42" stroke="url(#ll)" stroke-width="0.7"/>
+  <line x1="146" y1="42" x2="196" y2="42" stroke="url(#ll)" stroke-width="0.7"/>
+  <text x="100" y="50" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#lg)">CLUB</text>
+</svg></a></div>
       <div class="footer-brand-desc">Promoções, cupons e ofertas da Amazon, Shopee, Hinode e mais. Economize todos os dias.</div>
       <div class="footer-social-row">
         <a href="https://t.me/carvapromoclub" target="_blank" class="footer-social-btn" aria-label="Telegram">
@@ -885,11 +951,11 @@ footer{
       <h5>Legal</h5>
       <a href="#">Política de privacidade</a>
       <a href="#">Termos de uso</a>
-      <a href="#">Divulgação de afiliados</a>
+      <a href="#">Afiliados</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-note">Este site participa de programas de afiliados. Somos remunerados por indicações qualificadas, sem custo adicional para você. PromoClub não é responsável pelos preços ou disponibilidade nos sites parceiros.</p>
+    <p class="footer-note">Este site participa de programas de afiliados. Somos remunerados por indicações qualificadas, sem custo adicional para você.</p>
     <span class="footer-copy">© 2025 PromoClub · carvapromoclub@gmail.com</span>
   </div>
 </footer>
