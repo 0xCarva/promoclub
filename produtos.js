@@ -12,6 +12,7 @@ const PRODUTOS = [
     nome: "Smart TV TCL 32\" QLED Full HD Google TV Wi-Fi Bluetooth HDR10 Dolby Audio 32S5K",
     categoria: "Eletrônicos",
     emoji: "📺",
+    menor_preco_30: false,
     menor_preco: false,
     preco_de: "R$ 1.299,00",
     preco_por: "R$ 911,90",
@@ -41,6 +42,7 @@ const PRODUTOS = [
     nome: "Apple iPhone 17 Pro Max (1 TB) - Laranja cósmico",
     categoria: "Eletrônicos",
     emoji: "📱",
+    menor_preco_30: false,
     menor_preco: false,
     preco_de: "R$ 15.499,00",
     preco_por: "R$ 13.949,10",
@@ -73,6 +75,7 @@ const PRODUTOS = [
     nome: "Monitor Gamer AOC Destiny 24,5 Polegadas 25G3ZM",
     categoria: "Eletrônicos",
     emoji: "🖥️",
+    menor_preco_30: false,
     menor_preco: false,
     preco_de: "R$ 1.799,00",
     preco_por: "R$ 1.234,00",
@@ -98,12 +101,13 @@ const PRODUTOS = [
 
   // ─── TV ─────────────────────────────────────────────────
   {
-    id: "tcl-32s5k-google-tv",
+    id: "tcl-75c755-google-tv",
     nome: "Smart TV TCL 75 Polegadas QLED Mini LED 4K C755 WiFi Bluetooth Google TV 144Hz VRR HDR10+ 75C755",
     categoria: "Eletrônicos",
     emoji: "📺",
+    menor_preco_30: false,
     menor_preco: false,
-    preco_de: "R$ R$6.599,99",
+    preco_de: "R$ 6.599,99",
     preco_por: "R$ 4.999,90",
     desconto: "24%",
     aviso: "",
@@ -126,6 +130,30 @@ const PRODUTOS = [
   },
   
 ];
+
+// ============================================================
+// CAMPOS DISPONÍVEIS POR PRODUTO:
+// ============================================================
+// id: identificador único (não repita!)
+// nome: nome completo do produto
+// loja: "Amazon" | "Shopee" | "Hinode" | (futuros)
+// categoria: "Eletrônicos" | "Informática" | "Casa" | etc
+// menor_preco: true/false — badge "Menor preço em 365 dias"
+// menor_preco_30: true/false — badge "Menor preço em 30 dias"
+// preco_de: preço original (ex: "R$ 1.299,00")
+// preco_por: preço atual (ex: "R$ 999,00")
+// desconto: percentual (ex: "23%") — deixe "" se não souber
+// avaliacao: nota de 0 a 5 (ex: 4.4)
+// avaliacoes: quantidade de avaliações (ex: "1.358")
+// badge: "hot" | "new" | "top" — badge no card
+// destaque: true/false — aparece no slider de destaques
+// estoque: texto livre (ex: "Restam poucos!") ou ""
+// parcelamento: texto livre (ex: "12x de R$ 83,25") ou ""
+// link: URL do produto com sua tag de afiliado
+// imagem: URL da imagem do produto
+// descricao: texto descritivo
+// features: array de strings com características
+// ============================================================
 
 // ─── NÃO MEXA ABAIXO DESTA LINHA ────────────────────────
 // Injeção automática da tag de afiliado em todos os links
