@@ -1,5 +1,5 @@
 // ============================================================
-// ARQUIVO DE PRODUTOS — OFERTATOP
+// ARQUIVO DE PRODUTOS
 // ============================================================
 
 const AFILIADO_TAG = 'carva00-20';
@@ -35,13 +35,13 @@ const PRODUTOS = [
     ]
   },
 
-    // ─── iPhone ─────────────────────────────────────────────────
+  // ─── iPhone ─────────────────────────────────────────────────
   {
     id: "apple-b0fqhgm3b1-iphone",
     nome: "Apple iPhone 17 Pro Max (1 TB) - Laranja cósmico",
     categoria: "Eletrônicos",
     emoji: "📱",
-    menor_preco: true,
+    menor_preco: false,
     preco_de: "R$ 15.499,00",
     preco_por: "R$ 13.949,10",
     desconto: "",
@@ -67,16 +67,16 @@ const PRODUTOS = [
     ]
   },
 
- // ─── Monitor ─────────────────────────────────────────────────
+  // ─── Monitor ─────────────────────────────────────────────────
   {
     id: "aoc-25g3zm-monitor",
     nome: "Monitor Gamer AOC Destiny 24,5 Polegadas 25G3ZM",
     categoria: "Eletrônicos",
     emoji: "🖥️",
-    menor_preco: true,
+    menor_preco: false,
     preco_de: "R$ 1.799,00",
-    preco_por: "R$ 1.399,99",
-    desconto: "22%",
+    preco_por: "R$ 1.234,00",
+    desconto: "31%",
     aviso: "",
     avaliacao: 4.4,
     avaliacoes: "88",
@@ -93,6 +93,35 @@ const PRODUTOS = [
       "Flicker Free",
       "Shadow Control",
       "Modo Mira"
+    ]
+  },
+
+  // ─── TV ─────────────────────────────────────────────────
+  {
+    id: "tcl-32s5k-google-tv",
+    nome: "Smart TV TCL 75 Polegadas QLED Mini LED 4K C755 WiFi Bluetooth Google TV 144Hz VRR HDR10+ 75C755",
+    categoria: "Eletrônicos",
+    emoji: "📺",
+    menor_preco: false,
+    preco_de: "R$ R$6.599,99",
+    preco_por: "R$ 4.999,90",
+    desconto: "24%",
+    aviso: "",
+    avaliacao: 4.4,
+    avaliacoes: "88",
+    badge: "hot",
+    destaque: true,
+    estoque: "",
+    parcelamento: "12x R$ 416,75 sem juros",
+    link: "https://www.amazon.com.br/TCL-Premium-QD-Mini-Google-Vision/dp/B0D4MPBXQV?pf_rd_r=T2EGMSDTZD1G5G5G6DDQ&pf_rd_p=a43a02c5-fe2d-4a34-af71-7d62fff70488&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&linkCode=ll2&tag=carva00-20&linkId=ae0b835f06e4208b5c56265f2a5b61a6&ref_=as_li_ss_tl",
+    imagem: "https://m.media-amazon.com/images/I/71CNUBIYPFL._AC_SL1000_.jpg",
+    descricao: "TCL QD MINI LED SMART TV 75” C755 4K UHD GOOGLE TV, 120 HZ, DOLBY VISION ATMOS, Subwoofer, HDR10+, Wi-Fi dual band e Bluetooth integrados, 4 HDMI, HDMI 2.1 Comando de voz à distância, Google Assistente, ALLM, VRR e design sem bordas.",
+    features: [
+      "Tela QD-Mini LED 4K de 75\" com HDR10+ e Dolby Vision",
+      "Google TV – comando de voz à distância com Google Assistente integrado",
+      "Ideal para Games: 144Hz VRR, ALLM e HDMI 2.1",
+      "Conectividade total: Wi-Fi Dual Band, Bluetooth, 4x HDMI e 1x USB 3.0",
+      "Som Imersivo Dolby Atmos com Subwoofer integrado"
     ]
   },
   
