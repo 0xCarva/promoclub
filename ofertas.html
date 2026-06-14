@@ -477,171 +477,70 @@ footer{
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <div class="nav-logo-icon">P</div>
-      PromoClub
-    </a>
+    <a href="index.html" class="logo" aria-label="PromoClub"><svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" height="32" aria-label="PromoClub">
+  <defs>
+    <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c9a84c"/>
+      <stop offset="40%" stop-color="#f5d078"/>
+      <stop offset="70%" stop-color="#e8b84b"/>
+      <stop offset="100%" stop-color="#c9a84c"/>
+    </linearGradient>
+    <linearGradient id="ll" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#f5d078" stop-opacity="1"/>
+      <stop offset="70%" stop-color="#f5d078" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <line x1="4" y1="14" x2="196" y2="14" stroke="url(#ll)" stroke-width="0.7"/>
+  <g transform="translate(172,2) scale(0.85)">
+    <circle cx="6" cy="4" r="2" fill="none" stroke="url(#lg)" stroke-width="1"/>
+    <path d="M2 7 L0 15 L12 15 L14 7 Z" fill="none" stroke="url(#lg)" stroke-width="1" stroke-linejoin="round"/>
+    <circle cx="7" cy="11" r="1.2" fill="url(#lg)"/>
+  </g>
+  <text x="100" y="34" font-family="Inter,'Arial Black',sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#lg)">PROMO</text>
+  <line x1="4" y1="42" x2="54" y2="42" stroke="url(#ll)" stroke-width="0.7"/>
+  <line x1="146" y1="42" x2="196" y2="42" stroke="url(#ll)" stroke-width="0.7"/>
+  <text x="100" y="50" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#lg)">CLUB</text>
+</svg></a>
     <div class="nav-links">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="ofertas.html" class="nav-link active">Ofertas</a>
-      <a href="cupons.html" class="nav-link">Cupons</a>
-      <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener" class="nav-link">Comunidade</a>
+      <a href="index.html" class="nav-a">Home</a>
+      <a href="ofertas.html" class="nav-a on">Ofertas</a>
+      <a href="cupons.html" class="nav-a">Cupons</a>
     </div>
     <div class="nav-search">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="searchInput" placeholder="Buscar produtos, marcas...">
+      <input id="searchInput" type="text" placeholder="Buscar ofertas e cupons...">
     </div>
-    <div class="nav-actions">
-      <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener" class="nav-btn-primary">Entrar no Telegram</a>
+    <div class="nav-end">
+      <a href="https://www.instagram.com/carvapromoclub/" target="_blank" rel="noopener" class="nav-social" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="#e1306c" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="#e1306c" stroke="none"/></svg></a>
+      <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener" class="nav-social" aria-label="Telegram"><svg viewBox="0 0 24 24" width="14" height="14" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
+      <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener" class="nav-cta">Entrar no grupo</a>
     </div>
-    <button class="nav-hamburger" onclick="openDrawer()" aria-label="Menu">
+    <button class="hamburger" onclick="openDrawer()" aria-label="Menu">
       <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
   </div>
 </nav>
-
-<!-- MOBILE DRAWER -->
-<div class="nav-drawer" id="navDrawer">
-  <div class="nav-drawer-bg" onclick="closeDrawer()"></div>
-  <div class="nav-drawer-panel">
-    <button class="nav-drawer-close" onclick="closeDrawer()">×</button>
-    <a href="index.html" class="nav-drawer-link">Home</a>
-    <a href="ofertas.html" class="nav-drawer-link active">Ofertas</a>
-    <a href="cupons.html" class="nav-drawer-link">Cupons</a>
-    <a href="https://t.me/carvapromoclub" target="_blank" class="nav-drawer-link">Comunidade Telegram</a>
-    <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
-      <a href="https://t.me/carvapromoclub" target="_blank" class="nav-btn-primary" style="display:flex;justify-content:center;padding:12px">Entrar no Telegram</a>
+<div class="drawer" id="drawer">
+  <div class="drawer-bg" onclick="closeDrawer()"></div>
+  <div class="drawer-panel">
+    <button class="drawer-close" onclick="closeDrawer()">×</button>
+    <a href="index.html" class="drawer-a">Home</a>
+    <a href="ofertas.html" class="drawer-a on">Ofertas</a>
+    <a href="cupons.html" class="drawer-a">Cupons</a>
+    <div class="drawer-divider"></div>
+    <div class="drawer-social">
+      <a href="https://t.me/carvapromoclub" target="_blank" class="drawer-social-btn"><svg viewBox="0 0 24 24" width="14" height="14" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg> Telegram</a>
+      <a href="https://www.instagram.com/carvapromoclub/" target="_blank" class="drawer-social-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#e1306c" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="#e1306c" stroke="none"/></svg> Instagram</a>
+    </div>
+    <div style="padding:8px 12px">
+      <a href="https://t.me/carvapromoclub" target="_blank" class="nav-cta" style="display:flex;justify-content:center;padding:11px">Entrar no grupo grátis</a>
     </div>
   </div>
 </div>
 
-<div class="page-wrap">
-
-  <!-- SIDEBAR FILTERS -->
-  <aside class="sidebar">
-    <div class="sidebar-section">
-      <div class="sidebar-title">Categorias</div>
-      <label class="sidebar-check" onclick="toggleCat('Eletrônicos',this)">
-        <input type="checkbox"><span>Eletrônicos</span>
-      </label>
-      <label class="sidebar-check" onclick="toggleCat('Informática',this)">
-        <input type="checkbox"><span>Informática</span>
-      </label>
-      <label class="sidebar-check" onclick="toggleCat('Casa',this)">
-        <input type="checkbox"><span>Casa</span>
-      </label>
-      <label class="sidebar-check" onclick="toggleCat('Cozinha',this)">
-        <input type="checkbox"><span>Cozinha</span>
-      </label>
-      <label class="sidebar-check" onclick="toggleCat('Esportes',this)">
-        <input type="checkbox"><span>Esportes</span>
-      </label>
-      <label class="sidebar-check" onclick="toggleCat('Beleza',this)">
-        <input type="checkbox"><span>Beleza</span>
-      </label>
-      <label class="sidebar-check" onclick="toggleCat('Games',this)">
-        <input type="checkbox"><span>Games</span>
-      </label>
-      <label class="sidebar-check" onclick="toggleCat('Moda',this)">
-        <input type="checkbox"><span>Moda</span>
-      </label>
-      <label class="sidebar-check" onclick="toggleCat('Automotivo',this)">
-        <input type="checkbox"><span>Automotivo</span>
-      </label>
-      <label class="sidebar-check" onclick="toggleCat('Bebê',this)">
-        <input type="checkbox"><span>Bebê</span>
-      </label>
-      <label class="sidebar-check" onclick="toggleCat('Livros',this)">
-        <input type="checkbox"><span>Livros</span>
-      </label>
-      <label class="sidebar-check" onclick="toggleCat('Ferramentas',this)">
-        <input type="checkbox"><span>Ferramentas</span>
-      </label>
-    </div>
-
-    <div class="sidebar-section">
-      <div class="sidebar-title">Desconto mínimo</div>
-      <input type="range" class="sidebar-range" min="0" max="90" step="5" value="0" id="discRange" oninput="updateRange(this)">
-      <div class="range-labels"><span>0%</span><span>90%</span></div>
-      <div class="range-value" id="rangeVal">0% ou mais</div>
-    </div>
-
-    <div class="sidebar-section">
-      <div class="sidebar-title">Avaliação mínima</div>
-      <button class="star-btn" onclick="setStars(3,this)">
-        <span class="star-icon">★★★</span><span class="star-empty">★★</span>
-        <span style="margin-left:4px">3 & acima</span>
-      </button>
-      <button class="star-btn" onclick="setStars(4,this)">
-        <span class="star-icon">★★★★</span><span class="star-empty">★</span>
-        <span style="margin-left:4px">4 & acima</span>
-      </button>
-      <button class="star-btn" onclick="setStars(4.5,this)">
-        <span class="star-icon">★★★★★</span>
-        <span style="margin-left:4px">4.5 & acima</span>
-      </button>
-    </div>
-
-    <button class="sidebar-clear" onclick="clearFilters()">Limpar filtros</button>
-  </aside>
-
-  <!-- MAIN -->
-  <section class="main-content">
-    <div class="main-header">
-      <div class="main-title-row">
-        <h1 class="main-title">Marketplace de Ofertas</h1>
-        <div class="tab-group">
-          <button class="tab-btn active" onclick="setTab('trending',this)">Trending</button>
-          <button class="tab-btn" onclick="setTab('recent',this)">Recentes</button>
-        </div>
-      </div>
-      <div class="search-sort-row">
-        <div class="main-search">
-          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input type="text" id="mainSearch" placeholder="Buscar produtos, marcas ou categorias...">
-        </div>
-        <span class="sort-label">Ordenar por:</span>
-        <select class="sort-select" id="sortSel">
-          <option value="discount">Mais Desconto</option>
-          <option value="price-asc">Preço: Menor ao Maior</option>
-          <option value="price-desc">Preço: Maior ao Menor</option>
-          <option value="rating">Melhor Avaliação</option>
-          <option value="name">Nome A–Z</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="results-count" id="resultsCount"></div>
-    <div class="products-grid" id="productsGrid"></div>
-    <div class="pagination" id="pagination"></div>
-  </section>
 </div>
-
-<!-- MODAL -->
-<div class="modal-bg" id="modalBg" onclick="maybeClose(event)">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal()">×</button>
-    <div class="modal-grid">
-      <div class="modal-img-panel"><img id="mImg" src="" alt=""></div>
-      <div class="modal-info">
-        <div class="modal-cat" id="mCat"></div>
-        <div class="modal-name" id="mName"></div>
-        <div class="modal-desc" id="mDesc"></div>
-        <div id="mLowest"></div>
-        <div class="modal-price-row">
-          <span class="modal-disc" id="mDisc"></span>
-          <span class="modal-price" id="mPrice"></span>
-        </div>
-        <div class="modal-old" id="mOld"></div>
-        <div class="modal-install" id="mInstall"></div>
-        <div class="modal-feats" id="mFeats"></div>
-        <a class="modal-btn" id="mBtn" href="#" target="_blank" rel="nofollow noopener">
-          Ver na Amazon
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
 </div>
 
 <!-- TOAST -->
@@ -671,7 +570,7 @@ footer{
 <footer>
   <div class="footer-grid">
     <div>
-      <div class="footer-brand-name"><a href="index.html" aria-label="PromoClub"><svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" height="28" aria-label="PromoClub">
+      <div class="footer-brand-name"><a href="index.html"><svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" height="28" aria-label="PromoClub">
   <defs>
     <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#c9a84c"/>
@@ -699,31 +598,13 @@ footer{
 </svg></a></div>
       <div class="footer-brand-desc">Promoções, cupons e ofertas da Amazon, Shopee, Hinode e mais. Economize todos os dias.</div>
       <div class="footer-social-row">
-        <a href="https://t.me/carvapromoclub" target="_blank" class="footer-social-btn" aria-label="Telegram">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-        </a>
-        <a href="https://www.instagram.com/carvapromoclub/" target="_blank" class="footer-social-btn" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#e1306c" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg>
-        </a>
+        <a href="https://t.me/carvapromoclub" target="_blank" class="footer-social-btn" aria-label="Telegram"><svg viewBox="0 0 24 24" width="12" height="12" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
+        <a href="https://www.instagram.com/carvapromoclub/" target="_blank" class="footer-social-btn" aria-label="Instagram"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#e1306c" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg></a>
       </div>
     </div>
-    <div class="footer-col">
-      <h5>Navegação</h5>
-      <a href="index.html">Home</a>
-      <a href="ofertas.html">Ofertas</a>
-      <a href="cupons.html">Cupons</a>
-    </div>
-    <div class="footer-col">
-      <h5>Parceiros</h5>
-      <a href="https://www.amazon.com.br?tag=carva00-20" target="_blank" rel="nofollow">Amazon</a>
-      <a href="https://www.hinode.com.br/?id_consultor=76173688" target="_blank" rel="nofollow">Hinode</a>
-    </div>
-    <div class="footer-col">
-      <h5>Legal</h5>
-      <a href="#">Política de privacidade</a>
-      <a href="#">Termos de uso</a>
-      <a href="#">Afiliados</a>
-    </div>
+    <div class="footer-col"><h5>Navegação</h5><a href="index.html">Home</a><a href="ofertas.html">Ofertas</a><a href="cupons.html">Cupons</a></div>
+    <div class="footer-col"><h5>Parceiros</h5><a href="https://www.amazon.com.br?tag=carva00-20" target="_blank" rel="nofollow">Amazon</a><a href="https://www.hinode.com.br/?id_consultor=76173688" target="_blank" rel="nofollow">Hinode</a></div>
+    <div class="footer-col"><h5>Legal</h5><a href="#">Privacidade</a><a href="#">Termos</a><a href="#">Afiliados</a></div>
   </div>
   <div class="footer-bottom">
     <p class="footer-note">Este site participa de programas de afiliados. Somos remunerados por indicações qualificadas, sem custo adicional para você.</p>

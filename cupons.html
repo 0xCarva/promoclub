@@ -337,44 +337,68 @@ footer{
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <div class="nav-logo-icon">P</div>
-      Promo<span class="nav-logo-accent">Club</span>
-    </a>
-    <a href="index.html" class="nav-back">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      Voltar às ofertas
-    </a>
+    <a href="index.html" class="logo" aria-label="PromoClub"><svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" height="32" aria-label="PromoClub">
+  <defs>
+    <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c9a84c"/>
+      <stop offset="40%" stop-color="#f5d078"/>
+      <stop offset="70%" stop-color="#e8b84b"/>
+      <stop offset="100%" stop-color="#c9a84c"/>
+    </linearGradient>
+    <linearGradient id="ll" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#f5d078" stop-opacity="1"/>
+      <stop offset="70%" stop-color="#f5d078" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <line x1="4" y1="14" x2="196" y2="14" stroke="url(#ll)" stroke-width="0.7"/>
+  <g transform="translate(172,2) scale(0.85)">
+    <circle cx="6" cy="4" r="2" fill="none" stroke="url(#lg)" stroke-width="1"/>
+    <path d="M2 7 L0 15 L12 15 L14 7 Z" fill="none" stroke="url(#lg)" stroke-width="1" stroke-linejoin="round"/>
+    <circle cx="7" cy="11" r="1.2" fill="url(#lg)"/>
+  </g>
+  <text x="100" y="34" font-family="Inter,'Arial Black',sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#lg)">PROMO</text>
+  <line x1="4" y1="42" x2="54" y2="42" stroke="url(#ll)" stroke-width="0.7"/>
+  <line x1="146" y1="42" x2="196" y2="42" stroke="url(#ll)" stroke-width="0.7"/>
+  <text x="100" y="50" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#lg)">CLUB</text>
+</svg></a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-a">Home</a>
+      <a href="ofertas.html" class="nav-a">Ofertas</a>
+      <a href="cupons.html" class="nav-a on">Cupons</a>
+    </div>
+    <div class="nav-search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input id="searchInput" type="text" placeholder="Buscar ofertas e cupons...">
+    </div>
+    <div class="nav-end">
+      <a href="https://www.instagram.com/carvapromoclub/" target="_blank" rel="noopener" class="nav-social" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="#e1306c" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="#e1306c" stroke="none"/></svg></a>
+      <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener" class="nav-social" aria-label="Telegram"><svg viewBox="0 0 24 24" width="14" height="14" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
+      <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener" class="nav-cta">Entrar no grupo</a>
+    </div>
+    <button class="hamburger" onclick="openDrawer()" aria-label="Menu">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
   </div>
 </nav>
-
-<section class="hero">
-  <div class="hero-inner">
-    <div>
-      <div class="hero-eyebrow"><span class="hero-pulse"></span>Verificados hoje</div>
-      <h1>Cupons e códigos<br><em>que funcionam</em></h1>
-      <p class="hero-sub">Coletamos, testamos e organizamos os melhores cupons da Amazon. Copie o código, cole no checkout e economize de verdade.</p>
-      <div class="hero-notice">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        Verificados em <strong>28/05/2025</strong>. Cupons podem expirar — confira antes de usar.
-      </div>
+<div class="drawer" id="drawer">
+  <div class="drawer-bg" onclick="closeDrawer()"></div>
+  <div class="drawer-panel">
+    <button class="drawer-close" onclick="closeDrawer()">×</button>
+    <a href="index.html" class="drawer-a">Home</a>
+    <a href="ofertas.html" class="drawer-a">Ofertas</a>
+    <a href="cupons.html" class="drawer-a on">Cupons</a>
+    <div class="drawer-divider"></div>
+    <div class="drawer-social">
+      <a href="https://t.me/carvapromoclub" target="_blank" class="drawer-social-btn"><svg viewBox="0 0 24 24" width="14" height="14" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg> Telegram</a>
+      <a href="https://www.instagram.com/carvapromoclub/" target="_blank" class="drawer-social-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#e1306c" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="#e1306c" stroke="none"/></svg> Instagram</a>
     </div>
-    <div class="hero-stats-cards">
-      <div class="hero-stat-card">
-        <div class="hero-stat-card-num" id="statAtivos">0</div>
-        <div class="hero-stat-card-lbl">cupons ativos</div>
-      </div>
-      <div class="hero-stat-card">
-        <div class="hero-stat-card-num"><span>R$250</span></div>
-        <div class="hero-stat-card-lbl">maior desconto</div>
-      </div>
-      <div class="hero-stat-card">
-        <div class="hero-stat-card-num" id="statUsos">0</div>
-        <div class="hero-stat-card-lbl">usados hoje</div>
-      </div>
+    <div style="padding:8px 12px">
+      <a href="https://t.me/carvapromoclub" target="_blank" class="nav-cta" style="display:flex;justify-content:center;padding:11px">Entrar no grupo grátis</a>
     </div>
   </div>
-</section>
+</div>
 
 <div class="page">
 
@@ -435,7 +459,7 @@ footer{
 <footer>
   <div class="footer-grid">
     <div>
-      <div class="footer-brand-name"><a href="index.html" aria-label="PromoClub"><svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" height="28" aria-label="PromoClub">
+      <div class="footer-brand-name"><a href="index.html"><svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" height="28" aria-label="PromoClub">
   <defs>
     <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#c9a84c"/>
@@ -463,31 +487,13 @@ footer{
 </svg></a></div>
       <div class="footer-brand-desc">Promoções, cupons e ofertas da Amazon, Shopee, Hinode e mais. Economize todos os dias.</div>
       <div class="footer-social-row">
-        <a href="https://t.me/carvapromoclub" target="_blank" class="footer-social-btn" aria-label="Telegram">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-        </a>
-        <a href="https://www.instagram.com/carvapromoclub/" target="_blank" class="footer-social-btn" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#e1306c" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg>
-        </a>
+        <a href="https://t.me/carvapromoclub" target="_blank" class="footer-social-btn" aria-label="Telegram"><svg viewBox="0 0 24 24" width="12" height="12" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
+        <a href="https://www.instagram.com/carvapromoclub/" target="_blank" class="footer-social-btn" aria-label="Instagram"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#e1306c" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg></a>
       </div>
     </div>
-    <div class="footer-col">
-      <h5>Navegação</h5>
-      <a href="index.html">Home</a>
-      <a href="ofertas.html">Ofertas</a>
-      <a href="cupons.html">Cupons</a>
-    </div>
-    <div class="footer-col">
-      <h5>Parceiros</h5>
-      <a href="https://www.amazon.com.br?tag=carva00-20" target="_blank" rel="nofollow">Amazon</a>
-      <a href="https://www.hinode.com.br/?id_consultor=76173688" target="_blank" rel="nofollow">Hinode</a>
-    </div>
-    <div class="footer-col">
-      <h5>Legal</h5>
-      <a href="#">Política de privacidade</a>
-      <a href="#">Termos de uso</a>
-      <a href="#">Afiliados</a>
-    </div>
+    <div class="footer-col"><h5>Navegação</h5><a href="index.html">Home</a><a href="ofertas.html">Ofertas</a><a href="cupons.html">Cupons</a></div>
+    <div class="footer-col"><h5>Parceiros</h5><a href="https://www.amazon.com.br?tag=carva00-20" target="_blank" rel="nofollow">Amazon</a><a href="https://www.hinode.com.br/?id_consultor=76173688" target="_blank" rel="nofollow">Hinode</a></div>
+    <div class="footer-col"><h5>Legal</h5><a href="#">Privacidade</a><a href="#">Termos</a><a href="#">Afiliados</a></div>
   </div>
   <div class="footer-bottom">
     <p class="footer-note">Este site participa de programas de afiliados. Somos remunerados por indicações qualificadas, sem custo adicional para você.</p>
