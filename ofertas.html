@@ -4,12 +4,13 @@
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Todas as ofertas com filtros por loja, categoria e desconto. Amazon, Shopee, Hinode.">
+<meta name="description" content="Todas as ofertas com filtros por loja, categoria e desconto.">
 <title>Ofertas — PromoClub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:15px}
 body{font-family:'Inter',-apple-system,sans-serif;background:#0b1326;color:#dae2fd;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -470,38 +471,38 @@ footer{
 /* footer brand */
 .footer-brand-name { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
 
+
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="logo" aria-label="PromoClub"><svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" height="32" aria-label="PromoClub">
   <defs>
-    <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="lg-ofr" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#c9a84c"/>
       <stop offset="40%" stop-color="#f5d078"/>
       <stop offset="70%" stop-color="#e8b84b"/>
       <stop offset="100%" stop-color="#c9a84c"/>
     </linearGradient>
-    <linearGradient id="ll" x1="0%" y1="0%" x2="100%" y2="0%">
+    <linearGradient id="ll-ofr" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/>
       <stop offset="30%" stop-color="#f5d078" stop-opacity="1"/>
       <stop offset="70%" stop-color="#f5d078" stop-opacity="1"/>
       <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
     </linearGradient>
   </defs>
-  <line x1="4" y1="14" x2="196" y2="14" stroke="url(#ll)" stroke-width="0.7"/>
+  <line x1="4" y1="14" x2="196" y2="14" stroke="url(#ll-ofr)" stroke-width="0.7"/>
   <g transform="translate(172,2) scale(0.85)">
-    <circle cx="6" cy="4" r="2" fill="none" stroke="url(#lg)" stroke-width="1"/>
-    <path d="M2 7 L0 15 L12 15 L14 7 Z" fill="none" stroke="url(#lg)" stroke-width="1" stroke-linejoin="round"/>
-    <circle cx="7" cy="11" r="1.2" fill="url(#lg)"/>
+    <circle cx="6" cy="4" r="2" fill="none" stroke="url(#lg-ofr)" stroke-width="1"/>
+    <path d="M2 7 L0 15 L12 15 L14 7 Z" fill="none" stroke="url(#lg-ofr)" stroke-width="1" stroke-linejoin="round"/>
+    <circle cx="7" cy="11" r="1.2" fill="url(#lg-ofr)"/>
   </g>
-  <text x="100" y="34" font-family="Inter,'Arial Black',sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#lg)">PROMO</text>
-  <line x1="4" y1="42" x2="54" y2="42" stroke="url(#ll)" stroke-width="0.7"/>
-  <line x1="146" y1="42" x2="196" y2="42" stroke="url(#ll)" stroke-width="0.7"/>
-  <text x="100" y="50" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#lg)">CLUB</text>
+  <text x="100" y="34" font-family="Inter,'Arial Black',sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#lg-ofr)">PROMO</text>
+  <line x1="4" y1="42" x2="54" y2="42" stroke="url(#ll-ofr)" stroke-width="0.7"/>
+  <line x1="146" y1="42" x2="196" y2="42" stroke="url(#ll-ofr)" stroke-width="0.7"/>
+  <text x="100" y="50" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#lg-ofr)">CLUB</text>
 </svg></a>
     <div class="nav-links">
       <a href="index.html" class="nav-a">Home</a>
@@ -513,7 +514,7 @@ footer{
       <input id="searchInput" type="text" placeholder="Buscar ofertas e cupons...">
     </div>
     <div class="nav-end">
-      <a href="https://www.instagram.com/carvapromoclub/" target="_blank" rel="noopener" class="nav-social" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="#e1306c" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="#e1306c" stroke="none"/></svg></a>
+      <a href="https://www.instagram.com/carvapromoclub/" target="_blank" rel="noopener" class="nav-social" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="#e1306c" stroke-width="1.8" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c"/><circle cx="12" cy="12" r="5" stroke="#e1306c"/><circle cx="17.5" cy="6.5" r="1.5" fill="#e1306c" stroke="none"/></svg></a>
       <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener" class="nav-social" aria-label="Telegram"><svg viewBox="0 0 24 24" width="14" height="14" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
       <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener" class="nav-cta">Entrar no grupo</a>
     </div>
@@ -532,7 +533,7 @@ footer{
     <div class="drawer-divider"></div>
     <div class="drawer-social">
       <a href="https://t.me/carvapromoclub" target="_blank" class="drawer-social-btn"><svg viewBox="0 0 24 24" width="14" height="14" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg> Telegram</a>
-      <a href="https://www.instagram.com/carvapromoclub/" target="_blank" class="drawer-social-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#e1306c" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="#e1306c" stroke="none"/></svg> Instagram</a>
+      <a href="https://www.instagram.com/carvapromoclub/" target="_blank" class="drawer-social-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#e1306c" stroke-width="1.8" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c"/><circle cx="12" cy="12" r="5" stroke="#e1306c"/><circle cx="17.5" cy="6.5" r="1.5" fill="#e1306c" stroke="none"/></svg> Instagram</a>
     </div>
     <div style="padding:8px 12px">
       <a href="https://t.me/carvapromoclub" target="_blank" class="nav-cta" style="display:flex;justify-content:center;padding:11px">Entrar no grupo grátis</a>
@@ -572,29 +573,29 @@ footer{
     <div>
       <div class="footer-brand-name"><a href="index.html"><svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" height="28" aria-label="PromoClub">
   <defs>
-    <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="lg-ofrf" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#c9a84c"/>
       <stop offset="40%" stop-color="#f5d078"/>
       <stop offset="70%" stop-color="#e8b84b"/>
       <stop offset="100%" stop-color="#c9a84c"/>
     </linearGradient>
-    <linearGradient id="ll" x1="0%" y1="0%" x2="100%" y2="0%">
+    <linearGradient id="ll-ofrf" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/>
       <stop offset="30%" stop-color="#f5d078" stop-opacity="1"/>
       <stop offset="70%" stop-color="#f5d078" stop-opacity="1"/>
       <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
     </linearGradient>
   </defs>
-  <line x1="4" y1="14" x2="196" y2="14" stroke="url(#ll)" stroke-width="0.7"/>
+  <line x1="4" y1="14" x2="196" y2="14" stroke="url(#ll-ofrf)" stroke-width="0.7"/>
   <g transform="translate(172,2) scale(0.85)">
-    <circle cx="6" cy="4" r="2" fill="none" stroke="url(#lg)" stroke-width="1"/>
-    <path d="M2 7 L0 15 L12 15 L14 7 Z" fill="none" stroke="url(#lg)" stroke-width="1" stroke-linejoin="round"/>
-    <circle cx="7" cy="11" r="1.2" fill="url(#lg)"/>
+    <circle cx="6" cy="4" r="2" fill="none" stroke="url(#lg-ofrf)" stroke-width="1"/>
+    <path d="M2 7 L0 15 L12 15 L14 7 Z" fill="none" stroke="url(#lg-ofrf)" stroke-width="1" stroke-linejoin="round"/>
+    <circle cx="7" cy="11" r="1.2" fill="url(#lg-ofrf)"/>
   </g>
-  <text x="100" y="34" font-family="Inter,'Arial Black',sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#lg)">PROMO</text>
-  <line x1="4" y1="42" x2="54" y2="42" stroke="url(#ll)" stroke-width="0.7"/>
-  <line x1="146" y1="42" x2="196" y2="42" stroke="url(#ll)" stroke-width="0.7"/>
-  <text x="100" y="50" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#lg)">CLUB</text>
+  <text x="100" y="34" font-family="Inter,'Arial Black',sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#lg-ofrf)">PROMO</text>
+  <line x1="4" y1="42" x2="54" y2="42" stroke="url(#ll-ofrf)" stroke-width="0.7"/>
+  <line x1="146" y1="42" x2="196" y2="42" stroke="url(#ll-ofrf)" stroke-width="0.7"/>
+  <text x="100" y="50" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#lg-ofrf)">CLUB</text>
 </svg></a></div>
       <div class="footer-brand-desc">Promoções, cupons e ofertas da Amazon, Shopee, Hinode e mais. Economize todos os dias.</div>
       <div class="footer-social-row">
@@ -616,6 +617,64 @@ footer{
 // ── INLINE PRODUTOS ──────────────────────────────────────
 // (copiado do produtos.js — mantenha sincronizado)
 const AFILIADO_TAG = 'carva00-20';
+
+// ── PRODUTOS.JSON LOADER ─────────────────────────────────
+// Lê produtos.json do servidor e mapeia para o formato interno
+// Campos suportados no JSON:
+//   title, price, asin, image, loja, categoria, desconto,
+//   preco_de, menor_preco, menor_preco_30, badge,
+//   avaliacao, avaliacoes, parcelamento, estoque, descricao, features
+
+function buildAmazonLink(asin) {
+  return `https://www.amazon.com.br/dp/${asin}?tag=carva00-20&linkCode=ll2`;
+}
+
+function parsePrice(str) {
+  if (!str) return 0;
+  // Handle "R$ 41,88R$41,88" — pick first value
+  const match = str.match(/[\d]+,[\d]{2}/);
+  return match ? parseFloat(match[0].replace(',', '.')) : 0;
+}
+
+function mapJsonProduct(p, index) {
+  const asin = p.asin || p.id || ('json-' + index);
+  return {
+    id:            p.id || asin,
+    nome:          p.title || p.nome || 'Produto',
+    loja:          p.loja || 'Amazon',
+    categoria:     p.categoria || p.category || 'Geral',
+    menor_preco:   p.menor_preco || false,
+    menor_preco_30:p.menor_preco_30 || false,
+    preco_de:      p.preco_de || p.original_price || '',
+    preco_por:     p.price || p.preco_por || '',
+    desconto:      p.desconto || p.discount || '',
+    avaliacao:     p.avaliacao || p.rating || 4.5,
+    avaliacoes:    p.avaliacoes || p.reviews || '0',
+    badge:         p.badge || (p.desconto ? 'hot' : ''),
+    estoque:       p.estoque || '',
+    parcelamento:  p.parcelamento || '',
+    link:          p.link || (p.asin ? buildAmazonLink(p.asin) : '#'),
+    imagem:        p.image || p.imagem || '',
+    descricao:     p.descricao || p.description || '',
+    features:      p.features || [],
+    destaque:      p.destaque || false,
+  };
+}
+
+async function loadProdutosJson() {
+  try {
+    const res = await fetch('produtos.json');
+    if (!res.ok) return [];
+    const data = await res.json();
+    // Suporta array direto ou { produtos: [...] }
+    const list = Array.isArray(data) ? data : (data.produtos || data.products || []);
+    return list.map(mapJsonProduct);
+  } catch(e) {
+    console.warn('[PromoClub] produtos.json não encontrado ou inválido:', e.message);
+    return [];
+  }
+}
+
 
 const PRODUTOS = [
   {
@@ -973,7 +1032,17 @@ const PER_PAGE = 12;
 let currentPage = 1;
 
 // ── BOOT ─────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Merge inline PRODUTOS with produtos.json
+  try {
+    const jsonProds = await loadProdutosJson();
+    if (jsonProds.length > 0) {
+      // Add JSON products, skip duplicates by id
+      const existingIds = new Set(PRODUTOS.map(p => p.id));
+      jsonProds.forEach(p => { if (!existingIds.has(p.id)) PRODUTOS.push(p); });
+      console.log('[PromoClub] +' + jsonProds.length + ' produtos do JSON | total: ' + PRODUTOS.length);
+    }
+  } catch(e) {}
   render();
   document.getElementById('sortSel').addEventListener('change', e => { sortBy = e.target.value; currentPage = 1; render(); });
   document.getElementById('mainSearch').addEventListener('input', e => { query = e.target.value.toLowerCase(); currentPage = 1; render(); });
@@ -1186,5 +1255,140 @@ function toast(msg) {
   _tt=setTimeout(()=>el.classList.remove('show'),3000);
 }
 </script>
+</body>
+</html>
+
+<div class="toast" id="toast"></div>
+
+<div class="page-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Lojas</div>
+      <label class="sidebar-check" onclick="toggleCat('Amazon',this)"><input type="checkbox"><span>Amazon</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Shopee',this)"><input type="checkbox"><span>Shopee</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Hinode',this)"><input type="checkbox"><span>Hinode</span></label>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Categorias</div>
+      <label class="sidebar-check" onclick="toggleCat('Eletrônicos',this)"><input type="checkbox"><span>Eletrônicos</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Informática',this)"><input type="checkbox"><span>Informática</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Casa',this)"><input type="checkbox"><span>Casa</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Cozinha',this)"><input type="checkbox"><span>Cozinha</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Esportes',this)"><input type="checkbox"><span>Esportes</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Beleza',this)"><input type="checkbox"><span>Beleza</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Games',this)"><input type="checkbox"><span>Games</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Moda',this)"><input type="checkbox"><span>Moda</span></label>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Desconto mínimo</div>
+      <input type="range" class="sidebar-range" min="0" max="90" step="5" value="0" id="discRange" oninput="updateRange(this)">
+      <div class="range-labels"><span>0%</span><span>90%</span></div>
+      <div class="range-value" id="rangeVal">0% ou mais</div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Avaliação mínima</div>
+      <button class="star-btn" onclick="setStars(4,this)"><span class="star-icon">★★★★</span><span class="star-empty">★</span><span style="margin-left:4px">4+ estrelas</span></button>
+      <button class="star-btn" onclick="setStars(4.5,this)"><span class="star-icon">★★★★★</span><span style="margin-left:4px">4.5+ estrelas</span></button>
+    </div>
+    <button class="sidebar-clear" onclick="clearFilters()">Limpar filtros</button>
+  </aside>
+
+  <section class="main-content">
+    <div class="main-header">
+      <div class="main-title-row">
+        <h1 class="main-title">Marketplace de Ofertas</h1>
+        <div class="tab-group">
+          <button class="tab-btn active" onclick="setTab('trending',this)">Trending</button>
+          <button class="tab-btn" onclick="setTab('recent',this)">Recentes</button>
+        </div>
+      </div>
+      <div class="search-sort-row">
+        <div class="main-search">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="mainSearch" placeholder="Buscar produtos, marcas ou categorias...">
+        </div>
+        <span class="sort-label">Ordenar por:</span>
+        <select class="sort-select" id="sortSel">
+          <option value="discount">Mais Desconto</option>
+          <option value="price-asc">Menor Preço</option>
+          <option value="price-desc">Maior Preço</option>
+          <option value="rating">Melhor Avaliação</option>
+          <option value="name">Nome A–Z</option>
+        </select>
+      </div>
+    </div>
+    <div class="results-count" id="resultsCount"></div>
+    <div class="products-grid" id="productsGrid"></div>
+    <div class="pagination" id="pagination"></div>
+  </section>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg" onclick="maybeClose(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-grid">
+      <div class="modal-img-panel"><img id="mImg" src="" alt=""></div>
+      <div class="modal-info">
+        <div class="modal-cat" id="mCat"></div>
+        <div class="modal-name" id="mName"></div>
+        <div class="modal-desc" id="mDesc"></div>
+        <div id="mLowest"></div>
+        <div class="modal-price-row"><span class="modal-disc" id="mDisc"></span><span class="modal-price" id="mPrice"></span></div>
+        <div class="modal-price-old" id="mOld"></div>
+        <div class="modal-install" id="mInstall"></div>
+        <div class="modal-feats" id="mFeats"></div>
+        <a class="modal-btn p-btn" id="mBtn" href="#" target="_blank" rel="nofollow noopener">Ver na loja</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name"><a href="index.html"><svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" height="28" aria-label="PromoClub">
+  <defs>
+    <linearGradient id="lg-ofrf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c9a84c"/>
+      <stop offset="40%" stop-color="#f5d078"/>
+      <stop offset="70%" stop-color="#e8b84b"/>
+      <stop offset="100%" stop-color="#c9a84c"/>
+    </linearGradient>
+    <linearGradient id="ll-ofrf" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#f5d078" stop-opacity="1"/>
+      <stop offset="70%" stop-color="#f5d078" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <line x1="4" y1="14" x2="196" y2="14" stroke="url(#ll-ofrf)" stroke-width="0.7"/>
+  <g transform="translate(172,2) scale(0.85)">
+    <circle cx="6" cy="4" r="2" fill="none" stroke="url(#lg-ofrf)" stroke-width="1"/>
+    <path d="M2 7 L0 15 L12 15 L14 7 Z" fill="none" stroke="url(#lg-ofrf)" stroke-width="1" stroke-linejoin="round"/>
+    <circle cx="7" cy="11" r="1.2" fill="url(#lg-ofrf)"/>
+  </g>
+  <text x="100" y="34" font-family="Inter,'Arial Black',sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#lg-ofrf)">PROMO</text>
+  <line x1="4" y1="42" x2="54" y2="42" stroke="url(#ll-ofrf)" stroke-width="0.7"/>
+  <line x1="146" y1="42" x2="196" y2="42" stroke="url(#ll-ofrf)" stroke-width="0.7"/>
+  <text x="100" y="50" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#lg-ofrf)">CLUB</text>
+</svg></a></div>
+      <div class="footer-brand-desc">Promoções, cupons e ofertas da Amazon, Shopee, Hinode e mais. Economize todos os dias.</div>
+      <div class="footer-social-row">
+        <a href="https://t.me/carvapromoclub" target="_blank" class="footer-social-btn" aria-label="Telegram"><svg viewBox="0 0 24 24" width="12" height="12" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
+        <a href="https://www.instagram.com/carvapromoclub/" target="_blank" class="footer-social-btn" aria-label="Instagram"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#e1306c" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col"><h5>Navegação</h5><a href="index.html">Home</a><a href="ofertas.html">Ofertas</a><a href="cupons.html">Cupons</a></div>
+    <div class="footer-col"><h5>Parceiros</h5><a href="https://www.amazon.com.br?tag=carva00-20" target="_blank" rel="nofollow">Amazon</a><a href="https://www.hinode.com.br/?id_consultor=76173688" target="_blank" rel="nofollow">Hinode</a></div>
+    <div class="footer-col"><h5>Legal</h5><a href="#">Privacidade</a><a href="#">Termos</a><a href="#">Afiliados</a></div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-note">Este site participa de programas de afiliados. Somos remunerados por indicações qualificadas, sem custo adicional para você.</p>
+    <span class="footer-copy">© 2025 PromoClub · carvapromoclub@gmail.com</span>
+  </div>
+</footer>
+
+
 </body>
 </html>
