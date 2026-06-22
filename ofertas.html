@@ -1033,16 +1033,20 @@ let currentPage = 1;
 
 // ── BOOT ─────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
-  // Merge inline PRODUTOS with produtos.json
+  // produtos.json é fonte de verdade
+  // Se o JSON carregar com produtos, substitui tudo; senão mantém inline como fallback
   try {
     const jsonProds = await loadProdutosJson();
     if (jsonProds.length > 0) {
-      // Add JSON products, skip duplicates by id
-      const existingIds = new Set(PRODUTOS.map(p => p.id));
-      jsonProds.forEach(p => { if (!existingIds.has(p.id)) PRODUTOS.push(p); });
-      console.log('[PromoClub] +' + jsonProds.length + ' produtos do JSON | total: ' + PRODUTOS.length);
+      PRODUTOS.length = 0;
+      jsonProds.forEach(p => PRODUTOS.push(p));
+      console.log('[PromoClub] ' + PRODUTOS.length + ' produtos carregados do JSON');
+    } else {
+      console.warn('[PromoClub] JSON vazio ou ausente — usando produtos inline como fallback');
     }
-  } catch(e) {}
+  } catch(e) {
+    console.warn('[PromoClub] Erro ao carregar JSON:', e.message);
+  }
   render();
   document.getElementById('sortSel').addEventListener('change', e => { sortBy = e.target.value; currentPage = 1; render(); });
   document.getElementById('mainSearch').addEventListener('input', e => { query = e.target.value.toLowerCase(); currentPage = 1; render(); });
