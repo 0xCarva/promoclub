@@ -979,27 +979,35 @@ function parsePrice(str) {
 }
 
 function mapJsonProduct(p, index) {
-  const asin = p.asin || p.id || ('json-' + index);
+  const asin = p.asin || ('json-' + index);
+  const calcDiscount = () => {
+    if (p.discount || p.desconto) return p.discount || p.desconto;
+    const orig = parsePrice(p.original_price || p.preco_de);
+    const curr = parsePrice(p.price || p.preco_por);
+    if (orig > curr && orig > 0) return Math.round((orig - curr) / orig * 100) + '%';
+    return '';
+  };
   return {
-    id:            p.id || asin,
-    nome:          p.title || p.nome || 'Produto',
-    loja:          p.loja || 'Amazon',
-    categoria:     p.categoria || p.category || 'Geral',
-    menor_preco:   p.menor_preco || false,
-    menor_preco_30:p.menor_preco_30 || false,
-    preco_de:      p.preco_de || p.original_price || '',
-    preco_por:     p.price || p.preco_por || '',
-    desconto:      p.desconto || p.discount || '',
-    avaliacao:     p.avaliacao || p.rating || 4.5,
-    avaliacoes:    p.avaliacoes || p.reviews || '0',
-    badge:         p.badge || (p.desconto ? 'hot' : ''),
-    estoque:       p.estoque || '',
-    parcelamento:  p.parcelamento || '',
-    link:          p.link || (p.asin ? buildAmazonLink(p.asin) : '#'),
-    imagem:        p.image || p.imagem || '',
-    descricao:     p.descricao || p.description || '',
-    features:      p.features || [],
-    destaque:      p.destaque || false,
+    id:             p.id || asin,
+    nome:           p.title || p.nome || 'Produto',
+    loja:           p.loja || 'Amazon',
+    categoria:      p.categoria || p.category || 'Geral',
+    menor_preco:    p.menor_preco || false,
+    menor_preco_30: p.menor_preco_30 || false,
+    preco_de:       p.original_price || p.preco_de || '',
+    preco_por:      p.price || p.preco_por || '',
+    desconto:       calcDiscount(),
+    avaliacao:      parseFloat(p.rating || p.avaliacao) || 0,
+    avaliacoes:     String(p.reviews || p.avaliacoes || '0'),
+    badge:          p.badge || (parseFloat(p.discount||p.desconto)>=30 ? 'hot' : ''),
+    estoque:        p.stock_alert || p.estoque || '',
+    parcelamento:   p.installments || p.parcelamento || '',
+    link:           p.link || (p.asin ? buildAmazonLink(p.asin) : '#'),
+    imagem:         p.image || p.imagem || '',
+    descricao:      (p.description || p.descricao || '').substring(0, 300),
+    features:       p.features || [],
+    destaque:       p.destaque || false,
+    is_prime:       p.is_prime || false,
   };
 }
 

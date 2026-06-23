@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:15px}
 body{font-family:'Inter',-apple-system,sans-serif;background:#0b1326;color:#dae2fd;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -472,6 +473,7 @@ footer{
 .footer-brand-name { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
 
 
+
 </style>
 </head>
 <body>
@@ -523,6 +525,7 @@ footer{
     </button>
   </div>
 </nav>
+
 <div class="drawer" id="drawer">
   <div class="drawer-bg" onclick="closeDrawer()"></div>
   <div class="drawer-panel">
@@ -538,11 +541,7 @@ footer{
     <div style="padding:8px 12px">
       <a href="https://t.me/carvapromoclub" target="_blank" class="nav-cta" style="display:flex;justify-content:center;padding:11px">Entrar no grupo grátis</a>
     </div>
-  </div>
-</div>
-
-</div>
-</div>
+  
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
@@ -637,27 +636,35 @@ function parsePrice(str) {
 }
 
 function mapJsonProduct(p, index) {
-  const asin = p.asin || p.id || ('json-' + index);
+  const asin = p.asin || ('json-' + index);
+  const calcDiscount = () => {
+    if (p.discount || p.desconto) return p.discount || p.desconto;
+    const orig = parsePrice(p.original_price || p.preco_de);
+    const curr = parsePrice(p.price || p.preco_por);
+    if (orig > curr && orig > 0) return Math.round((orig - curr) / orig * 100) + '%';
+    return '';
+  };
   return {
-    id:            p.id || asin,
-    nome:          p.title || p.nome || 'Produto',
-    loja:          p.loja || 'Amazon',
-    categoria:     p.categoria || p.category || 'Geral',
-    menor_preco:   p.menor_preco || false,
-    menor_preco_30:p.menor_preco_30 || false,
-    preco_de:      p.preco_de || p.original_price || '',
-    preco_por:     p.price || p.preco_por || '',
-    desconto:      p.desconto || p.discount || '',
-    avaliacao:     p.avaliacao || p.rating || 4.5,
-    avaliacoes:    p.avaliacoes || p.reviews || '0',
-    badge:         p.badge || (p.desconto ? 'hot' : ''),
-    estoque:       p.estoque || '',
-    parcelamento:  p.parcelamento || '',
-    link:          p.link || (p.asin ? buildAmazonLink(p.asin) : '#'),
-    imagem:        p.image || p.imagem || '',
-    descricao:     p.descricao || p.description || '',
-    features:      p.features || [],
-    destaque:      p.destaque || false,
+    id:             p.id || asin,
+    nome:           p.title || p.nome || 'Produto',
+    loja:           p.loja || 'Amazon',
+    categoria:      p.categoria || p.category || 'Geral',
+    menor_preco:    p.menor_preco || false,
+    menor_preco_30: p.menor_preco_30 || false,
+    preco_de:       p.original_price || p.preco_de || '',
+    preco_por:      p.price || p.preco_por || '',
+    desconto:       calcDiscount(),
+    avaliacao:      parseFloat(p.rating || p.avaliacao) || 0,
+    avaliacoes:     String(p.reviews || p.avaliacoes || '0'),
+    badge:          p.badge || (parseFloat(p.discount||p.desconto)>=30 ? 'hot' : ''),
+    estoque:        p.stock_alert || p.estoque || '',
+    parcelamento:   p.installments || p.parcelamento || '',
+    link:           p.link || (p.asin ? buildAmazonLink(p.asin) : '#'),
+    imagem:         p.image || p.imagem || '',
+    descricao:      (p.description || p.descricao || '').substring(0, 300),
+    features:       p.features || [],
+    destaque:       p.destaque || false,
+    is_prime:       p.is_prime || false,
   };
 }
 
@@ -1346,6 +1353,107 @@ function toast(msg) {
       </div>
     </div>
   </div>
+
+<div class="toast" id="toast"></div>
+
+<div class="page-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Lojas</div>
+      <label class="sidebar-check" onclick="toggleCat('Amazon',this)"><input type="checkbox"><span>Amazon</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Shopee',this)"><input type="checkbox"><span>Shopee</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Hinode',this)"><input type="checkbox"><span>Hinode</span></label>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Categorias</div>
+      <label class="sidebar-check" onclick="toggleCat('Eletrônicos',this)"><input type="checkbox"><span>Eletrônicos</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Informática',this)"><input type="checkbox"><span>Informática</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Casa',this)"><input type="checkbox"><span>Casa</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Cozinha',this)"><input type="checkbox"><span>Cozinha</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Esportes',this)"><input type="checkbox"><span>Esportes</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Beleza',this)"><input type="checkbox"><span>Beleza</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Games',this)"><input type="checkbox"><span>Games</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Moda',this)"><input type="checkbox"><span>Moda</span></label>
+      <label class="sidebar-check" onclick="toggleCat('Alimentos',this)"><input type="checkbox"><span>Alimentos</span></label>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Desconto mínimo</div>
+      <input type="range" class="sidebar-range" min="0" max="90" step="5" value="0" id="discRange" oninput="updateRange(this)">
+      <div class="range-labels"><span>0%</span><span>90%</span></div>
+      <div class="range-value" id="rangeVal">0% ou mais</div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Avaliação mínima</div>
+      <button class="star-btn" onclick="setStars(4,this)"><span class="star-icon">★★★★</span><span class="star-empty">★</span><span style="margin-left:4px">4+ estrelas</span></button>
+      <button class="star-btn" onclick="setStars(4.5,this)"><span class="star-icon">★★★★★</span><span style="margin-left:4px">4.5+ estrelas</span></button>
+    </div>
+    <button class="sidebar-clear" onclick="clearFilters()">Limpar filtros</button>
+  </aside>
+
+  <section class="main-content">
+    <div class="main-header">
+      <div class="main-title-row">
+        <h1 class="main-title">Marketplace de Ofertas</h1>
+        <div class="tab-group">
+          <button class="tab-btn active" onclick="setTab('trending',this)">Trending</button>
+          <button class="tab-btn" onclick="setTab('recent',this)">Recentes</button>
+        </div>
+      </div>
+      <div class="search-sort-row">
+        <div class="main-search">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="mainSearch" placeholder="Buscar produtos, marcas ou categorias...">
+        </div>
+        <span class="sort-label">Ordenar por:</span>
+        <select class="sort-select" id="sortSel">
+          <option value="discount">Mais Desconto</option>
+          <option value="price-asc">Menor Preço</option>
+          <option value="price-desc">Maior Preço</option>
+          <option value="rating">Melhor Avaliação</option>
+          <option value="name">Nome A–Z</option>
+        </select>
+      </div>
+    </div>
+    <div class="results-count" id="resultsCount"></div>
+    <div class="products-grid" id="productsGrid"></div>
+    <div class="pagination" id="pagination"></div>
+  </section>
+</div>
+
+<nav class="bottom-nav">
+  <a href="index.html" class="bottom-nav-btn">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
+  </a>
+  <a href="ofertas.html" class="bottom-nav-btn active">
+    <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Ofertas
+  </a>
+  <a href="cupons.html" class="bottom-nav-btn">
+    <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Cupons
+  </a>
+  <a href="https://t.me/carvapromoclub" target="_blank" class="bottom-nav-btn">
+    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Grupo
+  </a>
+</nav>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg" onclick="maybeClose(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-grid">
+      <div class="modal-img-panel"><img id="mImg" src="" alt=""></div>
+      <div class="modal-info">
+        <div class="modal-cat" id="mCat"></div>
+        <div class="modal-name" id="mName"></div>
+        <div class="modal-desc" id="mDesc"></div>
+        <div id="mLowest"></div>
+        <div class="modal-price-row"><span class="modal-disc" id="mDisc"></span><span class="modal-price" id="mPrice"></span></div>
+        <div class="modal-price-old" id="mOld"></div>
+        <div class="modal-install" id="mInstall"></div>
+        <div class="modal-feats" id="mFeats"></div>
+        <a class="modal-btn p-btn" id="mBtn" href="#" target="_blank" rel="nofollow noopener">Ver na loja</a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <footer>
@@ -1393,6 +1501,661 @@ function toast(msg) {
   </div>
 </footer>
 
+<script>
 
+// ── INLINE PRODUTOS ──────────────────────────────────────
+// (copiado do produtos.js — mantenha sincronizado)
+const AFILIADO_TAG = 'carva00-20';
+
+// ── PRODUTOS.JSON LOADER ─────────────────────────────────
+// Lê produtos.json do servidor e mapeia para o formato interno
+// Campos suportados no JSON:
+//   title, price, asin, image, loja, categoria, desconto,
+//   preco_de, menor_preco, menor_preco_30, badge,
+//   avaliacao, avaliacoes, parcelamento, estoque, descricao, features
+
+function buildAmazonLink(asin) {
+  return `https://www.amazon.com.br/dp/${asin}?tag=carva00-20&linkCode=ll2`;
+}
+
+function parsePrice(str) {
+  if (!str) return 0;
+  // Handle "R$ 41,88R$41,88" — pick first value
+  const match = str.match(/[\d]+,[\d]{2}/);
+  return match ? parseFloat(match[0].replace(',', '.')) : 0;
+}
+
+function mapJsonProduct(p, index) {
+  const asin = p.asin || ('json-' + index);
+  const calcDiscount = () => {
+    if (p.discount || p.desconto) return p.discount || p.desconto;
+    const orig = parsePrice(p.original_price || p.preco_de);
+    const curr = parsePrice(p.price || p.preco_por);
+    if (orig > curr && orig > 0) return Math.round((orig - curr) / orig * 100) + '%';
+    return '';
+  };
+  return {
+    id:             p.id || asin,
+    nome:           p.title || p.nome || 'Produto',
+    loja:           p.loja || 'Amazon',
+    categoria:      p.categoria || p.category || 'Geral',
+    menor_preco:    p.menor_preco || false,
+    menor_preco_30: p.menor_preco_30 || false,
+    preco_de:       p.original_price || p.preco_de || '',
+    preco_por:      p.price || p.preco_por || '',
+    desconto:       calcDiscount(),
+    avaliacao:      parseFloat(p.rating || p.avaliacao) || 0,
+    avaliacoes:     String(p.reviews || p.avaliacoes || '0'),
+    badge:          p.badge || (parseFloat(p.discount||p.desconto)>=30 ? 'hot' : ''),
+    estoque:        p.stock_alert || p.estoque || '',
+    parcelamento:   p.installments || p.parcelamento || '',
+    link:           p.link || (p.asin ? buildAmazonLink(p.asin) : '#'),
+    imagem:         p.image || p.imagem || '',
+    descricao:      (p.description || p.descricao || '').substring(0, 300),
+    features:       p.features || [],
+    destaque:       p.destaque || false,
+    is_prime:       p.is_prime || false,
+  };
+}
+
+async function loadProdutosJson() {
+  try {
+    const res = await fetch('produtos.json');
+    if (!res.ok) return [];
+    const data = await res.json();
+    // Suporta array direto ou { produtos: [...] }
+    const list = Array.isArray(data) ? data : (data.produtos || data.products || []);
+    return list.map(mapJsonProduct);
+  } catch(e) {
+    console.warn('[PromoClub] produtos.json não encontrado ou inválido:', e.message);
+    return [];
+  }
+}
+
+
+const PRODUTOS = [
+  {
+    id: "tcl-32s5k-google-tv",
+    nome: "Smart TV TCL 32\" QLED Full HD Google TV Wi-Fi Bluetooth HDR10 Dolby Audio 32S5K",
+    categoria: "Eletrônicos",
+    menor_preco: false,
+    preco_de: "R$ 1.299,00",
+    preco_por: "R$ 1.048,10",
+    desconto: "19%",
+    avaliacao: 4.4,
+    avaliacoes: "88",
+    badge: "hot",
+    destaque: true,
+    estoque: "Mais de 500 vendidos esse mês",
+    parcelamento: "12x de R$ 87,37 sem juros",
+    link: "https://www.amazon.com.br/TCL-Polegadas-Bluetooth-Google-32S5K/dp/B0FTGL2XBC?linkCode=ll2&tag=carva00-20",
+    imagem: "https://m.media-amazon.com/images/I/61jW+tFc5DL._AC_SL1000_.jpg",
+    descricao: "Smart TV compacta com painel QLED Full HD, Google TV nativo com acesso a Netflix, YouTube e Disney+, Chromecast integrado, 20W RMS de som e design sem bordas.",
+    features: ["Tela QLED Full HD 32\" com HDR10 e Dolby Audio","Google TV — acesso à Play Store, YouTube, Netflix, Disney+","Chromecast e Miracast integrados","Wi-Fi, Bluetooth 5.0, 2x HDMI, 1x USB, LAN","20W RMS — som mais potente que TVs comuns de 32\""]
+  },
+  {
+    id: "apple-b0fqhgm3b1-iphone",
+    nome: "Apple iPhone 17 Pro Max (1 TB) — Laranja cósmico",
+    categoria: "Eletrônicos",
+    menor_preco: true,
+    preco_de: "R$ 15.499,00",
+    preco_por: "R$ 11.789,10",
+    desconto: "24%",
+    avaliacao: 4.4,
+    avaliacoes: "88",
+    badge: "hot",
+    destaque: true,
+    estoque: "Mais de 500 vendidos esse mês",
+    parcelamento: "12x de R$ 1.091,62 sem juros",
+    link: "https://www.amazon.com.br/Apple-iPhone-17-Pro-Max/dp/B0FQHGM3B1?linkCode=ll2&tag=carva00-20",
+    imagem: "https://m.media-amazon.com/images/I/51k0qRQFcuL._AC_SL1000_.jpg",
+    descricao: "O iPhone 17 Pro Max é o smartphone mais avançado da Apple em 2025, com chip A19 Pro, câmera tripla 48MP, tela Super Retina XDR 6,9\" ProMotion 120Hz e bateria recorde.",
+    features: ["Tela 6,9\" Super Retina XDR OLED ProMotion 1-120Hz","Chip A19 Pro (3nm) — até 40% mais rápido","12 GB RAM | até 2 TB de armazenamento","Câmeras 48MP Principal + Ultra-wide + Telefoto","iOS 26, IP68, Face ID, Wi-Fi 7, USB-C 3.2"]
+  },
+  {
+    id: "aoc-25g3zm-monitor",
+    nome: "Monitor Gamer AOC Destiny 24,5 Polegadas 25G3ZM",
+    categoria: "Informática",
+    menor_preco: true,
+    preco_de: "R$ 1.799,00",
+    preco_por: "R$ 999,00",
+    desconto: "44%",
+    avaliacao: 4.4,
+    avaliacoes: "1.358",
+    badge: "hot",
+    destaque: true,
+    estoque: "Mais de 100 compras no mês passado",
+    parcelamento: "12x de R$ 83,25 sem juros",
+    link: "https://www.amazon.com.br/Monitor-AOC-DESTINY-FreeSync-25G3ZM/dp/B0CJ9NVNW6?linkCode=ll2&tag=carva00-20",
+    imagem: "https://m.media-amazon.com/images/I/61aBgNvGk0L._AC_SL1000_.jpg",
+    descricao: "Monitor Gamer AOC 240Hz com painel IPS 0,5ms, AMD FreeSync Premium, resolução Full HD e design sem bordas para imersão total.",
+    features: ["240Hz de taxa de atualização","0,5ms de tempo de resposta","AMD FreeSync Premium","Resolução Full HD 1920x1080","Flicker Free e Low Blue Light"]
+  },
+
+  {
+    id: "iphone-16-128gb-rosa",
+    nome: "Apple iPhone 16 (128 GB) - Rosa",
+    categoria: "Eletrônicos",
+    menor_preco_30: false,
+    menor_preco: false,
+    preco_de: "R$ 6.799,00",
+    preco_por: "R$ 4.589,00",
+    desconto: "25%",
+    avaliacao: 4.8,
+    avaliacoes: "",
+    badge: "hot",
+    destaque: true,
+    estoque: "Cupom SMART250 sujeito a elegibilidade",
+    parcelamento: "12x de R$ 424,99 sem juros",
+    link: "https://www.amazon.com.br/dp/B0DJFT8HZC?tag=carva00-20",
+    imagem: "https://m.media-amazon.com/images/I/71Z-rd+PWgL._AC_SX679_.jpg",
+    descricao: "iPhone 16 com 128 GB, tela Super Retina XDR, chip A18, USB-C e sistema de cameras avancado. Oferta premium para quem busca smartphone Apple atual com desconto e cupom elegivel.",
+    features: [
+      "Tela Super Retina XDR",
+      "Chip A18",
+      "Camera avancada",
+      "USB-C",
+      "Cupom SMART250 visto, se elegivel"
+    ]
+  },
+
+  {
+    id: "havit-fuxi-h3-wireless",
+    nome: "Havit Fone de Ouvido Headset Gamer Fuxi-H3 Wireless Bluetooth USB-C",
+    categoria: "Informática",
+    menor_preco_30: false,
+    menor_preco: false,
+    preco_de: "R$ 265,45",
+    preco_por: "R$ 151,98",
+    desconto: "42%",
+    avaliacao: 4.6,
+    avaliacoes: "",
+    badge: "hot",
+    destaque: true,
+    estoque: "Oferta do dia",
+    parcelamento: "5x de R$ 30,42 sem juros",
+    link: "https://www.amazon.com.br/dp/B0CHJXCJTW?tag=carva00-20",
+    imagem: "https://m.media-amazon.com/images/I/71g1gS6qGmL._AC_SX679_.jpg",
+    descricao: "Headset gamer Havit Fuxi-H3 com conexao sem fio 2.4 GHz, Bluetooth, cabo USB-C e uso tambem com fio. Boa opcao para setup gamer e trabalho.",
+    features: [
+      "Wireless 2.4 GHz",
+      "Bluetooth",
+      "USB-C",
+      "Uso com fio e sem fio",
+      "Microfone integrado"
+    ]
+  },
+
+  {
+    id: "havit-h2232d-gamer-rgb",
+    nome: "Havit Headphone Gamer H2232d RGB com Microfone e Falante 50mm",
+    categoria: "Informática",
+    menor_preco_30: false,
+    menor_preco: false,
+    preco_de: "R$ 169,00",
+    preco_por: "R$ 81,90",
+    desconto: "51%",
+    avaliacao: 4.6,
+    avaliacoes: "",
+    badge: "hot",
+    destaque: true,
+    estoque: "Cupom PRIME10 sujeito a elegibilidade",
+    parcelamento: "12x de R$ 7,57",
+    link: "https://www.amazon.com.br/dp/B07N78G8GB?tag=carva00-20",
+    imagem: "https://m.media-amazon.com/images/I/516HwNOJoUL._AC_SX679_.jpg",
+    descricao: "Headset gamer Havit H2232d com iluminacao RGB, microfone, falante de 50 mm e conector 3.5 mm. Oferta de entrada com desconto alto.",
+    features: [
+      "Iluminacao RGB",
+      "Microfone integrado",
+      "Falante de 50 mm",
+      "Conector 3.5 mm",
+      "Cupom PRIME10 visto, se elegivel"
+    ]
+  },
+
+  {
+    id: "bettdow-smartwatch-alexa-ip68",
+    nome: "Bettdow SmartWatch com Alexa, IP68 e 100+ modos esportivos",
+    categoria: "Eletrônicos",
+    menor_preco_30: false,
+    menor_preco: false,
+    preco_de: "R$ 186,00",
+    preco_por: "R$ 120,37",
+    desconto: "31%",
+    avaliacao: 4.5,
+    avaliacoes: "",
+    badge: "new",
+    destaque: false,
+    estoque: "Oferta do dia",
+    parcelamento: "4x de R$ 31,70 sem juros",
+    link: "https://www.amazon.com.br/dp/B0DNHGQHMY?tag=carva00-20",
+    imagem: "https://m.media-amazon.com/images/I/61jq8y1sVZL._AC_SX679_.jpg",
+    descricao: "Smartwatch com tela touch, Alexa, resistencia IP68, notificacoes e mais de 100 modos esportivos. Gadget barato para chamar clique em tecnologia.",
+    features: [
+      "Alexa integrada",
+      "Resistencia IP68",
+      "100+ modos esportivos",
+      "Notificacoes no pulso",
+      "Modelo unissex"
+    ]
+  },
+
+  {
+    id: "philips-ambilight-55-4k-55pug8100",
+    nome: "Philips Smart TV Ambilight 55\" 4K 55PUG8100/78 HDR10+ Dolby Atmos",
+    categoria: "Eletrônicos",
+    menor_preco_30: false,
+    menor_preco: false,
+    preco_de: "R$ 3.199,00",
+    preco_por: "R$ 2.459,00",
+    desconto: "23%",
+    avaliacao: 4.1,
+    avaliacoes: "",
+    badge: "hot",
+    destaque: true,
+    estoque: "Promocao TVPROMO sujeita a elegibilidade",
+    parcelamento: "10x de R$ 245,90 sem juros",
+    link: "https://www.amazon.com.br/dp/B0FPBQQ4TN?tag=carva00-20",
+    imagem: "https://m.media-amazon.com/images/I/61HN+7ldJnL._AC_SX425_.jpg",
+    descricao: "Smart TV Philips Ambilight de 55 polegadas com resolucao 4K, HDR10+, Dolby Atmos, VRR/ALLM, Bluetooth e comando de voz.",
+    features: [
+      "Tela 55\" 4K",
+      "Ambilight",
+      "HDR10+ e Dolby Atmos",
+      "VRR/ALLM",
+      "Bluetooth e comando de voz"
+    ]
+  },
+
+  {
+    id: "dualshock-4-ps4-preto",
+    nome: "Controle DualShock 4 PlayStation 4 Preto",
+    categoria: "Games",
+    menor_preco_30: false,
+    menor_preco: false,
+    preco_de: "R$ 349,90",
+    preco_por: "R$ 232,40",
+    desconto: "28%",
+    avaliacao: 4.8,
+    avaliacoes: "",
+    badge: "top",
+    destaque: false,
+    estoque: "Oferta gamer",
+    parcelamento: "6x de R$ 41,65 sem juros",
+    link: "https://www.amazon.com.br/dp/B07FN1MZBH?tag=carva00-20",
+    imagem: "https://m.media-amazon.com/images/I/61kwdPH8+xL._AC_SX679_.jpg",
+    descricao: "Controle DualShock 4 preto para PlayStation 4, sem fio, com touchpad e otima avaliacao. Produto conhecido e forte para publico gamer.",
+    features: [
+      "Controle sem fio",
+      "Touchpad integrado",
+      "PlayStation 4",
+      "Alta avaliacao",
+      "Oferta gamer"
+    ]
+  },
+
+  {
+    id: "redragon-harpe-wireless-preto",
+    nome: "Teclado Membrana Gamer Redragon Harpe Wireless Preto",
+    categoria: "Informática",
+    menor_preco_30: false,
+    menor_preco: true,
+    preco_de: "R$ 268,75",
+    preco_por: "R$ 199,99",
+    desconto: "25%",
+    avaliacao: 4.5,
+    avaliacoes: "",
+    badge: "new",
+    destaque: false,
+    estoque: "Menor preco em 365 dias",
+    parcelamento: "6x de R$ 33,34 sem juros",
+    link: "https://www.amazon.com.br/dp/B0DG6PX7HM?tag=carva00-20",
+    imagem: "https://m.media-amazon.com/images/I/71lTY0XIO6L._AC_SX679_.jpg",
+    descricao: "Teclado gamer Redragon Harpe Wireless preto, membrana, ideal para setup gamer sem fio com preco abaixo do historico visto na oferta.",
+    features: [
+      "Wireless",
+      "Membrana gamer",
+      "Cor preta",
+      "Setup gamer",
+      "Menor preco em 365 dias visto"
+    ]
+  },
+
+  {
+    id: "motorola-edge-70-pro-5g",
+    nome: "Smartphone Motorola Edge 70 PRO 5G 256GB 24GB RAM Boost",
+    categoria: "Eletrônicos",
+    menor_preco_30: false,
+    menor_preco: false,
+    preco_de: "",
+    preco_por: "R$ 4.049,10",
+    desconto: "",
+    avaliacao: 5,
+    avaliacoes: "",
+    badge: "hot",
+    destaque: true,
+    estoque: "Cupom de R$ 1.000 sujeito a elegibilidade",
+    parcelamento: "12x de R$ 374,99 sem juros",
+    link: "https://www.amazon.com.br/dp/B0GZLL5D74?tag=carva00-20",
+    imagem: "https://m.media-amazon.com/images/I/61QCeDQ0JaL._AC_SX679_.jpg",
+    descricao: "Motorola Edge 70 PRO 5G com 256 GB, RAM Boost, tela 1.5K extreme AMOLED 144 Hz, bateria de 6500 mAh e resistencia IP68/IP69.",
+    features: [
+      "5G e 256 GB",
+      "Tela AMOLED 144 Hz",
+      "Bateria 6500 mAh",
+      "IP68/IP69",
+      "Cupom de R$ 1.000 visto, se elegivel"
+    ]
+  },
+
+  {
+    id: "finish-powerball-91-tabletes",
+    nome: "Finish Powerball Detergente para Lava Loucas 91 Tabletes",
+    categoria: "Casa",
+    menor_preco_30: false,
+    menor_preco: false,
+    preco_de: "R$ 277,78",
+    preco_por: "R$ 133,85",
+    desconto: "51%",
+    avaliacao: 4.9,
+    avaliacoes: "",
+    badge: "top",
+    destaque: false,
+    estoque: "Achado fora de tecnologia",
+    parcelamento: "",
+    link: "https://www.amazon.com.br/dp/B07Y3B33KG?tag=carva00-20",
+    imagem: "https://m.media-amazon.com/images/I/61Nf8UQrPOL._AC_SX522_.jpg",
+    descricao: "Detergente Finish Powerball para lava-loucas em embalagem economica com 91 tabletes. Achado fora de tecnologia com desconto muito forte.",
+    features: [
+      "91 tabletes",
+      "Embalagem economica",
+      "R$ 1,47 por unidade visto",
+      "Alta avaliacao",
+      "51% de desconto visto"
+    ]
+  },
+
+  {
+    id: "creatina-dark-lab-1kg",
+    nome: "Creatina Pura 1kg Dark Lab Monohidratada Sem Sabor",
+    categoria: "Saúde",
+    menor_preco_30: false,
+    menor_preco: false,
+    preco_de: "",
+    preco_por: "R$ 69,90",
+    desconto: "",
+    avaliacao: 4.8,
+    avaliacoes: "",
+    badge: "new",
+    destaque: false,
+    estoque: "Cupom de R$ 7 sujeito a elegibilidade",
+    parcelamento: "2x de R$ 34,95 sem juros",
+    link: "https://www.amazon.com.br/dp/B0CDNJ3S3D?tag=carva00-20",
+    imagem: "https://m.media-amazon.com/images/I/51Wn0lqHRsL._AC_SX522_.jpg",
+    descricao: "Creatina pura Dark Lab 1 kg monohidratada, sem sabor, com cupom visto na pagina. Bom achado fora de tecnologia por ticket e procura.",
+    features: [
+      "1 kg",
+      "Monohidratada",
+      "Sem sabor",
+      "Cupom de R$ 7 visto",
+      "Alta avaliacao"
+    ]
+  }
+];
+
+// Inject affiliate tag
+function tagURL(url) {
+  if (!url) return url;
+  try {
+    if (url.includes('amazon.com')) {
+      const u = new URL(url);
+      u.searchParams.set('tag', AFILIADO_TAG);
+      return u.toString();
+    }
+  } catch(e) {}
+  return url;
+}
+PRODUTOS.forEach(p => { if (p.link) p.link = tagURL(p.link); });
+
+// ── STATE ────────────────────────────────────────────────
+let activeCats = new Set();
+let minDiscount = 0;
+let minRating = 0;
+let sortBy = 'discount';
+let query = '';
+let activeTab = 'trending';
+let favs = JSON.parse(localStorage.getItem('pc_favs') || '[]');
+const PER_PAGE = 12;
+let currentPage = 1;
+
+// ── BOOT ─────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+  // produtos.json é fonte de verdade
+  // Se o JSON carregar com produtos, substitui tudo; senão mantém inline como fallback
+  try {
+    const jsonProds = await loadProdutosJson();
+    if (jsonProds.length > 0) {
+      PRODUTOS.length = 0;
+      jsonProds.forEach(p => PRODUTOS.push(p));
+      console.log('[PromoClub] ' + PRODUTOS.length + ' produtos carregados do JSON');
+    } else {
+      console.warn('[PromoClub] JSON vazio ou ausente — usando produtos inline como fallback');
+    }
+  } catch(e) {
+    console.warn('[PromoClub] Erro ao carregar JSON:', e.message);
+  }
+  render();
+  document.getElementById('sortSel').addEventListener('change', e => { sortBy = e.target.value; currentPage = 1; render(); });
+  document.getElementById('mainSearch').addEventListener('input', e => { query = e.target.value.toLowerCase(); currentPage = 1; render(); });
+  document.getElementById('searchInput').addEventListener('input', e => {
+    document.getElementById('mainSearch').value = e.target.value;
+    query = e.target.value.toLowerCase(); currentPage = 1; render();
+  });
+});
+
+// ── FILTERS ──────────────────────────────────────────────
+function toggleCat(cat, label) {
+  const cb = label.querySelector('input');
+  if (activeCats.has(cat)) { activeCats.delete(cat); cb.checked = false; label.classList.remove('active'); }
+  else { activeCats.add(cat); cb.checked = true; label.classList.add('active'); }
+  currentPage = 1; render();
+}
+function updateRange(el) {
+  minDiscount = parseInt(el.value);
+  document.getElementById('rangeVal').textContent = minDiscount + '% ou mais';
+  currentPage = 1; render();
+}
+function setStars(val, btn) {
+  document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('active'));
+  if (minRating === val) { minRating = 0; }
+  else { minRating = val; btn.classList.add('active'); }
+  currentPage = 1; render();
+}
+function clearFilters() {
+  activeCats.clear();
+  minDiscount = 0; minRating = 0; query = '';
+  document.querySelectorAll('.sidebar-check input').forEach(cb => { cb.checked = false; });
+  document.querySelectorAll('.sidebar-check').forEach(l => l.classList.remove('active'));
+  document.querySelector('.star-btn.active')?.classList.remove('active');
+  document.getElementById('discRange').value = 0;
+  document.getElementById('rangeVal').textContent = '0% ou mais';
+  document.getElementById('mainSearch').value = '';
+  document.getElementById('searchInput').value = '';
+  currentPage = 1; render();
+}
+function setTab(tab, btn) {
+  activeTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentPage = 1; render();
+}
+
+// ── RENDER ────────────────────────────────────────────────
+function render() {
+  let list = [...PRODUTOS];
+  if (activeCats.size > 0) list = list.filter(p => activeCats.has(p.categoria));
+  if (query) list = list.filter(p => p.nome.toLowerCase().includes(query) || p.categoria.toLowerCase().includes(query) || (p.descricao||'').toLowerCase().includes(query));
+  if (minDiscount > 0) list = list.filter(p => pct(p) >= minDiscount);
+  if (minRating > 0) list = list.filter(p => (p.avaliacao||0) >= minRating);
+  if (sortBy === 'discount') list.sort((a,b) => pct(b)-pct(a));
+  else if (sortBy === 'price-asc') list.sort((a,b) => price(a)-price(b));
+  else if (sortBy === 'price-desc') list.sort((a,b) => price(b)-price(a));
+  else if (sortBy === 'rating') list.sort((a,b) => (b.avaliacao||0)-(a.avaliacao||0));
+  else list.sort((a,b) => a.nome.localeCompare(b.nome));
+
+  const total = list.length;
+  const pages = Math.ceil(total / PER_PAGE);
+  currentPage = Math.min(currentPage, pages || 1);
+  const slice = list.slice((currentPage-1)*PER_PAGE, currentPage*PER_PAGE);
+
+  document.getElementById('resultsCount').innerHTML = `<strong>${total}</strong> produto${total!==1?'s':''} encontrado${total!==1?'s':''}`;
+  document.getElementById('productsGrid').innerHTML = slice.length
+    ? slice.map(p => cardHTML(p)).join('')
+    : `<div class="empty-state"><div class="empty-icon">🔍</div><p>Nenhum produto encontrado</p><span>Tente outros filtros ou termos de busca</span></div>`;
+
+  renderPagination(pages);
+}
+
+const pct = p => parseInt(p.desconto) || 0;
+const price = p => parseFloat((p.preco_por||'0').replace(/[^\d,]/g,'').replace(',','.')) || 0;
+
+// ── STARS ────────────────────────────────────────────────
+function stars(r) {
+  const f = `<svg viewBox="0 0 20 20"><path fill="#c0c1ff" d="M10 1l2.39 7.26H19l-5.57 4.04 2.12 6.7L10 15.27l-5.55 3.73 2.12-6.7L1 8.26h6.61z"/></svg>`;
+  const e = `<svg viewBox="0 0 20 20"><path fill="#2d3449" d="M10 1l2.39 7.26H19l-5.57 4.04 2.12 6.7L10 15.27l-5.55 3.73 2.12-6.7L1 8.26h6.61z"/></svg>`;
+  return Array.from({length:5},(_,i)=>i<Math.round(r)?f:e).join('');
+}
+
+// ── CARD HTML ─────────────────────────────────────────────
+function cardHTML(p) {
+  const isFav = favs.includes(p.id);
+  const inst = price(p) > 0 ? `12x de R$ ${(price(p)/12).toFixed(2).replace('.',',')} s/ juros` : '';
+  const badgeMap = {hot:'badge-hot',new:'badge-new',top:'badge-top'};
+  const badgeLabel = {hot:'Em Alta',new:'Novo',top:'Top'};
+  return `
+  <div class="p-card" onclick="openModal('${p.id}')">
+    ${p.badge ? `<div class="p-card-badge ${badgeMap[p.badge]||'badge-hot'}">${badgeLabel[p.badge]||'Hot'}</div>` : ''}
+    <button class="p-card-fav ${isFav?'on':''}" onclick="toggleFav(event,'${p.id}')" aria-label="Favoritar">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="${isFav?'#ef4444':'none'}" stroke="#ef4444" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </button>
+    <div class="p-img">
+      <img src="${p.imagem}" alt="${p.nome}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22%3E%3Crect fill=%22%23222a3d%22 width=%22120%22 height=%22120%22/%3E%3Ctext x=%2260%22 y=%2265%22 text-anchor=%22middle%22 fill=%22%23464554%22 font-size=%2211%22%3ESem imagem%3C/text%3E%3C/svg%3E'">
+    </div>
+    <div class="p-body">
+      <div class="p-cat">${p.categoria}</div>
+      <div class="p-name">${p.nome}</div>
+      <div class="p-rating">
+        <div class="p-stars">${stars(p.avaliacao||4.5)}</div>
+        <span class="p-rating-val">${p.avaliacao||'—'} (${p.avaliacoes||'0'})</span>
+      </div>
+      <div class="p-pricing">
+        ${p.menor_preco ? '<div class="p-lowest">Menor preço em 365 dias</div>' : ''}
+        <div class="p-price-row">
+          ${p.desconto ? `<span class="p-disc">-${p.desconto}</span>` : ''}
+          <span class="p-price">${p.preco_por}</span>
+          ${p.preco_de ? `<span class="p-old">De: ${p.preco_de}</span>` : ''}
+        </div>
+        ${inst ? `<div class="p-install">${inst}</div>` : ''}
+      </div>
+      ${p.estoque ? `<div class="p-stock">${p.estoque}</div>` : ''}
+      <a class="p-btn" href="${p.link}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();trackClick('${p.id}')">
+        Ver no Site
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </div>`;
+}
+
+// ── PAGINATION ────────────────────────────────────────────
+function renderPagination(pages) {
+  const el = document.getElementById('pagination');
+  if (pages <= 1) { el.innerHTML = ''; return; }
+  let html = `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>`;
+  for (let i = 1; i <= pages; i++) {
+    if (pages > 7 && i > 3 && i < pages-1 && Math.abs(i-currentPage) > 1) {
+      if (i === 4) html += `<span class="page-btn" style="pointer-events:none">…</span>`;
+      continue;
+    }
+    html += `<button class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+  }
+  html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===pages?'disabled':''}>
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>`;
+  el.innerHTML = html;
+}
+function goPage(p) {
+  const pages = Math.ceil(PRODUTOS.length / PER_PAGE);
+  if (p < 1 || p > pages) return;
+  currentPage = p;
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── MODAL ─────────────────────────────────────────────────
+function openModal(id) {
+  const p = PRODUTOS.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('mImg').src = p.imagem;
+  document.getElementById('mImg').alt = p.nome;
+  document.getElementById('mCat').textContent = p.categoria;
+  document.getElementById('mName').textContent = p.nome;
+  document.getElementById('mDesc').textContent = p.descricao || '';
+  document.getElementById('mOld').textContent = p.preco_de ? `De: ${p.preco_de}` : '';
+  document.getElementById('mPrice').textContent = p.preco_por;
+  const lo = document.getElementById('mLowest');
+  lo.textContent = p.menor_preco ? 'Menor preço em 365 dias' : '';
+  lo.className = p.menor_preco ? 'modal-lowest' : '';
+  const de = document.getElementById('mDisc');
+  de.textContent = p.desconto ? `-${p.desconto}` : '';
+  const inst = price(p) > 0 ? `ou 12x de R$ ${(price(p)/12).toFixed(2).replace('.',',')} sem juros` : '';
+  document.getElementById('mInstall').textContent = inst;
+  document.getElementById('mBtn').href = p.link;
+  document.getElementById('mBtn').onclick = () => trackClick(p.id);
+  const chk = `<div class="modal-feat-check"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>`;
+  document.getElementById('mFeats').innerHTML = (p.features||[]).map(f => `<div class="modal-feat">${chk}<span>${f}</span></div>`).join('');
+  document.getElementById('modalBg').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function maybeClose(e) { if (e.target === document.getElementById('modalBg')) closeModal(); }
+function closeModal() { document.getElementById('modalBg').classList.remove('open'); document.body.style.overflow = ''; }
+
+// ── FAVS ──────────────────────────────────────────────────
+function toggleFav(e, id) {
+  e.stopPropagation();
+  const i = favs.indexOf(id);
+  if (i>=0) { favs.splice(i,1); toast('Removido dos salvos'); }
+  else { favs.push(id); toast('Salvo!'); }
+  localStorage.setItem('pc_favs', JSON.stringify(favs));
+  render();
+}
+
+// ── TRACK ─────────────────────────────────────────────────
+function trackClick(id) { console.log('[PromoClub] click:', id); }
+
+// ── DRAWER ────────────────────────────────────────────────
+function openDrawer() { document.getElementById('navDrawer').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeDrawer() { document.getElementById('navDrawer').classList.remove('open'); document.body.style.overflow=''; }
+
+// ── INTERCEPTOR ───────────────────────────────────────────
+document.addEventListener('click', function(e) {
+  const a = e.target.closest('a[href]'); if (!a) return;
+  const href = a.getAttribute('href')||'';
+  if (!href.includes('amazon.com') && !href.includes('amzn.to')) return;
+  if (href.includes('tag='+AFILIADO_TAG)) return;
+  e.preventDefault();
+  window.open(tagURL(href), '_blank', 'noopener,noreferrer');
+}, true);
+
+// ── TOAST ─────────────────────────────────────────────────
+let _tt;
+function toast(msg) {
+  clearTimeout(_tt); const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  _tt=setTimeout(()=>el.classList.remove('show'),3000);
+}
+
+</script>
 </body>
 </html>
