@@ -1,772 +1,256 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Cupons de desconto verificados da Amazon e mais. Economize com códigos válidos hoje.">
 <title>Cupons — PromoClub</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Inter','sans-serif'],mono:['Geist Mono','monospace']}}}}</script>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:15px}
-body{font-family:'Inter',-apple-system,sans-serif;background:#0d0d12;color:#e8e8f0;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-a{color:inherit;text-decoration:none}
-button{font-family:inherit;cursor:pointer;border:none}
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:#0d0d12}
-::-webkit-scrollbar-thumb{background:#2a2a3a;border-radius:99px}
-
-:root{
-  --bg:#0d0d12;--bg2:#13131a;--bg3:#1a1a24;--bg4:#22222e;
-  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
-  --text:#e8e8f0;--text2:#8888a8;--text3:#55556a;
-  --orange:#ff6b35;--orange2:#ff8c5a;--orange-glow:rgba(255,107,53,0.15);
-  --purple:#7c3aed;--purple2:#a855f7;
-  --green:#22c55e;--red:#ef4444;--blue:#3b82f6;
-  --r:12px;--r-sm:8px;--r-lg:16px;
-  --shadow:0 4px 24px rgba(0,0,0,0.4);
-  --shadow-lg:0 8px 48px rgba(0,0,0,0.5);
-}
-
-/* ── NAV ─────────────────────────────────────────────────── */
-.nav{
-  position:sticky;top:0;z-index:100;
-  background:rgba(13,13,18,0.85);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-  padding:0 clamp(16px,4vw,40px);
-}
-.nav-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:12px;height:60px}
-.nav-logo{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:800;color:var(--text);flex-shrink:0}
-.nav-logo-icon{width:28px;height:28px;background:linear-gradient(135deg,var(--orange),#c0392b);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;flex-shrink:0}
-.nav-logo-accent{color:var(--orange)}
-.nav-back{
-  display:flex;align-items:center;gap:6px;
-  color:var(--text2);font-size:13px;font-weight:500;
-  padding:6px 12px;border-radius:var(--r-sm);
-  border:1px solid var(--border);transition:all .15s;
-  margin-left:auto;
-}
-.nav-back:hover{color:var(--text);border-color:var(--border2)}
-.nav-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
-.nav-link-cupons{
-  color:var(--orange);font-size:13px;font-weight:600;
-  padding:6px 14px;border-radius:var(--r-sm);
-  background:var(--orange-glow);border:1px solid rgba(255,107,53,0.2);
-  margin-left:12px;
-}
-
-/* ── HERO ────────────────────────────────────────────────── */
-.hero{
-  position:relative;overflow:hidden;
-  padding:60px clamp(16px,4vw,40px) 0;
-  background:var(--bg);
-}
-.hero::before{
-  content:'';position:absolute;top:-150px;left:50%;transform:translateX(-50%);
-  width:700px;height:500px;
-  background:radial-gradient(ellipse,rgba(124,58,237,0.07) 0%,transparent 70%);
-  pointer-events:none;
-}
-.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent)}
-.hero-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:center;gap:40px;padding-bottom:48px}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);
-  color:var(--purple2);font-size:11px;font-weight:600;
-  padding:5px 14px;border-radius:99px;letter-spacing:.8px;
-  text-transform:uppercase;margin-bottom:16px;
-}
-.hero-pulse{width:6px;height:6px;border-radius:50%;background:var(--purple2);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
-.hero h1{font-size:clamp(24px,4vw,44px);font-weight:800;letter-spacing:-1px;line-height:1.1;color:var(--text);margin-bottom:14px}
-.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--orange),var(--purple2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:15px;color:var(--text2);line-height:1.7;max-width:520px;margin-bottom:24px}
-.hero-notice{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--bg3);border:1px solid var(--border);
-  border-left:3px solid var(--orange);
-  font-size:12px;color:var(--text2);
-  padding:10px 14px;border-radius:0 var(--r-sm) var(--r-sm) 0;
-}
-.hero-notice svg{width:14px;height:14px;stroke:var(--orange);fill:none;stroke-width:2;flex-shrink:0}
-.hero-notice strong{color:var(--text)}
-/* hero stats cards */
-.hero-stats-cards{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
-.hero-stat-card{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:var(--r);padding:14px 20px;text-align:center;min-width:130px;
-}
-.hero-stat-card-num{font-family:'Geist Mono',monospace;font-size:22px;font-weight:600;color:var(--text);line-height:1;margin-bottom:4px}
-.hero-stat-card-num span{color:var(--orange)}
-.hero-stat-card-lbl{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.4px}
-
-/* ── HOW TO ──────────────────────────────────────────────── */
-.how-strip{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:1px;background:var(--border);
-  border:1px solid var(--border);border-radius:var(--r-lg);
-  overflow:hidden;margin-bottom:32px;
-}
-.how-step{background:var(--bg2);padding:20px 18px;display:flex;align-items:flex-start;gap:12px;transition:background .15s}
-.how-step:hover{background:var(--bg3)}
-.how-num{
-  width:26px;height:26px;border-radius:50%;
-  background:linear-gradient(135deg,var(--orange),#c0392b);
-  color:#fff;font-size:12px;font-weight:700;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;
-}
-.how-text strong{display:block;font-size:13px;font-weight:600;margin-bottom:3px;color:var(--text)}
-.how-text span{font-size:12px;color:var(--text2);line-height:1.45}
-
-/* ── PRIME BANNER ────────────────────────────────────────── */
-.prime-banner{
-  background:linear-gradient(135deg,#0a1628,#0d2040);
-  border:1px solid rgba(0,168,224,0.15);border-radius:var(--r-lg);
-  padding:20px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;
-  margin-bottom:32px;
-}
-.prime-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(0,168,224,0.15);border:1px solid rgba(0,168,224,0.25);
-  color:#00a8e0;font-size:11px;font-weight:700;
-  padding:4px 12px;border-radius:99px;text-transform:uppercase;letter-spacing:.5px;
-  white-space:nowrap;flex-shrink:0;
-}
-.prime-banner-text strong{display:block;color:#fff;font-size:15px;font-weight:700;margin-bottom:3px}
-.prime-banner-text span{color:rgba(255,255,255,.6);font-size:13px}
-.prime-banner-btn{
-  margin-left:auto;
-  display:inline-flex;align-items:center;gap:8px;
-  background:#00a8e0;color:#fff;font-size:13px;font-weight:700;
-  padding:10px 20px;border-radius:var(--r-sm);
-  transition:all .15s;white-space:nowrap;flex-shrink:0;
-}
-.prime-banner-btn:hover{background:#0090c0;box-shadow:0 0 20px rgba(0,168,224,0.3)}
-.prime-banner-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5}
-
-/* ── PAGE ────────────────────────────────────────────────── */
-.page{max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,40px) 64px}
-.sec-hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;gap:12px;padding-top:40px}
-.sec-hd h2{font-size:18px;font-weight:700;letter-spacing:-0.3px;display:flex;align-items:center;gap:10px}
-.sec-hd-dot{width:8px;height:8px;border-radius:50%;background:var(--purple2);display:inline-block;flex-shrink:0}
-.sec-hd span{font-size:12px;color:var(--text3)}
-
-/* ── FILTER PILLS ────────────────────────────────────────── */
-.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
-.filter-pill{
-  background:var(--bg3);border:1px solid var(--border);
-  color:var(--text2);font-size:12px;font-weight:500;
-  padding:7px 16px;border-radius:99px;white-space:nowrap;
-  cursor:pointer;transition:all .15s;
-}
-.filter-pill:hover{border-color:var(--orange);color:var(--text)}
-.filter-pill.active{background:var(--orange);border-color:var(--orange);color:#fff;font-weight:600}
-.filter-count{margin-left:auto;font-size:12px;color:var(--text2)}
-
-/* ── COUPON GRID ─────────────────────────────────────────── */
-.coupons-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
-
-/* ── COUPON CARD ─────────────────────────────────────────── */
-.c-card{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:var(--r-lg);overflow:hidden;
-  transition:border-color .2s,box-shadow .2s,transform .2s;
-  position:relative;
-}
-.c-card:hover{border-color:var(--border2);box-shadow:var(--shadow-lg);transform:translateY(-2px)}
-.c-card.c-prime{border-color:rgba(0,168,224,0.2)}
-/* left accent */
-.c-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:var(--r-lg) 0 0 var(--r-lg)}
-.c-card.type-codigo::before{background:linear-gradient(180deg,var(--orange),#c0392b)}
-.c-card.type-oferta::before{background:linear-gradient(180deg,var(--green),#16a34a)}
-.c-card.type-prime::before{background:linear-gradient(180deg,#00a8e0,#0066cc)}
-.c-card.type-app::before{background:linear-gradient(180deg,var(--purple2),var(--purple))}
-
-.c-inner{padding:18px 18px 16px 22px}
-.c-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
-.c-badges{display:flex;gap:6px;flex-wrap:wrap}
-.c-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:.3px}
-.badge-codigo{background:rgba(255,107,53,0.15);color:var(--orange)}
-.badge-oferta{background:rgba(34,197,94,0.12);color:var(--green)}
-.badge-prime{background:rgba(0,168,224,0.15);color:#00a8e0}
-.badge-app{background:rgba(168,85,247,0.15);color:var(--purple2)}
-.badge-verificado{background:rgba(34,197,94,0.08);color:var(--green);border:1px solid rgba(34,197,94,0.2)}
-.badge-popular{background:rgba(239,68,68,0.12);color:var(--red)}
-.c-value{font-family:'Geist Mono',monospace;font-size:20px;font-weight:600;color:var(--text);white-space:nowrap;line-height:1}
-.c-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:5px;line-height:1.35}
-.c-desc{font-size:12px;color:var(--text2);line-height:1.55;margin-bottom:14px}
-.c-meta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px}
-.c-meta-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)}
-.c-meta-item svg{width:12px;height:12px;stroke:var(--text3);fill:none;stroke-width:1.8;flex-shrink:0}
-.c-meta-item strong{color:var(--text);font-weight:500}
-.c-bottom{display:flex;gap:8px;align-items:center}
-/* code box */
-.c-code-box{
-  display:flex;flex:1;
-  background:var(--bg4);border:1px dashed var(--border2);
-  border-radius:var(--r-sm);overflow:hidden;
-}
-.c-code-val{
-  font-family:'Geist Mono',monospace;font-size:14px;font-weight:600;
-  color:var(--text);padding:9px 12px;letter-spacing:1px;flex:1;
-}
-.c-copy-btn{
-  background:var(--orange);color:#fff;
-  font-size:11px;font-weight:700;padding:0 14px;
-  cursor:pointer;transition:background .15s;min-height:36px;white-space:nowrap;
-  display:flex;align-items:center;gap:5px;
-}
-.c-copy-btn:hover{background:var(--orange2)}
-.c-copy-btn.done{background:var(--green)}
-.c-copy-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5}
-/* offer button */
-.c-reveal-wrap{flex:1;display:flex;flex-direction:column;gap:8px}
-.c-ver-btn{
-  width:100%;
-  background:linear-gradient(135deg,var(--orange),#c0392b);
-  color:#fff;font-size:13px;font-weight:700;
-  padding:10px 14px;border-radius:var(--r-sm);
-  display:flex;align-items:center;justify-content:center;gap:7px;
-  transition:all .2s;
-  box-shadow:0 4px 16px rgba(255,107,53,0.25);
-}
-.c-ver-btn:hover{filter:brightness(1.1);box-shadow:0 6px 24px rgba(255,107,53,0.4);transform:translateY(-1px)}
-.c-ver-btn svg{flex-shrink:0}
-.c-code-revealed{animation:revealCode .3s ease}
-@keyframes revealCode{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-.c-offer-btn{display:none}
-/* fav */
-.c-fav{
-  width:36px;height:36px;background:var(--bg4);border:1px solid var(--border);
-  border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:all .15s;font-size:14px;flex-shrink:0;
-}
-.c-fav:hover{border-color:var(--red);background:rgba(239,68,68,0.1)}
-.c-fav.on{background:rgba(239,68,68,0.1);border-color:var(--red)}
-/* popularity bar */
-.c-usage{margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
-.c-usage-bar-wrap{flex:1;height:4px;background:var(--bg4);border-radius:99px;overflow:hidden}
-.c-usage-bar{height:100%;background:linear-gradient(90deg,var(--orange),var(--purple2));border-radius:99px;transition:width .6s ease;width:0}
-.c-usage-label{font-size:11px;color:var(--text3);white-space:nowrap}
-
-/* ── EMPTY ───────────────────────────────────────────────── */
-.empty{grid-column:1/-1;text-align:center;padding:60px 20px}
-.empty p{font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
-.empty span{font-size:13px;color:var(--text2)}
-
-/* ── TOAST ───────────────────────────────────────────────── */
-.toast{
-  position:fixed;bottom:24px;right:20px;z-index:300;
-  background:var(--bg3);border:1px solid var(--border2);
-  color:var(--text);font-size:13px;padding:11px 18px;border-radius:var(--r-sm);
-  box-shadow:var(--shadow);border-left:3px solid var(--orange);
-  transform:translateY(80px);opacity:0;
-  transition:all .25s cubic-bezier(.34,1.56,.64,1);pointer-events:none;
-}
-.toast.show{transform:translateY(0);opacity:1}
-
-/* ── FOOTER ──────────────────────────────────────────────── */
-footer{
-  background:var(--bg2);border-top:1px solid var(--border);
-  padding:32px clamp(16px,4vw,40px);margin-top:64px;
-}
-.footer-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-.footer-logo{font-size:16px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:8px}
-.footer-logo-icon{width:24px;height:24px;background:linear-gradient(135deg,var(--orange),#c0392b);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff}
-.footer-logo span{color:var(--orange)}
-.footer-note{font-size:11px;color:var(--text3);max-width:560px;line-height:1.65;text-align:center}
-.footer-copy{font-size:11px;color:var(--text3)}
-
-/* ── RESPONSIVE ─────────────────────────────────────────── */
-@media(max-width:768px){
-  .hero-inner{grid-template-columns:1fr}
-  .hero-stats-cards{flex-direction:row;flex-wrap:wrap}
-  .hero-stat-card{min-width:auto;flex:1}
-  .coupons-grid{grid-template-columns:1fr}
-  .prime-banner-btn{margin-left:0;width:100%}
-  .footer-inner{flex-direction:column;text-align:center}
-  .footer-note{text-align:center}
-}
-
-/* ── SHARED LOGO & NAV ───────────────────────────────────── */
-.logo-svg { display:block; flex-shrink:0; }
-.logo { display:flex; align-items:center; flex-shrink:0; margin-right:12px; transition:opacity .15s; }
-.logo:hover { opacity:.85; }
-
-/* Override accent colors with gold ─────────────────────── */
-:root {
-  --accent:        #c9a84c !important;
-  --accent2:       #f5d078 !important;
-  --accent-bg:     rgba(201,168,76,0.08) !important;
-  --accent-border: rgba(201,168,76,0.2) !important;
-}
-/* nav cta gold */
-.nav-cta {
-  background: linear-gradient(135deg, #c9a84c, #f5d078) !important;
-  color: #080b14 !important;
-  font-weight: 700 !important;
-  box-shadow: 0 0 0 transparent !important;
-}
-.nav-cta:hover {
-  filter: brightness(1.08) !important;
-  box-shadow: 0 0 18px rgba(245,208,120,0.35) !important;
-  background: linear-gradient(135deg, #b8943e, #e8c96a) !important;
-}
-/* active nav link gold underline */
-.nav-a.on { color: var(--accent2) !important; }
-/* sec-pip gold */
-.sec-pip { background: var(--accent) !important; }
-/* card-btn gold */
-.card-btn, .p-btn {
-  background: linear-gradient(135deg, #c9a84c, #e8c96a) !important;
-  color: #080b14 !important;
-}
-.card-btn:hover, .p-btn:hover {
-  filter: brightness(1.08) !important;
-  box-shadow: 0 0 16px rgba(245,208,120,0.3) !important;
-}
-/* footer brand */
-.footer-brand-name { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
-
+body{font-family:'Inter',sans-serif;background:#080b14}
+.gold-gradient{background:linear-gradient(135deg,#c9a84c,#f5d078)}
+.gold-text{background:linear-gradient(135deg,#c9a84c,#f5d078);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-blur{background:rgba(8,11,20,0.9);backdrop-filter:blur(20px)}
+.card-hover{transition:transform .2s,box-shadow .2s}
+.card-hover:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.4)}
 </style>
 </head>
-<body>
+<body class="text-gray-100 min-h-screen">
 
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="logo" aria-label="PromoClub"><svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" height="32" aria-label="PromoClub">
-  <defs>
-    <linearGradient id="lg-cup" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#c9a84c"/>
-      <stop offset="40%" stop-color="#f5d078"/>
-      <stop offset="70%" stop-color="#e8b84b"/>
-      <stop offset="100%" stop-color="#c9a84c"/>
-    </linearGradient>
-    <linearGradient id="ll-cup" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/>
-      <stop offset="30%" stop-color="#f5d078" stop-opacity="1"/>
-      <stop offset="70%" stop-color="#f5d078" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <line x1="4" y1="14" x2="196" y2="14" stroke="url(#ll-cup)" stroke-width="0.7"/>
-  <g transform="translate(172,2) scale(0.85)">
-    <circle cx="6" cy="4" r="2" fill="none" stroke="url(#lg-cup)" stroke-width="1"/>
-    <path d="M2 7 L0 15 L12 15 L14 7 Z" fill="none" stroke="url(#lg-cup)" stroke-width="1" stroke-linejoin="round"/>
-    <circle cx="7" cy="11" r="1.2" fill="url(#lg-cup)"/>
-  </g>
-  <text x="100" y="34" font-family="Inter,'Arial Black',sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#lg-cup)">PROMO</text>
-  <line x1="4" y1="42" x2="54" y2="42" stroke="url(#ll-cup)" stroke-width="0.7"/>
-  <line x1="146" y1="42" x2="196" y2="42" stroke="url(#ll-cup)" stroke-width="0.7"/>
-  <text x="100" y="50" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#lg-cup)">CLUB</text>
-</svg></a>
-    <div class="nav-links">
-      <a href="index.html" class="nav-a">Home</a>
-      <a href="ofertas.html" class="nav-a">Ofertas</a>
-      <a href="cupons.html" class="nav-a on">Cupons</a>
+<nav class="nav-blur sticky top-0 z-50 border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-3 h-14">
+    <a href="index.html" class="flex-shrink-0 mr-3">
+      <svg class="h-8" viewBox="0 0 200 52" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c9a84c"/><stop offset="50%" stop-color="#f5d078"/><stop offset="100%" stop-color="#c9a84c"/></linearGradient><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/><stop offset="30%" stop-color="#f5d078"/><stop offset="70%" stop-color="#f5d078"/><stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/></linearGradient></defs>
+        <line x1="4" y1="14" x2="196" y2="14" stroke="url(#g2)" stroke-width="0.7"/>
+        <g transform="translate(172,2) scale(0.85)"><circle cx="6" cy="4" r="2" fill="none" stroke="url(#g1)" stroke-width="1"/><path d="M2 7 L0 15 L12 15 L14 7 Z" fill="none" stroke="url(#g1)" stroke-width="1" stroke-linejoin="round"/><circle cx="7" cy="11" r="1.2" fill="url(#g1)"/></g>
+        <text x="100" y="34" font-family="Inter,sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#g1)">PROMO</text>
+        <line x1="4" y1="42" x2="54" y2="42" stroke="url(#g2)" stroke-width="0.7"/>
+        <line x1="146" y1="42" x2="196" y2="42" stroke="url(#g2)" stroke-width="0.7"/>
+        <text x="100" y="50" font-family="Inter,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#g1)">CLUB</text>
+      </svg>
+    </a>
+    <div class="hidden md:flex items-center gap-1">
+      <a href="index.html" class="text-gray-400 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-md hover:bg-white/5 transition-all">Home</a>
+      <a href="ofertas.html" class="text-gray-400 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-md hover:bg-white/5 transition-all">Ofertas</a>
+      <a href="cupons.html" class="text-yellow-300 text-xs font-semibold px-3 py-1.5 rounded-md border-b border-yellow-400">Cupons</a>
     </div>
-    <div class="nav-search">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input id="searchInput" type="text" placeholder="Buscar ofertas e cupons...">
+    <div class="hidden md:flex flex-1 max-w-sm mx-auto">
+      <div class="flex items-center w-full bg-white/5 border border-white/10 rounded-lg px-3 gap-2 focus-within:border-yellow-500/40 transition-colors">
+        <svg class="w-3.5 h-3.5 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="searchInput" type="text" placeholder="Buscar cupom..." class="bg-transparent text-sm text-gray-100 placeholder-gray-500 outline-none w-full py-2">
+      </div>
     </div>
-    <div class="nav-end">
-      <a href="https://www.instagram.com/carvapromoclub/" target="_blank" rel="noopener" class="nav-social" aria-label="Instagram"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="12" cy="12" r="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.5" fill="#e1306c"/></svg></a>
-      <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener" class="nav-social" aria-label="Telegram"><svg viewBox="0 0 24 24" width="14" height="14" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
-      <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener" class="nav-cta">Entrar no grupo</a>
+    <div class="hidden md:flex items-center gap-2 ml-auto">
+      <a href="https://www.instagram.com/promoclubhub/" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-lg border border-white/10 hover:border-pink-500/40 transition-all">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="12" cy="12" r="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.5" fill="#e1306c"/></svg>
+      </a>
+      <a href="https://t.me/promoclubhub" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-lg border border-white/10 hover:border-blue-500/40 transition-all">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      </a>
+      <a href="https://t.me/promoclubhub" target="_blank" class="gold-gradient text-black text-xs font-bold px-4 py-2 rounded-lg hover:brightness-110 transition-all">Entrar no grupo</a>
     </div>
-    <button class="hamburger" onclick="openDrawer()" aria-label="Menu">
-      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <button onclick="openDrawer()" class="md:hidden ml-auto w-8 h-8 flex items-center justify-center rounded-lg border border-white/10">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
   </div>
 </nav>
-<div class="drawer" id="drawer">
-  <div class="drawer-bg" onclick="closeDrawer()"></div>
-  <div class="drawer-panel">
-    <button class="drawer-close" onclick="closeDrawer()">×</button>
-    <a href="index.html" class="drawer-a">Home</a>
-    <a href="ofertas.html" class="drawer-a">Ofertas</a>
-    <a href="cupons.html" class="drawer-a on">Cupons</a>
-    <div class="drawer-divider"></div>
-    <div class="drawer-social">
-      <a href="https://t.me/carvapromoclub" target="_blank" class="drawer-social-btn"><svg viewBox="0 0 24 24" width="14" height="14" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg> Telegram</a>
-      <a href="https://www.instagram.com/carvapromoclub/" target="_blank" class="drawer-social-btn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="12" cy="12" r="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.5" fill="#e1306c"/></svg> Instagram</a>
+
+<div id="drawerBg" class="hidden fixed inset-0 z-40 bg-black/70 backdrop-blur-sm" onclick="closeDrawer()"></div>
+<div id="drawer" class="fixed top-0 right-0 bottom-0 z-50 w-64 bg-gray-900 border-l border-white/10 translate-x-full transition-transform duration-300 flex flex-col">
+  <div class="flex items-center justify-between p-4 border-b border-white/10"><span class="gold-text font-bold text-sm">Menu</span><button onclick="closeDrawer()" class="text-gray-400 hover:text-white">✕</button></div>
+  <div class="flex flex-col gap-1 p-4">
+    <a href="index.html" class="text-gray-400 hover:text-white text-sm px-3 py-2.5 rounded-lg hover:bg-white/5">Home</a>
+    <a href="ofertas.html" class="text-gray-400 hover:text-white text-sm px-3 py-2.5 rounded-lg hover:bg-white/5">Ofertas</a>
+    <a href="cupons.html" class="text-yellow-300 font-semibold text-sm px-3 py-2.5 rounded-lg bg-white/5">Cupons</a>
+  </div>
+  <div class="mt-auto p-4 border-t border-white/10">
+    <a href="https://t.me/promoclubhub" target="_blank" class="gold-gradient text-black text-sm font-bold px-4 py-2.5 rounded-lg text-center block">Entrar no grupo grátis</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="relative overflow-hidden py-12 px-4 text-center">
+  <div class="absolute inset-0 pointer-events-none"><div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-64 bg-yellow-500/5 rounded-full blur-3xl"></div></div>
+  <div class="relative max-w-xl mx-auto">
+    <div class="inline-flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/20 text-yellow-300 text-xs font-semibold px-3 py-1.5 rounded-full mb-4 uppercase tracking-wider">
+      <span class="w-1.5 h-1.5 rounded-full bg-yellow-400" style="animation:pulse 2s infinite"></span>Verificados hoje
     </div>
-    <div style="padding:8px 12px">
-      <a href="https://t.me/carvapromoclub" target="_blank" class="nav-cta" style="display:flex;justify-content:center;padding:11px">Entrar no grupo grátis</a>
+    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-3">Cupons que <span class="gold-text">funcionam</span></h1>
+    <p class="text-gray-400 text-sm">Copie o código, cole no checkout e economize de verdade.</p>
+  </div>
+</div>
+
+<!-- HOW TO -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 mb-8">
+  <div class="grid grid-cols-2 sm:grid-cols-4 border border-white/8 rounded-xl overflow-hidden divide-x divide-y sm:divide-y-0 divide-white/8">
+    <div class="bg-gray-900/60 p-4 flex items-start gap-3 hover:bg-gray-900 transition-colors">
+      <span class="w-6 h-6 rounded-full gold-gradient text-black text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+      <div><div class="text-white text-xs font-semibold mb-0.5">Ver Cupom</div><div class="text-gray-500 text-xs">Clique para revelar</div></div>
+    </div>
+    <div class="bg-gray-900/60 p-4 flex items-start gap-3 hover:bg-gray-900 transition-colors">
+      <span class="w-6 h-6 rounded-full gold-gradient text-black text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+      <div><div class="text-white text-xs font-semibold mb-0.5">Adicione ao carrinho</div><div class="text-gray-500 text-xs">O produto desejado</div></div>
+    </div>
+    <div class="bg-gray-900/60 p-4 flex items-start gap-3 hover:bg-gray-900 transition-colors">
+      <span class="w-6 h-6 rounded-full gold-gradient text-black text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+      <div><div class="text-white text-xs font-semibold mb-0.5">Cole no checkout</div><div class="text-gray-500 text-xs">"Código promocional"</div></div>
+    </div>
+    <div class="bg-gray-900/60 p-4 flex items-start gap-3 hover:bg-gray-900 transition-colors">
+      <span class="w-6 h-6 rounded-full gold-gradient text-black text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">4</span>
+      <div><div class="text-white text-xs font-semibold mb-0.5">Desconto aplicado</div><div class="text-gray-500 text-xs">Antes do pagamento</div></div>
     </div>
   </div>
 </div>
 
-<div class="page">
-
-  <!-- HOW TO -->
-  <div style="padding-top:40px;margin-bottom:32px">
-    <div class="how-strip">
-      <div class="how-step">
-        <div class="how-num">1</div>
-        <div class="how-text"><strong>Copie o código</strong><span>Clique em "Copiar" ao lado do código</span></div>
-      </div>
-      <div class="how-step">
-        <div class="how-num">2</div>
-        <div class="how-text"><strong>Adicione ao carrinho</strong><span>Coloque o produto desejado no carrinho</span></div>
-      </div>
-      <div class="how-step">
-        <div class="how-num">3</div>
-        <div class="how-text"><strong>Cole no checkout</strong><span>Procure "código promocional" e cole</span></div>
-      </div>
-      <div class="how-step">
-        <div class="how-num">4</div>
-        <div class="how-text"><strong>Desconto aplicado</strong><span>O valor é abatido antes do pagamento</span></div>
-      </div>
+<!-- PRIME -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 mb-8">
+  <div class="flex items-center gap-4 flex-wrap p-4 rounded-xl border border-blue-500/15" style="background:linear-gradient(135deg,#0a1628,#0d2040)">
+    <span class="flex items-center gap-1.5 bg-blue-500/15 border border-blue-500/25 text-blue-400 text-xs font-bold px-3 py-1 rounded-full flex-shrink-0">★ Prime</span>
+    <div class="flex-1 min-w-40">
+      <div class="text-white text-sm font-bold">Amazon Prime — 30 dias grátis</div>
+      <div class="text-blue-300/60 text-xs">Frete ilimitado, Prime Video, Music e acesso antecipado a ofertas</div>
     </div>
+    <a href="https://www.amazon.com.br/prime?tag=carva00-20" target="_blank" rel="nofollow noopener" class="bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all flex-shrink-0">Começar grátis →</a>
   </div>
-
-  <!-- PRIME BANNER -->
-  <div class="prime-banner">
-    <div class="prime-badge">
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      Prime
-    </div>
-    <div class="prime-banner-text">
-      <strong>Amazon Prime — 30 dias grátis para novos assinantes</strong>
-      <span>Frete ilimitado, Prime Video, Prime Music e acesso antecipado a ofertas exclusivas</span>
-    </div>
-    <a href="https://www.amazon.com.br/prime?tag=carva00-20" target="_blank" rel="nofollow noopener" class="prime-banner-btn">
-      Começar grátis
-      <svg viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-    </a>
-  </div>
-
-  <!-- FILTER -->
-  <div class="sec-hd">
-    <h2><span class="sec-hd-dot"></span>Cupons ativos</h2>
-    <span id="filterCount"></span>
-  </div>
-  <div class="filter-bar">
-    <button class="filter-pill active" onclick="filterCoupons('todos',this)">Todos</button>
-    <button class="filter-pill" onclick="filterCoupons('codigo',this)">Com código</button>
-    <button class="filter-pill" onclick="filterCoupons('oferta',this)">Sem código</button>
-    <button class="filter-pill" onclick="filterCoupons('prime',this)">Prime</button>
-    <button class="filter-pill" onclick="filterCoupons('app',this)">App</button>
-  </div>
-  <div class="coupons-grid" id="couponsGrid"></div>
-
 </div>
 
-<footer>
-  <div class="footer-grid">
-    <div>
-      <div class="footer-brand-name"><a href="index.html"><svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" height="28" aria-label="PromoClub">
-  <defs>
-    <linearGradient id="lg-cupf" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#c9a84c"/>
-      <stop offset="40%" stop-color="#f5d078"/>
-      <stop offset="70%" stop-color="#e8b84b"/>
-      <stop offset="100%" stop-color="#c9a84c"/>
-    </linearGradient>
-    <linearGradient id="ll-cupf" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/>
-      <stop offset="30%" stop-color="#f5d078" stop-opacity="1"/>
-      <stop offset="70%" stop-color="#f5d078" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <line x1="4" y1="14" x2="196" y2="14" stroke="url(#ll-cupf)" stroke-width="0.7"/>
-  <g transform="translate(172,2) scale(0.85)">
-    <circle cx="6" cy="4" r="2" fill="none" stroke="url(#lg-cupf)" stroke-width="1"/>
-    <path d="M2 7 L0 15 L12 15 L14 7 Z" fill="none" stroke="url(#lg-cupf)" stroke-width="1" stroke-linejoin="round"/>
-    <circle cx="7" cy="11" r="1.2" fill="url(#lg-cupf)"/>
-  </g>
-  <text x="100" y="34" font-family="Inter,'Arial Black',sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#lg-cupf)">PROMO</text>
-  <line x1="4" y1="42" x2="54" y2="42" stroke="url(#ll-cupf)" stroke-width="0.7"/>
-  <line x1="146" y1="42" x2="196" y2="42" stroke="url(#ll-cupf)" stroke-width="0.7"/>
-  <text x="100" y="50" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#lg-cupf)">CLUB</text>
-</svg></a></div>
-      <div class="footer-brand-desc">Promoções, cupons e ofertas da Amazon, Shopee, Hinode e mais. Economize todos os dias.</div>
-      <div class="footer-social-row">
-        <a href="https://t.me/carvapromoclub" target="_blank" class="footer-social-btn" aria-label="Telegram"><svg viewBox="0 0 24 24" width="12" height="12" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
-        <a href="https://www.instagram.com/carvapromoclub/" target="_blank" class="footer-social-btn" aria-label="Instagram"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#e1306c" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg></a>
-      </div>
+<!-- FILTERS + GRID -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
+  <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
+    <div class="flex items-center gap-2"><span class="w-1 h-4 gold-gradient rounded-full"></span><span class="font-bold text-sm">Cupons ativos</span><span class="text-gray-500 text-xs" id="cupCount"></span></div>
+    <div class="flex gap-1.5 flex-wrap" id="filterPills">
+      <button data-f="todos" onclick="filterC('todos',this)" class="cpill active text-xs font-semibold px-3 py-1.5 rounded-full border transition-all bg-yellow-500/10 border-yellow-500/30 text-yellow-300">Todos</button>
+      <button data-f="codigo" onclick="filterC('codigo',this)" class="cpill text-xs font-semibold px-3 py-1.5 rounded-full border transition-all bg-white/5 border-white/10 text-gray-400 hover:text-white">Com código</button>
+      <button data-f="prime" onclick="filterC('prime',this)" class="cpill text-xs font-semibold px-3 py-1.5 rounded-full border transition-all bg-white/5 border-white/10 text-gray-400 hover:text-white">Prime</button>
+      <button data-f="app" onclick="filterC('app',this)" class="cpill text-xs font-semibold px-3 py-1.5 rounded-full border transition-all bg-white/5 border-white/10 text-gray-400 hover:text-white">App</button>
     </div>
-    <div class="footer-col"><h5>Navegação</h5><a href="index.html">Home</a><a href="ofertas.html">Ofertas</a><a href="cupons.html">Cupons</a></div>
-    <div class="footer-col"><h5>Parceiros</h5><a href="https://www.amazon.com.br?tag=carva00-20" target="_blank" rel="nofollow">Amazon</a><a href="https://www.hinode.com.br/?id_consultor=76173688" target="_blank" rel="nofollow">Hinode</a></div>
-    <div class="footer-col"><h5>Legal</h5><a href="#">Privacidade</a><a href="#">Termos</a><a href="#">Afiliados</a></div>
   </div>
-  <div class="footer-bottom">
-    <p class="footer-note">Este site participa de programas de afiliados. Somos remunerados por indicações qualificadas, sem custo adicional para você.</p>
-    <span class="footer-copy">© 2025 PromoClub · carvapromoclub@gmail.com</span>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="cuponsGrid"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/5 bg-gray-900/50 py-8 px-4 sm:px-6">
+  <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    <a href="index.html"><svg class="h-7" viewBox="0 0 200 52" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gf" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c9a84c"/><stop offset="50%" stop-color="#f5d078"/><stop offset="100%" stop-color="#c9a84c"/></linearGradient><linearGradient id="gl" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/><stop offset="30%" stop-color="#f5d078"/><stop offset="70%" stop-color="#f5d078"/><stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/></linearGradient></defs><line x1="4" y1="14" x2="196" y2="14" stroke="url(#gl)" stroke-width="0.7"/><text x="100" y="34" font-family="Inter,sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#gf)">PROMO</text><line x1="4" y1="42" x2="54" y2="42" stroke="url(#gl)" stroke-width="0.7"/><line x1="146" y1="42" x2="196" y2="42" stroke="url(#gl)" stroke-width="0.7"/><text x="100" y="50" font-family="Inter,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#gf)">CLUB</text></svg></a>
+    <p class="text-gray-600 text-xs text-center max-w-md">Este site participa de programas de afiliados. Somos remunerados por indicações qualificadas, sem custo adicional para você.</p>
+    <span class="text-gray-600 text-xs">© 2025 PromoClub</span>
   </div>
 </footer>
 
-<div class="toast" id="toast"></div>
-
+<script src="shared.js"></script>
 <script>
-const CUPONS = [
-  {
-    id:'bomdia10', tipo:'codigo', codigo:'BOMDIA10',
-    valor:'10% OFF',
-    titulo:'10% OFF em compras acima de R$200',
-    descricao:'Válido para produtos selecionados na Amazon.',
-    condicao:'Mínimo R$200', validade:'Tempo limitado',
-    usos:312, popularidade:72, verificado:true,
-    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
-  },
-  {
-    id:'maiochegou', tipo:'codigo', codigo:'MAIOCHEGOU',
-    valor:'R$100 OFF',
-    titulo:'R$100 OFF em pedidos acima de R$999',
-    descricao:'Desconto aplicado automaticamente no checkout.',
-    condicao:'Mínimo R$999', validade:'Tempo limitado',
-    usos:198, popularidade:80, verificado:true, hot:true,
-    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
-  },
-  {
-    id:'bomdemais35', tipo:'codigo', codigo:'BOMDEMAIS35',
-    valor:'R$35 OFF',
-    titulo:'R$35 OFF em compras acima de R$299',
-    descricao:'Para produtos selecionados. Cole o código no checkout.',
-    condicao:'Mínimo R$299', validade:'Tempo limitado',
-    usos:421, popularidade:65, verificado:true,
-    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
-  },
-  {
-    id:'seumomento', tipo:'codigo', codigo:'SEUMOMENTO',
-    valor:'R$70 OFF',
-    titulo:'R$70 OFF em pedidos acima de R$699',
-    descricao:'Cupom de uso geral em produtos elegíveis da Amazon.',
-    condicao:'Mínimo R$699', validade:'Tempo limitado',
-    usos:154, popularidade:68, verificado:true,
-    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
-  },
-  {
-    id:'fazopedido', tipo:'codigo', codigo:'FAZOPEDIDO',
-    valor:'R$50 OFF',
-    titulo:'R$50 OFF em compras acima de R$499',
-    descricao:'Desconto válido para itens selecionados. Verifique elegibilidade.',
-    condicao:'Mínimo R$499', validade:'Tempo limitado',
-    usos:287, popularidade:60, verificado:true,
-    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
-  },
-  {
-    id:'pc150', tipo:'codigo', codigo:'PC150',
-    valor:'R$150 OFF',
-    titulo:'R$150 OFF em PCs e Informática',
-    descricao:'Exclusivo para as categorias PC e Informática. Ideal para notebooks, monitores e periféricos.',
-    condicao:'Categorias: PC e Informática', validade:'Tempo limitado',
-    usos:532, popularidade:92, verificado:true, hot:true,
-    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
-  },
-  {
-    id:'tvsom250', tipo:'codigo', codigo:'TVSOM250',
-    valor:'R$200 OFF',
-    titulo:'R$200 OFF em TVs, Áudio e Som acima de R$1.499',
-    descricao:'Para as categorias TVs, Áudio e Som. Aproveite para comprar aquela TV que você queria.',
-    condicao:'Mínimo R$1.499 · TVs, Áudio e Som', validade:'Tempo limitado',
-    usos:389, popularidade:88, verificado:true, hot:true,
-    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
-  },
-  {
-    id:'prime20app', tipo:'app', codigo:'PRIME20APP',
-    valor:'R$20 OFF',
-    titulo:'R$20 OFF — Cupom Amazon Prime Day no App',
-    descricao:'Exclusivo pelo aplicativo Amazon. Válido para membros Prime durante o Prime Day.',
-    condicao:'App Amazon · Membros Prime', validade:'Prime Day',
-    usos:891, popularidade:85, verificado:true, hot:true,
-    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
-  },
-  {
-    id:'noprimeday40', tipo:'app', codigo:'40NOPRIMEDAY',
-    valor:'R$40 OFF',
-    titulo:'R$40 OFF — Amazon Prime Day no App',
-    descricao:'Cupom exclusivo do Prime Day disponível somente pelo aplicativo Amazon.',
-    condicao:'App Amazon · Membros Prime', validade:'Prime Day',
-    usos:673, popularidade:82, verificado:true,
-    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
-  },
-  {
-    id:'souprime', tipo:'prime', codigo:'SOUPRIME',
-    valor:'R$100 OFF',
-    titulo:'R$100 OFF — Cupom exclusivo Amazon Prime Day',
-    descricao:'Desconto especial para membros Prime no Prime Day. Um dos maiores cupons disponíveis.',
-    condicao:'Membros Amazon Prime', validade:'Prime Day',
-    usos:1240, popularidade:96, verificado:true, hot:true,
-    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
-  },
-  {
-    id:'app20off', tipo:'app', codigo:'APP20OFF',
-    valor:'R$20 OFF',
-    titulo:'R$20 OFF na soma de R$100 em produtos na sacola',
-    descricao:'Adicione pelo menos R$100 em produtos na sacola e use o cupom para ganhar R$20 de desconto.',
-    condicao:'Mínimo R$100 na sacola · App Amazon', validade:'Tempo limitado',
-    usos:445, popularidade:70, verificado:true,
-    link:'https://amzn.to/4fiE8NQ?tag=carva00-20',
-  },
+const LINK_AFILIADO = 'https://amzn.to/4fiE8NQ?tag=carva00-20';
+const FALLBACK_CUPONS = [
+  {id:'bomdia10',tipo:'codigo',codigo:'BOMDIA10',valor:'10% OFF',titulo:'10% OFF acima de R$200',descricao:'Produtos selecionados na Amazon.',condicao:'Mínimo R$200',validade:'Tempo limitado',hot:false},
+  {id:'maiochegou',tipo:'codigo',codigo:'MAIOCHEGOU',valor:'R$100 OFF',titulo:'R$100 OFF acima de R$999',descricao:'Desconto no checkout.',condicao:'Mínimo R$999',validade:'Tempo limitado',hot:true},
+  {id:'bomdemais35',tipo:'codigo',codigo:'BOMDEMAIS35',valor:'R$35 OFF',titulo:'R$35 OFF acima de R$299',descricao:'Produtos selecionados.',condicao:'Mínimo R$299',validade:'Tempo limitado',hot:false},
+  {id:'seumomento',tipo:'codigo',codigo:'SEUMOMENTO',valor:'R$70 OFF',titulo:'R$70 OFF acima de R$699',descricao:'Cupom de uso geral.',condicao:'Mínimo R$699',validade:'Tempo limitado',hot:false},
+  {id:'fazopedido',tipo:'codigo',codigo:'FAZOPEDIDO',valor:'R$50 OFF',titulo:'R$50 OFF acima de R$499',descricao:'Verifique elegibilidade.',condicao:'Mínimo R$499',validade:'Tempo limitado',hot:false},
+  {id:'pc150',tipo:'codigo',codigo:'PC150',valor:'R$150 OFF',titulo:'R$150 OFF em PCs e Informática',descricao:'Exclusivo para PC e Informática.',condicao:'Categoria PC/Informática',validade:'Tempo limitado',hot:true},
+  {id:'tvsom250',tipo:'codigo',codigo:'TVSOM250',valor:'R$200 OFF',titulo:'R$200 OFF em TVs acima de R$1.499',descricao:'TVs, Áudio e Som.',condicao:'Mín. R$1.499 · TVs e Áudio',validade:'Tempo limitado',hot:true},
+  {id:'prime20app',tipo:'app',codigo:'PRIME20APP',valor:'R$20 OFF',titulo:'R$20 OFF Prime Day no App',descricao:'Exclusivo pelo app Amazon.',condicao:'App · Membros Prime',validade:'Prime Day',hot:true},
+  {id:'noprimeday40',tipo:'app',codigo:'40NOPRIMEDAY',valor:'R$40 OFF',titulo:'R$40 OFF Prime Day no App',descricao:'Exclusivo pelo aplicativo.',condicao:'App · Membros Prime',validade:'Prime Day',hot:false},
+  {id:'souprime',tipo:'prime',codigo:'SOUPRIME',valor:'R$100 OFF',titulo:'R$100 OFF Cupom Prime Day',descricao:'Desconto especial membros Prime.',condicao:'Membros Amazon Prime',validade:'Prime Day',hot:true},
+  {id:'app20off',tipo:'app',codigo:'APP20OFF',valor:'R$20 OFF',titulo:'R$20 OFF com R$100 na sacola',descricao:'Adicione R$100 e use o cupom.',condicao:'Mín. R$100 na sacola · App',validade:'Tempo limitado',hot:false},
 ];
 
-let activeFilter = 'todos';
-let favs = JSON.parse(localStorage.getItem('pc_fav_cupons') || '[]');
+const TIPO_CFG={
+  codigo:{label:'Código',cls:'bg-yellow-500/10 border-yellow-500/20 text-yellow-300'},
+  prime:{label:'Prime',cls:'bg-blue-500/10 border-blue-500/20 text-blue-400'},
+  app:{label:'App',cls:'bg-green-500/10 border-green-500/20 text-green-400'},
+};
 
-document.addEventListener('DOMContentLoaded', async () => {
-  // produtos.json é fonte de verdade
-  // Se o JSON carregar com produtos, substitui tudo; senão mantém inline como fallback
-  try {
-    const jsonProds = await loadProdutosJson();
-    if (jsonProds.length > 0) {
-      PRODUTOS.length = 0;
-      jsonProds.forEach(p => PRODUTOS.push(p));
-      console.log('[PromoClub] ' + PRODUTOS.length + ' produtos carregados do JSON');
-    } else {
-      console.warn('[PromoClub] JSON vazio ou ausente — usando produtos inline como fallback');
-    }
-  } catch(e) {
-    console.warn('[PromoClub] Erro ao carregar JSON:', e.message);
-  }
-  renderStats();
-  renderCoupons();
-});
+let allCupons=[], activeFilter='todos', query='';
 
-function renderStats() {
-  const ativos = CUPONS.filter(c => !c.expirado).length;
-  const usos = CUPONS.reduce((s,c) => s + (c.usos||0), 0);
-  animNum('statAtivos', ativos);
-  animNum('statUsos', usos);
-}
-function animNum(id, target) {
-  let curr = 0; const step = Math.ceil(target/40);
-  const el = document.getElementById(id); if (!el) return;
-  const t = setInterval(() => { curr = Math.min(curr+step,target); el.textContent = curr.toLocaleString('pt-BR'); if (curr>=target) clearInterval(t); }, 25);
-}
-
-function filterCoupons(f, btn) {
-  activeFilter = f;
-  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-  renderCoupons();
-}
-
-function renderCoupons() {
-  let list = activeFilter === 'todos' ? [...CUPONS] : CUPONS.filter(c => c.tipo === activeFilter);
-  list.sort((a,b) => (b.hot?1:0)-(a.hot?1:0) || b.popularidade-a.popularidade);
-  document.getElementById('filterCount').textContent = `${list.length} cupom${list.length!==1?'s':''}`;
-  const grid = document.getElementById('couponsGrid');
-  if (!list.length) { grid.innerHTML=`<div class="empty"><p>Nenhum cupom nessa categoria</p><span>Tente outro filtro</span></div>`; return; }
-  grid.innerHTML = list.map(c => cardHTML(c)).join('');
-  setTimeout(() => {
-    grid.querySelectorAll('.c-usage-bar').forEach(b => { b.style.width = b.dataset.pct + '%'; });
-  }, 80);
-}
-
-function cardHTML(c) {
-  const isFav = favs.includes(c.id);
-  const typeLabel = {codigo:'Código',oferta:'Oferta',prime:'Prime',app:'App'};
-  const typeBadge = {codigo:'badge-codigo',oferta:'badge-oferta',prime:'badge-prime',app:'badge-app'};
-  const usosLabel = c.usos > 999 ? `+${(c.usos/1000).toFixed(1)}k usados hoje` : `${c.usos} usados hoje`;
-  const chk = `<svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>`;
-
-  // All coupons use the new "Ver Cupom" flow:
-  // 1. Button opens affiliate link in new tab
-  // 2. Code box appears inline for copying
-  const bottomHTML = `
-    <div class="c-reveal-wrap" id="reveal-${c.id}">
-      <button class="c-ver-btn" onclick="verCupom(event,'${c.id}','${c.codigo}','${c.link||'#'}')">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-        Ver Cupom
-      </button>
-      <div class="c-code-revealed" id="code-${c.id}" style="display:none">
-        <div class="c-code-box">
-          <span class="c-code-val">${c.codigo}</span>
-          <button class="c-copy-btn" id="cc-${c.id}" onclick="copyCoupon(event,'${c.codigo}','${c.id}')">
-            <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copiar
-          </button>
+function couponCard(c){
+  const tc=TIPO_CFG[c.tipo]||TIPO_CFG.codigo;
+  return `<div class="card-hover bg-gray-900 border border-white/8 rounded-xl overflow-hidden" data-tipo="${c.tipo}">
+    <div class="h-0.5 bg-gradient-to-r from-yellow-600 to-yellow-400"></div>
+    <div class="p-4">
+      <div class="flex items-start justify-between gap-2 mb-3">
+        <div class="flex gap-1.5 flex-wrap">
+          <span class="text-xs font-bold px-2 py-0.5 rounded-full border ${tc.cls}">${tc.label}</span>
+          ${c.hot?'<span class="text-xs font-bold px-2 py-0.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400">Popular</span>':''}
+          <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-500/8 border border-green-500/15 text-green-400">✓ Verificado</span>
         </div>
+        <span class="font-mono font-bold text-white text-lg whitespace-nowrap">${c.valor}</span>
       </div>
-    </div>`;
-
-  return `
-  <div class="c-card type-${c.tipo}${c.expirado?' c-expired':''}">
-    <div class="c-inner">
-      <div class="c-top">
-        <div class="c-badges">
-          <span class="c-badge ${typeBadge[c.tipo]}">${typeLabel[c.tipo]}</span>
-          ${c.verificado?'<span class="c-badge badge-verificado">Verificado</span>':''}
-          ${c.hot?'<span class="c-badge badge-popular">Popular</span>':''}
-        </div>
-        <span class="c-value">${c.valor}</span>
+      <div class="text-white text-sm font-semibold leading-snug mb-1">${c.titulo}</div>
+      <div class="text-gray-500 text-xs mb-3">${c.descricao}</div>
+      <div class="flex gap-3 text-xs text-gray-500 mb-3 flex-wrap">
+        <span><strong class="text-gray-400">Condição:</strong> ${c.condicao}</span>
+        <span><strong class="text-gray-400">Validade:</strong> ${c.validade}</span>
       </div>
-      <div class="c-title">${c.titulo}</div>
-      <div class="c-desc">${c.descricao}</div>
-      <div class="c-meta">
-        <div class="c-meta-item">
-          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M12 3a9 9 0 1 0 0 18A9 9 0 0 0 12 3z"/></svg>
-          <span><strong>Condição:</strong> ${c.condicao}</span>
-        </div>
-        <div class="c-meta-item">
-          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          <span><strong>Validade:</strong> ${c.validade}</span>
-        </div>
-      </div>
-      <div class="c-bottom">
-        ${bottomHTML}
-        <button class="c-fav ${isFav?'on':''}" onclick="toggleFav('${c.id}')" title="${isFav?'Remover':'Salvar'}">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="${isFav?'#ef4444':'none'}" stroke="#ef4444" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <div id="rev-${c.id}">
+        <button onclick="verCupom('${c.id}','${c.codigo}')" class="w-full gold-gradient text-black font-bold text-xs py-2.5 rounded-lg flex items-center justify-center gap-1.5 hover:brightness-110 transition-all">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Ver Cupom
         </button>
-      </div>
-      <div class="c-usage">
-        <div class="c-usage-bar-wrap"><div class="c-usage-bar" data-pct="${c.popularidade}" style="width:0%"></div></div>
-        <span class="c-usage-label">${usosLabel}</span>
       </div>
     </div>
   </div>`;
 }
 
-function verCupom(e, id, code, link) {
-  e.stopPropagation();
-  // Open affiliate link in new tab first
-  window.open(link, '_blank', 'noopener,noreferrer');
-  // Then reveal the code
-  const revealed = document.getElementById('code-' + id);
-  const btn = e.currentTarget;
-  if (revealed) {
-    revealed.style.display = 'block';
-    btn.style.display = 'none';
-  }
-  toast('Link aberto! Copie o código abaixo 👇');
+function verCupom(id, code){
+  window.open(LINK_AFILIADO,'_blank','noopener,noreferrer');
+  const wrap=document.getElementById('rev-'+id);
+  if(!wrap) return;
+  wrap.innerHTML=`<div class="flex overflow-hidden rounded-lg border border-dashed border-white/15 bg-gray-800">
+    <span class="font-mono text-sm font-bold text-white px-3 py-2.5 flex-1 tracking-wider">${code}</span>
+    <button onclick="copyC('${code}',this)" class="gold-gradient text-black text-xs font-bold px-4 hover:brightness-110 transition-all">Copiar</button>
+  </div>`;
+  showToast('Link aberto! Copie o código 👇');
 }
 
-function copyCoupon(e, code, id) {
-  e.stopPropagation();
-  navigator.clipboard.writeText(code).then(() => {
-    const btn = document.getElementById('cc-' + id);
-    if (btn) { btn.classList.add('done'); btn.innerHTML = 'Copiado!'; }
-    setTimeout(() => {
-      if (btn) { btn.classList.remove('done'); btn.innerHTML = `<svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar`; }
-    }, 2500);
-    toast('Código ' + code + ' copiado!');
+function copyC(code, btn){
+  navigator.clipboard.writeText(code).then(()=>{
+    btn.textContent='Copiado!';
+    setTimeout(()=>btn.textContent='Copiar', 2500);
+    showToast('Código '+code+' copiado!');
   });
 }
 
-function toggleFav(id) {
-  const i = favs.indexOf(id);
-  if (i>=0) { favs.splice(i,1); toast('Removido dos salvos'); }
-  else { favs.push(id); toast('Cupom salvo!'); }
-  localStorage.setItem('pc_fav_cupons', JSON.stringify(favs));
-  renderCoupons();
+function filterC(f, btn){
+  activeFilter=f;
+  document.querySelectorAll('.cpill').forEach(p=>{
+    p.className=p.className.replace('bg-yellow-500/10 border-yellow-500/30 text-yellow-300','bg-white/5 border-white/10 text-gray-400 hover:text-white');
+  });
+  btn.className=btn.className.replace('bg-white/5 border-white/10 text-gray-400 hover:text-white','bg-yellow-500/10 border-yellow-500/30 text-yellow-300');
+  render();
 }
 
-let _tt;
-function toast(msg) {
-  clearTimeout(_tt); const el=document.getElementById('toast');
-  el.textContent=msg; el.classList.add('show');
-  _tt=setTimeout(()=>el.classList.remove('show'),3000);
+function render(){
+  let list=[...allCupons];
+  if(activeFilter!=='todos') list=list.filter(c=>c.tipo===activeFilter);
+  if(query) list=list.filter(c=>(c.titulo+c.codigo+c.descricao).toLowerCase().includes(query));
+  list.sort((a,b)=>(b.hot?1:0)-(a.hot?1:0));
+  document.getElementById('cupCount').textContent=list.length+' cupom'+(list.length!==1?'s':'');
+  document.getElementById('cuponsGrid').innerHTML=list.length
+    ? list.map(c=>couponCard(c)).join('')
+    : '<p class="col-span-full text-center text-gray-500 py-16">Nenhum cupom encontrado</p>';
 }
 
-function openDrawer(){document.getElementById('drawer').classList.add('open');document.body.style.overflow='hidden';}
-function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.body.style.overflow='';}
+async function init(){
+  const fromJson=await loadCupons();
+  allCupons=fromJson.length ? fromJson.map((c,i)=>({
+    id: c.id||c.codigo||('c'+i),
+    tipo: c.tipo||c.type||'codigo',
+    codigo: c.codigo||c.code||'',
+    valor: c.desconto||c.valor||'',
+    titulo: c.titulo||c.title||'',
+    descricao: c.descricao||c.description||c.condicao||'',
+    condicao: c.condicao||c.condition||'',
+    validade: c.validade||c.expiry||'Tempo limitado',
+    hot: c.hot||false,
+  })) : FALLBACK_CUPONS;
+  render();
+}
 
+document.getElementById('searchInput').addEventListener('input',e=>{query=e.target.value.toLowerCase();render();});
+init();
 </script>
 </body>
 </html>

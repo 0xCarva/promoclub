@@ -1,1606 +1,480 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="PromoClub — Cupons, ofertas e promoções da Amazon, Shopee, Hinode e mais.">
-<meta property="og:title" content="PromoClub — Promoções, Cupons e Ofertas">
-<meta property="og:description" content="As melhores promoções reunidas em um só lugar. Economize na Amazon, Shopee, Hinode e mais.">
+<meta name="description" content="PromoClub — Promoções, cupons e ofertas da Amazon, Shopee, Hinode e mais.">
 <title>PromoClub — Promoções, Cupons e Ofertas</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;1,14..32,400&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: { sans: ['Inter','sans-serif'], mono: ['Geist Mono','monospace'] },
+      colors: {
+        gold: { DEFAULT:'#c9a84c', light:'#f5d078', dark:'#a8892e' },
+        surface: { DEFAULT:'#0d1117', 2:'#111827', 3:'#1a2233', 4:'#1e2a3a' },
+      },
+    }
+  }
+}
+</script>
 <style>
-/* ── RESET ──────────────────────────────────────────────── */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',-apple-system,sans-serif;background:#080b14;color:#e2e8f0;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:14px}
-a{color:inherit;text-decoration:none}
-button{font-family:inherit;cursor:pointer;border:none;background:none}
-img{display:block;max-width:100%}
-::-webkit-scrollbar{width:4px;height:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:#1e2a3a;border-radius:99px}
-
-/* ── TOKENS ─────────────────────────────────────────────── */
-:root{
-  --bg:       #080b14;
-  --surface:  #0d1117;
-  --surface2: #111827;
-  --surface3: #1a2233;
-  --border:   rgba(255,255,255,0.06);
-  --border2:  rgba(255,255,255,0.10);
-  --text:     #e2e8f0;
-  --text2:    #94a3b8;
-  --text3:    #475569;
-  --accent:   #6366f1;
-  --accent2:  #818cf8;
-  --accent-bg:rgba(99,102,241,0.08);
-  --accent-border:rgba(99,102,241,0.2);
-  --green:    #10b981;
-  --red:      #ef4444;
-  --orange:   #f59e0b;
-  --tg:       #0088cc;
-  --ig:       #e1306c;
-  --r:        10px;
-  --r-sm:     6px;
-  --r-lg:     14px;
-  --r-xl:     20px;
-  --shadow:   0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.2);
-  --shadow-lg:0 4px 6px rgba(0,0,0,.4),0 10px 40px rgba(0,0,0,.3);
-}
-
-/* ── NAV ─────────────────────────────────────────────────── */
-.nav{
-  position:sticky;top:0;z-index:200;
-  background:rgba(8,11,20,0.9);
-  backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--border);
-  padding:0 clamp(16px,4vw,48px);
-}
-.nav-inner{
-  max-width:1200px;margin:0 auto;
-  display:flex;align-items:center;gap:8px;height:56px;
-}
-.logo{
-  display:flex;align-items:center;gap:9px;
-  font-size:16px;font-weight:800;letter-spacing:-0.4px;
-  color:var(--text);margin-right:8px;flex-shrink:0;
-}
-.logo-mark{
-  width:28px;height:28px;border-radius:8px;
-  background:var(--accent);
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;font-weight:900;color:#fff;
-  flex-shrink:0;
-}
-.nav-links{display:flex;gap:1px}
-.nav-a{
-  color:var(--text2);font-size:13px;font-weight:500;
-  padding:5px 10px;border-radius:var(--r-sm);transition:all .15s;
-}
-.nav-a:hover{color:var(--text);background:var(--surface2)}
-.nav-a.on{color:var(--accent)}
-.nav-search{
-  flex:1;max-width:340px;margin:0 auto;
-  display:flex;align-items:center;
-  background:var(--surface2);border:1px solid var(--border);
-  border-radius:var(--r);padding:0 12px;gap:7px;
-  transition:border-color .15s;
-}
-.nav-search:focus-within{border-color:rgba(99,102,241,.4)}
-.nav-search svg{width:13px;height:13px;stroke:var(--text3);fill:none;stroke-width:2;flex-shrink:0}
-.nav-search input{background:none;border:none;outline:none;color:var(--text);font-family:inherit;font-size:13px;width:100%;padding:8px 0}
-.nav-search input::placeholder{color:var(--text3)}
-.nav-end{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
-.nav-social{
-  width:30px;height:30px;border-radius:var(--r-sm);
-  border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  transition:all .15s;
-}
-.nav-social:hover{border-color:var(--border2);background:var(--surface2)}
-.nav-social svg{width:14px;height:14px}
-.nav-cta{
-  background:var(--accent);color:#fff;
-  font-size:12px;font-weight:600;
-  padding:7px 14px;border-radius:var(--r);
-  transition:all .15s;white-space:nowrap;
-}
-.nav-cta:hover{background:var(--accent2);box-shadow:0 0 20px rgba(99,102,241,.35)}
-.hamburger{
-  display:none;width:32px;height:32px;border-radius:var(--r-sm);
-  border:1px solid var(--border);align-items:center;justify-content:center;
-  margin-left:auto;
-}
-.hamburger svg{width:16px;height:16px;stroke:var(--text2);fill:none;stroke-width:2}
-/* drawer */
-.drawer{display:none;position:fixed;inset:0;z-index:300}
-.drawer-bg{position:absolute;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
-.drawer-panel{
-  position:absolute;right:0;top:0;bottom:0;width:260px;
-  background:var(--surface);border-left:1px solid var(--border);
-  padding:20px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;
-}
-.drawer-close{align-self:flex-end;color:var(--text3);font-size:18px;padding:4px;margin-bottom:8px}
-.drawer-a{color:var(--text2);font-size:14px;font-weight:500;padding:11px 12px;border-radius:var(--r-sm);transition:all .15s}
-.drawer-a:hover,.drawer-a.on{color:var(--text);background:var(--surface2)}
-.drawer-a.on{color:var(--accent)}
-.drawer-divider{height:1px;background:var(--border);margin:8px 0}
-.drawer-social{display:flex;gap:8px;padding:8px 12px}
-.drawer-social-btn{
-  flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
-  padding:9px;border-radius:var(--r-sm);border:1px solid var(--border);
-  font-size:12px;font-weight:600;color:var(--text2);transition:all .15s;
-}
-.drawer-social-btn:hover{color:var(--text)}
-.drawer-social-btn svg{width:14px;height:14px}
-.drawer.open{display:block}
-
-/* ── HERO ─────────────────────────────────────────────────── */
-.hero{
-  padding:clamp(48px,8vw,88px) clamp(16px,4vw,48px) clamp(40px,6vw,72px);
-  text-align:center;position:relative;overflow:hidden;
-}
-.hero::before{
-  content:'';position:absolute;
-  top:-120px;left:50%;transform:translateX(-50%);
-  width:600px;height:400px;
-  background:radial-gradient(ellipse,rgba(99,102,241,.1) 0%,transparent 70%);
-  pointer-events:none;
-}
-.hero-inner{max-width:640px;margin:0 auto;position:relative;z-index:1}
-.hero-pill{
-  display:inline-flex;align-items:center;gap:6px;
-  background:var(--accent-bg);border:1px solid var(--accent-border);
-  color:var(--accent2);font-size:11px;font-weight:600;
-  padding:4px 12px;border-radius:99px;letter-spacing:.5px;
-  text-transform:uppercase;margin-bottom:20px;
-}
-.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
-.hero h1{
-  font-size:clamp(28px,5vw,52px);font-weight:800;
-  letter-spacing:-1.5px;line-height:1.1;color:var(--text);
-  margin-bottom:14px;
-}
-.hero-sub{font-size:clamp(14px,2vw,17px);color:var(--text2);line-height:1.7;margin-bottom:28px}
-.hero-search{
-  display:flex;max-width:480px;margin:0 auto 32px;
-  background:var(--surface2);border:1px solid var(--border2);
-  border-radius:var(--r-lg);overflow:hidden;
-  box-shadow:var(--shadow-lg);
-  transition:border-color .15s;
-}
-.hero-search:focus-within{border-color:rgba(99,102,241,.4)}
-.hero-search input{
-  flex:1;background:none;border:none;outline:none;
-  color:var(--text);font-family:inherit;font-size:14px;
-  padding:13px 16px;min-width:0;
-}
-.hero-search input::placeholder{color:var(--text3)}
-.hero-search-btn{
-  background:var(--accent);color:#fff;
-  font-size:13px;font-weight:600;
-  padding:0 20px;display:flex;align-items:center;gap:6px;
-  transition:background .15s;flex-shrink:0;
-}
-.hero-search-btn:hover{background:var(--accent2)}
-.hero-search-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.5}
-/* store badges */
-.hero-stores{
-  display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;
-}
-.store-badge{
-  display:flex;align-items:center;gap:6px;
-  background:var(--surface2);border:1px solid var(--border);
-  color:var(--text2);font-size:11px;font-weight:600;
-  padding:5px 12px;border-radius:99px;letter-spacing:.3px;
-  transition:all .15s;
-}
-.store-badge:hover{border-color:var(--border2);color:var(--text)}
-.store-badge-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-
-/* ── STATS ───────────────────────────────────────────────── */
-.stats-row{
-  max-width:1200px;margin:0 auto;
-  padding:0 clamp(16px,4vw,48px) 0;
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:1px;background:var(--border);
-  border:1px solid var(--border);border-radius:var(--r-lg);
-  overflow:hidden;
-}
-.stat{background:var(--surface);padding:20px;text-align:center;transition:background .15s}
-.stat:hover{background:var(--surface2)}
-.stat-n{font-family:'Geist Mono',monospace;font-size:22px;font-weight:600;color:var(--text);letter-spacing:-0.5px;line-height:1}
-.stat-n span{color:var(--accent2)}
-.stat-l{font-size:11px;color:var(--text3);margin-top:4px;letter-spacing:.3px}
-
-/* ── PAGE ────────────────────────────────────────────────── */
-.page{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
-
-/* ── SECTION HEADER ─────────────────────────────────────── */
-.sec{padding-top:44px;margin-bottom:16px}
-.sec-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.sec-title{
-  font-size:16px;font-weight:700;letter-spacing:-0.3px;
-  display:flex;align-items:center;gap:8px;
-}
-.sec-pip{width:3px;height:16px;border-radius:99px;background:var(--accent);flex-shrink:0}
-.sec-link{font-size:12px;color:var(--text3);transition:color .15s;white-space:nowrap}
-.sec-link:hover{color:var(--accent)}
-
-/* ── STORE FILTER PILLS ──────────────────────────────────── */
-.filter-pills{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin-bottom:16px}
-.filter-pills::-webkit-scrollbar{display:none}
-.pill{
-  background:var(--surface2);border:1px solid var(--border);
-  color:var(--text2);font-size:11px;font-weight:600;
-  padding:5px 12px;border-radius:99px;white-space:nowrap;
-  cursor:pointer;transition:all .15s;letter-spacing:.2px;
-}
-.pill:hover{border-color:var(--border2);color:var(--text)}
-.pill.on{background:var(--accent-bg);border-color:var(--accent-border);color:var(--accent2)}
-
-/* ── SORT ROW ────────────────────────────────────────────── */
-.sort-row{
-  display:flex;align-items:center;gap:10px;
-  margin-bottom:16px;flex-wrap:wrap;
-}
-.sort-label{font-size:11px;color:var(--text3);letter-spacing:.3px}
-.sort-select{
-  background:var(--surface2);border:1px solid var(--border);
-  color:var(--text);font-family:inherit;font-size:12px;
-  padding:6px 26px 6px 10px;border-radius:var(--r-sm);
-  outline:none;appearance:none;cursor:pointer;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23475569' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 9px center;
-  transition:border-color .15s;
-}
-.sort-select:focus{border-color:rgba(99,102,241,.4)}
-.count{margin-left:auto;font-size:11px;color:var(--text3)}
-.count strong{color:var(--text2)}
-
-/* ── PRODUCT GRID ────────────────────────────────────────── */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
-
-/* ── PRODUCT CARD ────────────────────────────────────────── */
-.card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r-lg);overflow:hidden;
-  display:flex;flex-direction:column;
-  transition:border-color .2s,transform .2s,box-shadow .2s;
-  cursor:pointer;position:relative;
-}
-.card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:var(--shadow-lg)}
-.card-badge{
-  position:absolute;top:8px;left:8px;z-index:2;
-  font-size:9px;font-weight:700;padding:2px 7px;
-  border-radius:99px;letter-spacing:.3px;text-transform:uppercase;
-}
-.b-hot{background:rgba(239,68,68,.9);color:#fff}
-.b-new{background:rgba(16,185,129,.9);color:#fff}
-.b-top{background:rgba(99,102,241,.9);color:#fff}
-.card-fav{
-  position:absolute;top:8px;right:8px;z-index:2;
-  width:26px;height:26px;
-  background:rgba(8,11,20,.7);backdrop-filter:blur(8px);
-  border:1px solid var(--border2);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .15s;
-}
-.card-fav:hover{background:rgba(239,68,68,.2);border-color:var(--red)}
-.card-fav.on{background:rgba(239,68,68,.15);border-color:var(--red)}
-.card-img{
-  aspect-ratio:1;background:var(--surface2);
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;padding:16px;
-}
-.card-img img{width:100%;height:100%;object-fit:contain;transition:transform .3s}
-.card:hover .card-img img{transform:scale(1.06)}
-.card-body{padding:12px;flex:1;display:flex;flex-direction:column;gap:5px}
-.card-store{
-  display:flex;align-items:center;gap:5px;
-  font-size:10px;font-weight:600;color:var(--text3);letter-spacing:.3px;text-transform:uppercase;
-}
-.card-store-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.card-name{
-  font-size:13px;font-weight:500;color:var(--text);line-height:1.35;flex:1;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
-}
-.card-stars{display:flex;align-items:center;gap:4px}
-.card-stars-row{display:flex;gap:1px}
-.card-stars-row svg{width:10px;height:10px}
-.card-stars-count{font-size:10px;color:var(--text3)}
-.card-pricing{display:flex;flex-direction:column;gap:2px;margin-top:2px}
-.card-lowest{display:inline-block;background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;width:fit-content}
-.card-price-row{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
-.card-disc{font-size:13px;font-weight:700;color:var(--red)}
-.card-price{font-family:'Geist Mono',monospace;font-size:16px;font-weight:600;color:var(--text);letter-spacing:-0.5px}
-.card-old{font-size:10px;color:var(--text3);text-decoration:line-through}
-.card-install{font-size:10px;color:var(--text3)}
-.card-stock{font-size:10px;color:var(--green);font-weight:500}
-.card-btn{
-  display:flex;align-items:center;justify-content:center;gap:5px;
-  background:var(--accent);color:#fff;
-  font-size:12px;font-weight:600;
-  padding:9px;border-radius:var(--r-sm);
-  transition:all .2s;margin-top:6px;
-}
-.card-btn:hover{background:var(--accent2);box-shadow:0 0 16px rgba(99,102,241,.35)}
-
-/* ── COUPON SECTION ──────────────────────────────────────── */
-.cupons-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
-.coupon{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r-lg);overflow:hidden;
-  display:flex;flex-direction:column;
-  transition:border-color .2s,transform .2s;
-  position:relative;
-}
-.coupon:hover{border-color:var(--border2);transform:translateY(-2px)}
-.coupon-accent{height:2px;background:var(--accent)}
-.coupon-inner{padding:16px}
-.coupon-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
-.coupon-badges{display:flex;gap:5px;flex-wrap:wrap}
-.coupon-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.3px}
-.cb-code{background:var(--accent-bg);color:var(--accent2);border:1px solid var(--accent-border)}
-.cb-prime{background:rgba(0,136,204,.12);color:#0088cc}
-.cb-app{background:rgba(16,185,129,.1);color:var(--green)}
-.cb-ok{background:rgba(16,185,129,.1);color:var(--green);border:1px solid rgba(16,185,129,.2)}
-.cb-hot{background:rgba(239,68,68,.1);color:var(--red)}
-.coupon-value{font-family:'Geist Mono',monospace;font-size:18px;font-weight:600;color:var(--text);white-space:nowrap}
-.coupon-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px}
-.coupon-desc{font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:10px}
-.coupon-meta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
-.coupon-meta-item{font-size:10px;color:var(--text3);display:flex;align-items:center;gap:4px}
-.coupon-meta-item strong{color:var(--text2)}
-.coupon-bottom{display:flex;gap:6px;align-items:center}
-.coupon-code-box{
-  display:flex;flex:1;
-  background:var(--surface2);border:1px dashed var(--border2);
-  border-radius:var(--r-sm);overflow:hidden;
-}
-.coupon-code-val{font-family:'Geist Mono',monospace;font-size:13px;font-weight:600;color:var(--text);padding:7px 10px;flex:1;letter-spacing:.8px}
-.coupon-copy{
-  background:var(--accent);color:#fff;
-  font-size:10px;font-weight:700;padding:0 12px;
-  cursor:pointer;transition:background .15s;min-height:32px;white-space:nowrap;
-}
-.coupon-copy:hover{background:var(--accent2)}
-.coupon-copy.done{background:var(--green)}
-.coupon-reveal-wrap{flex:1;display:flex;flex-direction:column;gap:6px}
-.coupon-ver{
-  width:100%;
-  background:var(--accent);color:#fff;
-  font-size:12px;font-weight:600;
-  padding:9px;border-radius:var(--r-sm);
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  cursor:pointer;transition:all .2s;
-}
-.coupon-ver:hover{background:var(--accent2);box-shadow:0 0 14px rgba(99,102,241,.35)}
-.coupon-ver svg{flex-shrink:0}
-.coupon-revealed{display:none;animation:fadeSlide .25s ease}
-@keyframes fadeSlide{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-
-/* ── HINODE BANNER ───────────────────────────────────────── */
-.hinode-banner{
-  background:linear-gradient(135deg,#1a0a0a 0%,#2d0f0f 50%,#1a0a0a 100%);
-  border:1px solid rgba(220,80,80,.15);
-  border-radius:var(--r-xl);
-  padding:clamp(24px,4vw,40px);
-  display:grid;grid-template-columns:1fr auto;
-  align-items:center;gap:24px;
-  position:relative;overflow:hidden;
-}
-.hinode-banner::before{
-  content:'';position:absolute;top:-60px;right:-60px;
-  width:200px;height:200px;border-radius:50%;
-  background:radial-gradient(circle,rgba(220,80,80,.1),transparent 70%);
-  pointer-events:none;
-}
-.hinode-eyebrow{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(220,80,80,.1);border:1px solid rgba(220,80,80,.2);
-  color:#f87171;font-size:10px;font-weight:700;
-  padding:3px 10px;border-radius:99px;letter-spacing:.5px;
-  text-transform:uppercase;margin-bottom:12px;
-}
-.hinode-title{font-size:clamp(16px,2.5vw,22px);font-weight:800;letter-spacing:-0.3px;color:var(--text);margin-bottom:6px;line-height:1.2}
-.hinode-sub{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:16px;max-width:440px}
-.hinode-btns{display:flex;gap:8px;flex-wrap:wrap}
-.hinode-btn-primary{
-  display:inline-flex;align-items:center;gap:6px;
-  background:#dc2626;color:#fff;
-  font-size:12px;font-weight:600;
-  padding:9px 16px;border-radius:var(--r-sm);
-  transition:all .15s;
-}
-.hinode-btn-primary:hover{background:#b91c1c;box-shadow:0 0 16px rgba(220,38,38,.3)}
-.hinode-btn-ghost{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(220,38,38,.08);color:#f87171;
-  font-size:12px;font-weight:600;
-  padding:9px 16px;border-radius:var(--r-sm);
-  border:1px solid rgba(220,38,38,.2);
-  transition:all .15s;
-}
-.hinode-btn-ghost:hover{background:rgba(220,38,38,.15)}
-.hinode-btn-primary svg,.hinode-btn-ghost svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
-.hinode-visual{
-  flex-shrink:0;text-align:center;
-  background:rgba(220,38,38,.06);
-  border:1px solid rgba(220,38,38,.12);
-  border-radius:var(--r-lg);
-  padding:20px 24px;
-}
-.hinode-visual-num{font-family:'Geist Mono',monospace;font-size:28px;font-weight:700;color:#f87171;line-height:1}
-.hinode-visual-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
-
-/* ── SOCIAL SECTION ──────────────────────────────────────── */
-.social-section{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r-xl);padding:clamp(24px,4vw,40px);
-  display:grid;grid-template-columns:1fr 1fr;gap:12px;
-}
-.social-card{
-  border-radius:var(--r-lg);padding:20px;
-  display:flex;flex-direction:column;gap:12px;
-  border:1px solid var(--border);transition:all .2s;
-}
-.social-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
-.social-card.tg{background:rgba(0,136,204,.06);border-color:rgba(0,136,204,.15)}
-.social-card.ig{background:rgba(225,48,108,.06);border-color:rgba(225,48,108,.15)}
-.social-card-top{display:flex;align-items:center;gap:10px}
-.social-icon{
-  width:36px;height:36px;border-radius:var(--r-sm);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-}
-.social-icon.tg{background:rgba(0,136,204,.15)}
-.social-icon.ig{background:rgba(225,48,108,.15)}
-.social-icon svg{width:18px;height:18px}
-.social-name{font-size:14px;font-weight:700;color:var(--text)}
-.social-handle{font-size:11px;color:var(--text3)}
-.social-desc{font-size:12px;color:var(--text2);line-height:1.6}
-.social-btn{
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  font-size:12px;font-weight:600;padding:9px;border-radius:var(--r-sm);
-  transition:all .15s;
-}
-.social-btn.tg{background:rgba(0,136,204,.12);color:#0088cc;border:1px solid rgba(0,136,204,.2)}
-.social-btn.ig{background:rgba(225,48,108,.12);color:#e1306c;border:1px solid rgba(225,48,108,.2)}
-.social-btn:hover{filter:brightness(1.15)}
-.social-btn svg{width:14px;height:14px}
-
-/* ── NEWSLETTER ──────────────────────────────────────────── */
-.newsletter{
-  background:linear-gradient(135deg,var(--accent-bg),rgba(99,102,241,.04));
-  border:1px solid var(--accent-border);
-  border-radius:var(--r-xl);padding:clamp(20px,3vw,32px);
-  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
-}
-.newsletter-text strong{display:block;font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px}
-.newsletter-text span{font-size:12px;color:var(--text2)}
-.newsletter-form{display:flex;flex:1;min-width:240px;max-width:380px}
-.newsletter-input{
-  flex:1;background:var(--surface2);border:1px solid var(--border2);
-  border-right:none;border-radius:var(--r-sm) 0 0 var(--r-sm);
-  color:var(--text);font-family:inherit;font-size:13px;
-  padding:9px 12px;outline:none;min-width:0;
-}
-.newsletter-input::placeholder{color:var(--text3)}
-.newsletter-input:focus{border-color:rgba(99,102,241,.4)}
-.newsletter-btn{
-  background:var(--accent);color:#fff;font-family:inherit;font-size:12px;font-weight:600;
-  padding:9px 16px;border-radius:0 var(--r-sm) var(--r-sm) 0;
-  white-space:nowrap;transition:background .15s;
-}
-.newsletter-btn:hover{background:var(--accent2)}
-
-/* ── MODAL ───────────────────────────────────────────────── */
-.modal-bg{
-  position:fixed;inset:0;z-index:400;
-  background:rgba(0,0,0,.8);backdrop-filter:blur(8px);
-  display:flex;align-items:center;justify-content:center;padding:16px;
-  opacity:0;pointer-events:none;transition:opacity .2s;
-}
-.modal-bg.open{opacity:1;pointer-events:all}
-.modal-box{
-  background:var(--surface);border:1px solid var(--border2);
-  border-radius:var(--r-xl);width:100%;max-width:680px;
-  max-height:90vh;overflow-y:auto;
-  transform:scale(.97) translateY(6px);transition:transform .2s;position:relative;
-}
-.modal-bg.open .modal-box{transform:scale(1) translateY(0)}
-.modal-close{
-  position:absolute;top:12px;right:12px;
-  width:28px;height:28px;background:var(--surface2);
-  border:1px solid var(--border);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;color:var(--text3);cursor:pointer;z-index:1;transition:all .15s;
-}
-.modal-close:hover{background:var(--red);color:#fff;border-color:var(--red)}
-.modal-grid{display:grid;grid-template-columns:1fr 1.2fr}
-.modal-img-wrap{
-  background:var(--surface2);display:flex;align-items:center;justify-content:center;
-  padding:28px;min-height:260px;border-radius:var(--r-xl) 0 0 var(--r-xl);
-}
-.modal-img-wrap img{max-height:220px;width:100%;object-fit:contain}
-.modal-info{padding:24px 20px}
-.m-store{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-.m-name{font-size:16px;font-weight:700;line-height:1.3;margin-bottom:10px;color:var(--text)}
-.m-desc{font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:14px}
-.m-lowest{display:inline-block;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;margin-bottom:5px;width:fit-content}
-.m-price-row{display:flex;align-items:baseline;gap:7px;margin-bottom:3px;flex-wrap:wrap}
-.m-disc{font-size:18px;font-weight:700;color:var(--red)}
-.m-price{font-family:'Geist Mono',monospace;font-size:24px;font-weight:600;color:var(--text);letter-spacing:-0.5px}
-.m-old{font-size:11px;color:var(--text3);text-decoration:line-through;margin-bottom:6px}
-.m-install{font-size:11px;color:var(--text2);margin-bottom:14px}
-.m-feats{margin-bottom:18px}
-.m-feat{display:flex;align-items:flex-start;gap:7px;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;color:var(--text2)}
-.m-feat:last-child{border:none}
-.m-feat-check{width:14px;height:14px;background:rgba(16,185,129,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.m-feat-check svg{width:8px;height:8px;stroke:var(--green);fill:none;stroke-width:3}
-.m-btn{
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  width:100%;background:var(--accent);color:#fff;
-  font-size:13px;font-weight:600;padding:11px;border-radius:var(--r-sm);transition:all .2s;
-}
-.m-btn:hover{background:var(--accent2);box-shadow:0 0 20px rgba(99,102,241,.35)}
-
-/* ── TOAST ───────────────────────────────────────────────── */
-.toast{
-  position:fixed;bottom:20px;right:20px;z-index:500;
-  background:var(--surface2);border:1px solid var(--border2);
-  color:var(--text);font-size:12px;padding:10px 16px;
-  border-radius:var(--r-sm);box-shadow:var(--shadow-lg);
-  border-left:2px solid var(--accent);
-  transform:translateY(60px);opacity:0;
-  transition:all .25s cubic-bezier(.34,1.56,.64,1);pointer-events:none;
-}
-.toast.show{transform:translateY(0);opacity:1}
-
-/* ── FOOTER ──────────────────────────────────────────────── */
-footer{
-  background:var(--surface);border-top:1px solid var(--border);
-  margin-top:64px;padding:40px clamp(16px,4vw,48px) 28px;
-}
-.footer-grid{
-  max-width:1200px;margin:0 auto;
-  display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;
-  padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:20px;
-}
-.footer-brand-name{font-size:16px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.footer-brand-desc{font-size:12px;color:var(--text3);line-height:1.65;max-width:220px;margin-bottom:14px}
-.footer-social-row{display:flex;gap:6px}
-.footer-social-btn{
-  width:28px;height:28px;border-radius:var(--r-sm);
-  background:var(--surface2);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  transition:all .15s;
-}
-.footer-social-btn:hover{border-color:var(--border2)}
-.footer-social-btn svg{width:12px;height:12px}
-.footer-col h5{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
-.footer-col a{display:block;font-size:12px;color:var(--text3);margin-bottom:8px;transition:color .15s}
-.footer-col a:hover{color:var(--text2)}
-.footer-bottom{
-  max-width:1200px;margin:0 auto;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
-}
-.footer-note{font-size:10px;color:var(--text3);line-height:1.6;max-width:520px}
-.footer-copy{font-size:10px;color:var(--text3)}
-
-/* ── STICKY MOBILE CTA ───────────────────────────────────── */
-.sticky-cta{
-  display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;
-  padding:10px 16px;background:rgba(8,11,20,.95);backdrop-filter:blur(16px);
-  border-top:1px solid var(--border);gap:8px;
-}
-.sticky-cta a{
-  flex:1;display:flex;align-items:center;justify-content:center;gap:5px;
-  font-size:12px;font-weight:600;padding:11px;border-radius:var(--r-sm);
-}
-.scta-primary{background:var(--accent);color:#fff}
-.scta-ghost{background:var(--surface2);border:1px solid var(--border2);color:var(--text2)}
-
-/* ── EMPTY ───────────────────────────────────────────────── */
-.empty{grid-column:1/-1;text-align:center;padding:60px 20px}
-.empty svg{margin:0 auto 12px;opacity:.2}
-.empty p{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
-.empty span{font-size:12px;color:var(--text3)}
-
-/* ── RESPONSIVE ─────────────────────────────────────────── */
-@media(max-width:1024px){
-  .footer-grid{grid-template-columns:1fr 1fr}
-  .hinode-banner{grid-template-columns:1fr}
-  .hinode-visual{display:none}
-  .social-section{grid-template-columns:1fr}
-}
-@media(max-width:768px){
-  .nav-links,.nav-search,.nav-end .nav-a{display:none}
-  .hamburger{display:flex}
-  .nav-end .nav-social,.nav-end .nav-cta{display:none}
-  .grid{grid-template-columns:repeat(2,1fr)}
-  .cupons-grid{grid-template-columns:1fr}
-  .sticky-cta{display:flex}
-  .footer-grid{grid-template-columns:1fr 1fr;gap:20px}
-  .modal-grid{grid-template-columns:1fr}
-  .modal-img-wrap{border-radius:var(--r-xl) var(--r-xl) 0 0;min-height:180px}
-}
-@media(max-width:420px){
-  .grid{grid-template-columns:repeat(2,1fr);gap:8px}
-}
-
-/* ── SHARED LOGO & NAV ───────────────────────────────────── */
-.logo-svg { display:block; flex-shrink:0; }
-.logo { display:flex; align-items:center; flex-shrink:0; margin-right:12px; transition:opacity .15s; }
-.logo:hover { opacity:.85; }
-
-/* Override accent colors with gold ─────────────────────── */
-:root {
-  --accent:        #c9a84c !important;
-  --accent2:       #f5d078 !important;
-  --accent-bg:     rgba(201,168,76,0.08) !important;
-  --accent-border: rgba(201,168,76,0.2) !important;
-}
-/* nav cta gold */
-.nav-cta {
-  background: linear-gradient(135deg, #c9a84c, #f5d078) !important;
-  color: #080b14 !important;
-  font-weight: 700 !important;
-  box-shadow: 0 0 0 transparent !important;
-}
-.nav-cta:hover {
-  filter: brightness(1.08) !important;
-  box-shadow: 0 0 18px rgba(245,208,120,0.35) !important;
-  background: linear-gradient(135deg, #b8943e, #e8c96a) !important;
-}
-/* active nav link gold underline */
-.nav-a.on { color: var(--accent2) !important; }
-/* sec-pip gold */
-.sec-pip { background: var(--accent) !important; }
-/* card-btn gold */
-.card-btn, .p-btn {
-  background: linear-gradient(135deg, #c9a84c, #e8c96a) !important;
-  color: #080b14 !important;
-}
-.card-btn:hover, .p-btn:hover {
-  filter: brightness(1.08) !important;
-  box-shadow: 0 0 16px rgba(245,208,120,0.3) !important;
-}
-/* footer brand */
-.footer-brand-name { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
-
+body { font-family: 'Inter', sans-serif; background: #080b14; }
+.gold-gradient { background: linear-gradient(135deg, #c9a84c, #f5d078); }
+.gold-text { background: linear-gradient(135deg, #c9a84c, #f5d078); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.nav-blur { background: rgba(8,11,20,0.9); backdrop-filter: blur(20px); }
+.card-hover { transition: transform .2s, box-shadow .2s; }
+.card-hover:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,.5); }
+@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.5)} }
+.pulse-dot { animation: pulse-dot 2s infinite; }
+.logo-svg { display: block; }
 </style>
 </head>
-<body>
+<body class="text-gray-100 min-h-screen">
 
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="logo" aria-label="PromoClub"><svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" height="32" aria-label="PromoClub">
-  <defs>
-    <linearGradient id="lg-idx" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#c9a84c"/>
-      <stop offset="40%" stop-color="#f5d078"/>
-      <stop offset="70%" stop-color="#e8b84b"/>
-      <stop offset="100%" stop-color="#c9a84c"/>
-    </linearGradient>
-    <linearGradient id="ll-idx" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/>
-      <stop offset="30%" stop-color="#f5d078" stop-opacity="1"/>
-      <stop offset="70%" stop-color="#f5d078" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <line x1="4" y1="14" x2="196" y2="14" stroke="url(#ll-idx)" stroke-width="0.7"/>
-  <g transform="translate(172,2) scale(0.85)">
-    <circle cx="6" cy="4" r="2" fill="none" stroke="url(#lg-idx)" stroke-width="1"/>
-    <path d="M2 7 L0 15 L12 15 L14 7 Z" fill="none" stroke="url(#lg-idx)" stroke-width="1" stroke-linejoin="round"/>
-    <circle cx="7" cy="11" r="1.2" fill="url(#lg-idx)"/>
-  </g>
-  <text x="100" y="34" font-family="Inter,'Arial Black',sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#lg-idx)">PROMO</text>
-  <line x1="4" y1="42" x2="54" y2="42" stroke="url(#ll-idx)" stroke-width="0.7"/>
-  <line x1="146" y1="42" x2="196" y2="42" stroke="url(#ll-idx)" stroke-width="0.7"/>
-  <text x="100" y="50" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#lg-idx)">CLUB</text>
-</svg></a>
-    <div class="nav-links">
-      <a href="index.html" class="nav-a on">Home</a>
-      <a href="ofertas.html" class="nav-a">Ofertas</a>
-      <a href="cupons.html" class="nav-a">Cupons</a>
+<!-- NAV -->
+<nav class="nav-blur sticky top-0 z-50 border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-3 h-14">
+    <a href="index.html" class="flex-shrink-0 mr-3" aria-label="PromoClub">
+      <svg class="logo-svg h-8" viewBox="0 0 200 52" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c9a84c"/><stop offset="40%" stop-color="#f5d078"/><stop offset="100%" stop-color="#c9a84c"/></linearGradient>
+          <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/><stop offset="30%" stop-color="#f5d078"/><stop offset="70%" stop-color="#f5d078"/><stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/></linearGradient>
+        </defs>
+        <line x1="4" y1="14" x2="196" y2="14" stroke="url(#g2)" stroke-width="0.7"/>
+        <g transform="translate(172,2) scale(0.85)"><circle cx="6" cy="4" r="2" fill="none" stroke="url(#g1)" stroke-width="1"/><path d="M2 7 L0 15 L12 15 L14 7 Z" fill="none" stroke="url(#g1)" stroke-width="1" stroke-linejoin="round"/><circle cx="7" cy="11" r="1.2" fill="url(#g1)"/></g>
+        <text x="100" y="34" font-family="Inter,Arial Black,sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#g1)">PROMO</text>
+        <line x1="4" y1="42" x2="54" y2="42" stroke="url(#g2)" stroke-width="0.7"/>
+        <line x1="146" y1="42" x2="196" y2="42" stroke="url(#g2)" stroke-width="0.7"/>
+        <text x="100" y="50" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#g1)">CLUB</text>
+      </svg>
+    </a>
+    <div class="hidden md:flex items-center gap-1">
+      <a href="index.html" class="text-gold-light text-xs font-semibold px-3 py-1.5 rounded-md">Home</a>
+      <a href="ofertas.html" class="text-gray-400 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-md hover:bg-white/5 transition-all">Ofertas</a>
+      <a href="cupons.html" class="text-gray-400 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-md hover:bg-white/5 transition-all">Cupons</a>
     </div>
-    <div class="nav-search">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input id="searchInput" type="text" placeholder="Buscar ofertas e cupons...">
+    <div class="hidden md:flex flex-1 max-w-xs mx-auto">
+      <div class="flex items-center w-full bg-white/5 border border-white/10 rounded-lg px-3 gap-2 focus-within:border-yellow-500/40 transition-colors">
+        <svg class="w-3.5 h-3.5 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="heroSearchInput" type="text" placeholder="Buscar ofertas..." class="bg-transparent text-sm text-gray-100 placeholder-gray-500 outline-none w-full py-2">
+      </div>
     </div>
-    <div class="nav-end">
-      <a href="https://www.instagram.com/carvapromoclub/" target="_blank" rel="noopener" class="nav-social" aria-label="Instagram"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="12" cy="12" r="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.5" fill="#e1306c"/></svg></a>
-      <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener" class="nav-social" aria-label="Telegram"><svg viewBox="0 0 24 24" width="14" height="14" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
-      <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener" class="nav-cta">Entrar no grupo</a>
+    <div class="hidden md:flex items-center gap-2 ml-auto">
+      <a href="https://www.instagram.com/promoclubhub/" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-lg border border-white/10 hover:border-pink-500/40 transition-all">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="12" cy="12" r="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.5" fill="#e1306c"/></svg>
+      </a>
+      <a href="https://t.me/promoclubhub" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-lg border border-white/10 hover:border-blue-500/40 transition-all">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      </a>
+      <a href="https://t.me/promoclubhub" target="_blank" class="gold-gradient text-black text-xs font-bold px-4 py-2 rounded-lg hover:brightness-110 transition-all">Entrar no grupo</a>
     </div>
-    <button class="hamburger" onclick="openDrawer()" aria-label="Menu">
-      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <button onclick="openDrawer()" class="md:hidden ml-auto w-8 h-8 flex items-center justify-center rounded-lg border border-white/10">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
   </div>
 </nav>
-<div class="drawer" id="drawer">
-  <div class="drawer-bg" onclick="closeDrawer()"></div>
-  <div class="drawer-panel">
-    <button class="drawer-close" onclick="closeDrawer()">×</button>
-    <a href="index.html" class="drawer-a on">Home</a>
-    <a href="ofertas.html" class="drawer-a">Ofertas</a>
-    <a href="cupons.html" class="drawer-a">Cupons</a>
-    <div class="drawer-divider"></div>
-    <div class="drawer-social">
-      <a href="https://t.me/carvapromoclub" target="_blank" class="drawer-social-btn"><svg viewBox="0 0 24 24" width="14" height="14" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg> Telegram</a>
-      <a href="https://www.instagram.com/carvapromoclub/" target="_blank" class="drawer-social-btn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="12" cy="12" r="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.5" fill="#e1306c"/></svg> Instagram</a>
-    </div>
-    <div style="padding:8px 12px">
-      <a href="https://t.me/carvapromoclub" target="_blank" class="nav-cta" style="display:flex;justify-content:center;padding:11px">Entrar no grupo grátis</a>
-    </div>
+
+<!-- DRAWER -->
+<div id="drawerBg" class="hidden fixed inset-0 z-40 bg-black/70 backdrop-blur-sm" onclick="closeDrawer()"></div>
+<div id="drawer" class="fixed top-0 right-0 bottom-0 z-50 w-64 bg-gray-900 border-l border-white/10 translate-x-full transition-transform duration-300 flex flex-col">
+  <div class="flex items-center justify-between p-4 border-b border-white/10">
+    <span class="gold-text font-bold text-sm">Menu</span>
+    <button onclick="closeDrawer()" class="text-gray-400 hover:text-white">✕</button>
+  </div>
+  <div class="flex flex-col gap-1 p-4">
+    <a href="index.html" class="text-yellow-400 font-semibold text-sm px-3 py-2.5 rounded-lg bg-white/5">Home</a>
+    <a href="ofertas.html" class="text-gray-400 hover:text-white text-sm px-3 py-2.5 rounded-lg hover:bg-white/5 transition-all">Ofertas</a>
+    <a href="cupons.html" class="text-gray-400 hover:text-white text-sm px-3 py-2.5 rounded-lg hover:bg-white/5 transition-all">Cupons</a>
+  </div>
+  <div class="mt-auto p-4 flex flex-col gap-2 border-t border-white/10">
+    <a href="https://t.me/promoclubhub" target="_blank" class="flex items-center gap-2 text-blue-400 text-sm px-3 py-2 rounded-lg hover:bg-white/5">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      Telegram
+    </a>
+    <a href="https://www.instagram.com/promoclubhub/" target="_blank" class="flex items-center gap-2 text-pink-400 text-sm px-3 py-2 rounded-lg hover:bg-white/5">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke="#e1306c" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="#e1306c"/></svg>
+      Instagram
+    </a>
+    <a href="https://t.me/promoclubhub" target="_blank" class="gold-gradient text-black text-sm font-bold px-4 py-2.5 rounded-lg text-center mt-1">Entrar no grupo grátis</a>
   </div>
 </div>
 
-</div>
-</div>
-
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-pill"><span class="hero-dot"></span>Multi-lojas · Atualizado diariamente</div>
-    <h1>Promoções, cupons<br>e ofertas em um só lugar</h1>
-    <p class="hero-sub">Amazon, Shopee, Hinode e mais. Garimpamos as melhores ofertas para você economizar todos os dias.</p>
-    <div class="hero-search">
-      <input id="heroSearch" type="text" placeholder="Buscar produto, cupom ou loja...">
-      <button class="hero-search-btn" onclick="doHeroSearch()">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+<section class="relative overflow-hidden py-16 sm:py-24 px-4 text-center">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-yellow-500/5 rounded-full blur-3xl"></div>
+  </div>
+  <div class="relative max-w-2xl mx-auto">
+    <div class="inline-flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/20 text-yellow-300 text-xs font-semibold px-3 py-1.5 rounded-full mb-5 uppercase tracking-wider">
+      <span class="pulse-dot w-1.5 h-1.5 rounded-full bg-yellow-400"></span>
+      Multi-lojas · Atualizado diariamente
+    </div>
+    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
+      Promoções, cupons<br><span class="gold-text">e ofertas em um só lugar</span>
+    </h1>
+    <p class="text-gray-400 text-base sm:text-lg mb-8">Amazon, Shopee, Hinode e mais. Garimpamos as melhores ofertas para você economizar todos os dias.</p>
+    <div class="flex max-w-md mx-auto bg-gray-900 border border-white/10 rounded-xl overflow-hidden shadow-xl focus-within:border-yellow-500/40 transition-colors mb-8">
+      <input id="heroSearch" type="text" placeholder="Buscar produto, cupom ou loja..." class="flex-1 bg-transparent text-sm text-gray-100 placeholder-gray-500 outline-none px-4 py-3.5">
+      <button onclick="goSearch()" class="gold-gradient text-black font-bold text-sm px-5 flex items-center gap-1.5 hover:brightness-110 transition-all">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         Buscar
       </button>
     </div>
-    <div class="hero-stores">
-      <div class="store-badge"><span class="store-badge-dot" style="background:#f59e0b"></span>Amazon</div>
-      <div class="store-badge"><span class="store-badge-dot" style="background:#f97316"></span>Shopee</div>
-      <div class="store-badge"><span class="store-badge-dot" style="background:#dc2626"></span>Hinode</div>
-      <div class="store-badge" style="opacity:.5"><span class="store-badge-dot" style="background:var(--text3)"></span>Em breve...</div>
+    <div class="flex items-center justify-center gap-2 flex-wrap">
+      <span class="text-gray-600 text-xs">Lojas:</span>
+      <span class="flex items-center gap-1.5 bg-white/5 border border-white/10 text-gray-400 text-xs px-3 py-1 rounded-full"><span class="w-2 h-2 rounded-full bg-yellow-400"></span>Amazon</span>
+      <span class="flex items-center gap-1.5 bg-white/5 border border-white/10 text-gray-400 text-xs px-3 py-1 rounded-full"><span class="w-2 h-2 rounded-full bg-orange-400"></span>Shopee</span>
+      <span class="flex items-center gap-1.5 bg-white/5 border border-white/10 text-gray-400 text-xs px-3 py-1 rounded-full"><span class="w-2 h-2 rounded-full bg-red-500"></span>Hinode</span>
+      <span class="flex items-center gap-1.5 bg-white/5 border border-white/10 text-gray-400 text-xs px-3 py-1 rounded-full opacity-50"><span class="w-2 h-2 rounded-full bg-gray-500"></span>Em breve...</span>
     </div>
   </div>
 </section>
 
-<div class="page">
-
-  <!-- STATS -->
-  <div class="stats-row" style="margin-bottom:0">
-    <div class="stat"><div class="stat-n" id="sProducts">0</div><div class="stat-l">Produtos em oferta</div></div>
-    <div class="stat"><div class="stat-n" id="sDiscount">0<span>%</span></div><div class="stat-l">Desconto médio</div></div>
-    <div class="stat"><div class="stat-n" id="sCoupons">0</div><div class="stat-l">Cupons ativos</div></div>
-  </div>
-
-  <!-- HOT OFFERS -->
-  <div class="sec">
-    <div class="sec-row">
-      <div class="sec-title"><div class="sec-pip"></div>Mais procurados agora</div>
-      <a href="ofertas.html" class="sec-link">Ver todos →</a>
+<!-- STATS -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
+  <div class="grid grid-cols-3 border border-white/8 rounded-xl overflow-hidden divide-x divide-white/8">
+    <div class="bg-gray-900/60 py-5 text-center hover:bg-gray-900 transition-colors">
+      <div class="font-mono text-xl font-semibold text-white" id="statProds">—</div>
+      <div class="text-gray-500 text-xs mt-1">Produtos em oferta</div>
+    </div>
+    <div class="bg-gray-900/60 py-5 text-center hover:bg-gray-900 transition-colors">
+      <div class="font-mono text-xl font-semibold text-white" id="statDisc">—</div>
+      <div class="text-gray-500 text-xs mt-1">Desconto médio</div>
+    </div>
+    <div class="bg-gray-900/60 py-5 text-center hover:bg-gray-900 transition-colors">
+      <div class="font-mono text-xl font-semibold text-white" id="statCupons">—</div>
+      <div class="text-gray-500 text-xs mt-1">Cupons ativos</div>
     </div>
   </div>
-  <div class="filter-pills" id="storePills"></div>
-  <div class="sort-row">
-    <span class="sort-label">Ordenar por</span>
-    <select class="sort-select" id="sortSel">
-      <option value="discount">Maior desconto</option>
-      <option value="price-asc">Menor preço</option>
-      <option value="price-desc">Maior preço</option>
-    </select>
-    <span class="count" id="countInfo"></span>
-  </div>
-  <div class="grid" id="mainGrid"></div>
+</div>
 
-  <!-- COUPONS -->
-  <div class="sec">
-    <div class="sec-row">
-      <div class="sec-title"><div class="sec-pip" style="background:var(--green)"></div>Cupons em destaque</div>
-      <a href="cupons.html" class="sec-link">Ver todos →</a>
+<!-- HOT OFFERS -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
+  <div class="flex items-center justify-between mb-5">
+    <h2 class="font-bold text-base flex items-center gap-2"><span class="w-1 h-4 gold-gradient rounded-full"></span>Mais procurados agora</h2>
+    <a href="ofertas.html" class="text-yellow-500/70 hover:text-yellow-400 text-xs transition-colors">Ver todos →</a>
+  </div>
+  <div class="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide" id="hotGrid" style="scrollbar-width:none"></div>
+</div>
+
+<!-- COUPONS STRIP -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
+  <div class="flex items-center justify-between mb-5">
+    <h2 class="font-bold text-base flex items-center gap-2"><span class="w-1 h-4 bg-green-500 rounded-full"></span>Cupons em destaque</h2>
+    <a href="cupons.html" class="text-yellow-500/70 hover:text-yellow-400 text-xs transition-colors">Ver todos →</a>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="cuponsStrip"></div>
+</div>
+
+<!-- ALL PRODUCTS -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 mb-16">
+  <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
+    <div class="flex items-center gap-2">
+      <h2 class="font-bold text-base flex items-center gap-2"><span class="w-1 h-4 bg-blue-500 rounded-full"></span>Todas as ofertas</h2>
+      <span class="text-gray-500 text-xs" id="countLabel"></span>
+    </div>
+    <div class="flex items-center gap-2 flex-wrap">
+      <div id="storePills" class="flex gap-1.5 flex-wrap"></div>
+      <select id="sortSel" class="bg-gray-900 border border-white/10 text-gray-300 text-xs px-3 py-1.5 rounded-lg outline-none cursor-pointer">
+        <option value="discount">Maior desconto</option>
+        <option value="price-asc">Menor preço</option>
+        <option value="price-desc">Maior preço</option>
+      </select>
     </div>
   </div>
-  <div class="cupons-grid" id="cuponsGrid"></div>
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3" id="mainGrid"></div>
+</div>
 
-  <!-- HINODE BANNER -->
-  <div class="sec">
-    <div class="sec-title"><div class="sec-pip" style="background:#dc2626"></div>Parceiro em destaque</div>
-  </div>
-  <div class="hinode-banner">
-    <div>
-      <div class="hinode-eyebrow">Hinode · Parceiro oficial</div>
-      <div class="hinode-title">Produtos de beleza e bem-estar<br>com preços exclusivos</div>
-      <div class="hinode-sub">Acesse a loja Hinode com descontos especiais via nosso link de consultor. Perfumes, skincare, maquiagem e muito mais.</div>
-      <div class="hinode-btns">
-        <a href="https://www.hinode.com.br/?id_consultor=76173688" target="_blank" rel="nofollow noopener" class="hinode-btn-primary">
-          <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+<!-- HINODE BANNER -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
+  <div class="rounded-2xl p-6 sm:p-8 relative overflow-hidden" style="background:linear-gradient(135deg,#1a0505 0%,#2d0a0a 100%);border:1px solid rgba(220,38,38,.15)">
+    <div class="absolute top-0 right-0 w-48 h-48 rounded-full blur-3xl" style="background:rgba(220,38,38,.06)"></div>
+    <div class="relative">
+      <span class="inline-flex items-center gap-1.5 bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide mb-4">Hinode · Parceiro oficial</span>
+      <h3 class="text-xl sm:text-2xl font-extrabold text-white mb-2 leading-tight">Produtos de beleza e bem-estar<br>com preços exclusivos</h3>
+      <p class="text-gray-400 text-sm mb-5 max-w-md">Acesse a loja Hinode com descontos via nosso link de consultor. Perfumes, skincare, maquiagem e muito mais.</p>
+      <div class="flex gap-3 flex-wrap">
+        <a href="https://www.hinode.com.br/?id_consultor=76173688" target="_blank" rel="nofollow noopener" class="bg-red-600 hover:bg-red-700 text-white font-bold text-sm px-5 py-2.5 rounded-lg transition-all flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
           Ver loja Hinode
         </a>
-        <a href="https://grupohinode.com/faca-parte/quero-ser-um-consultor?id_consultor=76173688" target="_blank" rel="nofollow noopener" class="hinode-btn-ghost">
-          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <a href="https://grupohinode.com/faca-parte/quero-ser-um-consultor?id_consultor=76173688" target="_blank" rel="nofollow noopener" class="bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-400 font-bold text-sm px-5 py-2.5 rounded-lg transition-all">
           Seja um consultor
         </a>
       </div>
     </div>
-    <div class="hinode-visual">
-      <div class="hinode-visual-num">Hinode</div>
-      <div class="hinode-visual-label">Consultor #76173688</div>
-    </div>
   </div>
-
-  <!-- SOCIAL -->
-  <div class="sec">
-    <div class="sec-title"><div class="sec-pip" style="background:var(--ig)"></div>Siga e fique por dentro</div>
-  </div>
-  <div class="social-section">
-    <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener" class="social-card tg">
-      <div class="social-card-top">
-        <div class="social-icon tg">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-        </div>
-        <div>
-          <div class="social-name">Telegram</div>
-          <div class="social-handle">@carvapromoclub</div>
-        </div>
-      </div>
-      <div class="social-desc">Alertas em tempo real de ofertas relâmpago, cupons exclusivos e dicas de economia direto no seu celular.</div>
-      <div class="social-btn tg">
-        <svg viewBox="0 0 24 24" fill="#0088cc" width="14" height="14"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-        Entrar no grupo grátis
-      </div>
-    </a>
-    <a href="https://www.instagram.com/carvapromoclub/" target="_blank" rel="noopener" class="social-card ig">
-      <div class="social-card-top">
-        <div class="social-icon ig">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#e1306c" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="#e1306c" stroke="none"/></svg>
-        </div>
-        <div>
-          <div class="social-name">Instagram</div>
-          <div class="social-handle">@carvapromoclub</div>
-        </div>
-      </div>
-      <div class="social-desc">Ofertas em stories, reels com dicas de economia e os melhores cupons do dia no feed.</div>
-      <div class="social-btn ig">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#e1306c" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg>
-        Seguir no Instagram
-      </div>
-    </a>
-  </div>
-
-  <!-- NEWSLETTER -->
-  <div class="newsletter" style="margin-top:12px;margin-bottom:64px">
-    <div class="newsletter-text">
-      <strong>Receba as melhores ofertas</strong>
-      <span>Entre no grupo do Telegram e seja avisado em tempo real</span>
-    </div>
-    <a href="https://t.me/carvapromoclub" target="_blank" rel="noopener" class="nav-cta" style="padding:10px 20px;font-size:13px">Entrar no Telegram</a>
-  </div>
-
 </div>
 
-<!-- MODAL -->
-<div class="modal-bg" id="modalBg" onclick="maybeClose(event)">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal()">×</button>
-    <div class="modal-grid">
-      <div class="modal-img-wrap"><img id="mImg" src="" alt=""></div>
-      <div class="modal-info">
-        <div class="m-store" id="mStore"></div>
-        <div class="m-name" id="mName"></div>
-        <div class="m-desc" id="mDesc"></div>
-        <div id="mLowest"></div>
-        <div class="m-price-row"><span class="m-disc" id="mDisc"></span><span class="m-price" id="mPrice"></span></div>
-        <div class="m-old" id="mOld"></div>
-        <div class="m-install" id="mInstall"></div>
-        <div class="m-feats" id="mFeats"></div>
-        <a class="m-btn" id="mBtn" href="#" target="_blank" rel="nofollow noopener">
-          Ver oferta
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+<!-- SOCIAL -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
+  <h2 class="font-bold text-base flex items-center gap-2 mb-5"><span class="w-1 h-4 bg-pink-500 rounded-full"></span>Siga e fique por dentro</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    <a href="https://t.me/promoclubhub" target="_blank" class="card-hover flex items-center gap-4 p-5 rounded-xl border border-blue-500/15 bg-blue-500/5 hover:border-blue-500/30 transition-all">
+      <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-xl bg-blue-500/15">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      </div>
+      <div class="flex-1">
+        <div class="font-bold text-white text-sm">Telegram</div>
+        <div class="text-gray-500 text-xs">@promoclubhub</div>
+        <div class="text-gray-400 text-xs mt-1">Alertas em tempo real de ofertas e cupons</div>
+      </div>
+      <span class="text-blue-400 text-xs font-semibold bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full whitespace-nowrap">Entrar grátis</span>
+    </a>
+    <a href="https://www.instagram.com/promoclubhub/" target="_blank" class="card-hover flex items-center gap-4 p-5 rounded-xl border border-pink-500/15 bg-pink-500/5 hover:border-pink-500/30 transition-all">
+      <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-xl bg-pink-500/15">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="12" cy="12" r="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.5" fill="#e1306c"/></svg>
+      </div>
+      <div class="flex-1">
+        <div class="font-bold text-white text-sm">Instagram</div>
+        <div class="text-gray-500 text-xs">@promoclubhub</div>
+        <div class="text-gray-400 text-xs mt-1">Ofertas em stories e reels todo dia</div>
+      </div>
+      <span class="text-pink-400 text-xs font-semibold bg-pink-500/10 border border-pink-500/20 px-3 py-1 rounded-full whitespace-nowrap">Seguir</span>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/5 bg-gray-900/50 py-10 px-4 sm:px-6 mt-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 pb-8 border-b border-white/5 mb-6">
+      <div class="col-span-2 sm:col-span-1">
+        <a href="index.html" class="inline-block mb-3">
+          <svg class="h-7" viewBox="0 0 200 52" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="gf1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c9a84c"/><stop offset="50%" stop-color="#f5d078"/><stop offset="100%" stop-color="#c9a84c"/></linearGradient><linearGradient id="gf2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/><stop offset="30%" stop-color="#f5d078"/><stop offset="70%" stop-color="#f5d078"/><stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/></linearGradient></defs>
+            <line x1="4" y1="14" x2="196" y2="14" stroke="url(#gf2)" stroke-width="0.7"/>
+            <text x="100" y="34" font-family="Inter,sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#gf1)">PROMO</text>
+            <line x1="4" y1="42" x2="54" y2="42" stroke="url(#gf2)" stroke-width="0.7"/>
+            <line x1="146" y1="42" x2="196" y2="42" stroke="url(#gf2)" stroke-width="0.7"/>
+            <text x="100" y="50" font-family="Inter,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#gf1)">CLUB</text>
+          </svg>
         </a>
+        <p class="text-gray-500 text-xs leading-relaxed max-w-44">Promoções, cupons e ofertas da Amazon, Shopee, Hinode e mais.</p>
+        <div class="flex gap-2 mt-3">
+          <a href="https://t.me/promoclubhub" target="_blank" class="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 hover:border-blue-500/40 transition-all">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/promoclubhub/" target="_blank" class="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 hover:border-pink-500/40 transition-all">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke="#e1306c" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="#e1306c"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h5 class="text-gray-300 text-xs font-bold uppercase tracking-widest mb-3">Navegação</h5>
+        <a href="index.html" class="block text-gray-500 hover:text-gray-300 text-xs mb-2 transition-colors">Home</a>
+        <a href="ofertas.html" class="block text-gray-500 hover:text-gray-300 text-xs mb-2 transition-colors">Ofertas</a>
+        <a href="cupons.html" class="block text-gray-500 hover:text-gray-300 text-xs mb-2 transition-colors">Cupons</a>
+      </div>
+      <div>
+        <h5 class="text-gray-300 text-xs font-bold uppercase tracking-widest mb-3">Parceiros</h5>
+        <a href="https://www.amazon.com.br?tag=carva00-20" target="_blank" class="block text-gray-500 hover:text-gray-300 text-xs mb-2 transition-colors">Amazon</a>
+        <a href="https://www.hinode.com.br/?id_consultor=76173688" target="_blank" class="block text-gray-500 hover:text-gray-300 text-xs mb-2 transition-colors">Hinode</a>
+      </div>
+      <div>
+        <h5 class="text-gray-300 text-xs font-bold uppercase tracking-widest mb-3">Legal</h5>
+        <a href="#" class="block text-gray-500 hover:text-gray-300 text-xs mb-2 transition-colors">Privacidade</a>
+        <a href="#" class="block text-gray-500 hover:text-gray-300 text-xs mb-2 transition-colors">Termos</a>
+        <a href="#" class="block text-gray-500 hover:text-gray-300 text-xs mb-2 transition-colors">Afiliados</a>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<div class="sticky-cta">
-  <a href="ofertas.html" class="scta-primary">Ver ofertas</a>
-  <a href="https://t.me/carvapromoclub" target="_blank" class="scta-ghost">Grupo Telegram</a>
-</div>
-
-<footer>
-  <div class="footer-grid">
-    <div>
-      <div class="footer-brand-name"><a href="index.html"><svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" height="28" aria-label="PromoClub">
-  <defs>
-    <linearGradient id="lg-idxf" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#c9a84c"/>
-      <stop offset="40%" stop-color="#f5d078"/>
-      <stop offset="70%" stop-color="#e8b84b"/>
-      <stop offset="100%" stop-color="#c9a84c"/>
-    </linearGradient>
-    <linearGradient id="ll-idxf" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/>
-      <stop offset="30%" stop-color="#f5d078" stop-opacity="1"/>
-      <stop offset="70%" stop-color="#f5d078" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <line x1="4" y1="14" x2="196" y2="14" stroke="url(#ll-idxf)" stroke-width="0.7"/>
-  <g transform="translate(172,2) scale(0.85)">
-    <circle cx="6" cy="4" r="2" fill="none" stroke="url(#lg-idxf)" stroke-width="1"/>
-    <path d="M2 7 L0 15 L12 15 L14 7 Z" fill="none" stroke="url(#lg-idxf)" stroke-width="1" stroke-linejoin="round"/>
-    <circle cx="7" cy="11" r="1.2" fill="url(#lg-idxf)"/>
-  </g>
-  <text x="100" y="34" font-family="Inter,'Arial Black',sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#lg-idxf)">PROMO</text>
-  <line x1="4" y1="42" x2="54" y2="42" stroke="url(#ll-idxf)" stroke-width="0.7"/>
-  <line x1="146" y1="42" x2="196" y2="42" stroke="url(#ll-idxf)" stroke-width="0.7"/>
-  <text x="100" y="50" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#lg-idxf)">CLUB</text>
-</svg></a></div>
-      <div class="footer-brand-desc">Promoções, cupons e ofertas da Amazon, Shopee, Hinode e mais. Economize todos os dias.</div>
-      <div class="footer-social-row">
-        <a href="https://t.me/carvapromoclub" target="_blank" class="footer-social-btn" aria-label="Telegram"><svg viewBox="0 0 24 24" width="12" height="12" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
-        <a href="https://www.instagram.com/carvapromoclub/" target="_blank" class="footer-social-btn" aria-label="Instagram"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#e1306c" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg></a>
-      </div>
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-gray-600 text-xs text-center sm:text-left max-w-lg">Este site participa de programas de afiliados. Somos remunerados por indicações qualificadas, sem custo adicional para você.</p>
+      <span class="text-gray-600 text-xs whitespace-nowrap">© 2025 PromoClub · carvapromoclub@gmail.com</span>
     </div>
-    <div class="footer-col"><h5>Navegação</h5><a href="index.html">Home</a><a href="ofertas.html">Ofertas</a><a href="cupons.html">Cupons</a></div>
-    <div class="footer-col"><h5>Parceiros</h5><a href="https://www.amazon.com.br?tag=carva00-20" target="_blank" rel="nofollow">Amazon</a><a href="https://www.hinode.com.br/?id_consultor=76173688" target="_blank" rel="nofollow">Hinode</a></div>
-    <div class="footer-col"><h5>Legal</h5><a href="#">Privacidade</a><a href="#">Termos</a><a href="#">Afiliados</a></div>
-  </div>
-  <div class="footer-bottom">
-    <p class="footer-note">Este site participa de programas de afiliados. Somos remunerados por indicações qualificadas, sem custo adicional para você.</p>
-    <span class="footer-copy">© 2025 PromoClub · carvapromoclub@gmail.com</span>
   </div>
 </footer>
 
-<script>
-const AFILIADO_TAG = 'carva00-20';
-
-// ── PRODUTOS.JSON LOADER ─────────────────────────────────
-// Lê produtos.json do servidor e mapeia para o formato interno
-// Campos suportados no JSON:
-//   title, price, asin, image, loja, categoria, desconto,
-//   preco_de, menor_preco, menor_preco_30, badge,
-//   avaliacao, avaliacoes, parcelamento, estoque, descricao, features
-
-function buildAmazonLink(asin) {
-  return `https://www.amazon.com.br/dp/${asin}?tag=carva00-20&linkCode=ll2`;
-}
-
-function parsePrice(str) {
-  if (!str) return 0;
-  // Handle "R$ 41,88R$41,88" — pick first value
-  const match = str.match(/[\d]+,[\d]{2}/);
-  return match ? parseFloat(match[0].replace(',', '.')) : 0;
-}
-
-function mapJsonProduct(p, index) {
-  const asin = p.asin || ('json-' + index);
-  const calcDiscount = () => {
-    if (p.discount || p.desconto) return p.discount || p.desconto;
-    const orig = parsePrice(p.original_price || p.preco_de);
-    const curr = parsePrice(p.price || p.preco_por);
-    if (orig > curr && orig > 0) return Math.round((orig - curr) / orig * 100) + '%';
-    return '';
-  };
-  return {
-    id:             p.id || asin,
-    nome:           p.title || p.nome || 'Produto',
-    loja:           p.loja || 'Amazon',
-    categoria:      p.categoria || p.category || 'Geral',
-    menor_preco:    p.menor_preco || false,
-    menor_preco_30: p.menor_preco_30 || false,
-    preco_de:       p.original_price || p.preco_de || '',
-    preco_por:      p.price || p.preco_por || '',
-    desconto:       calcDiscount(),
-    avaliacao:      parseFloat(p.rating || p.avaliacao) || 0,
-    avaliacoes:     String(p.reviews || p.avaliacoes || '0'),
-    badge:          p.badge || (parseFloat(p.discount||p.desconto)>=30 ? 'hot' : ''),
-    estoque:        p.stock_alert || p.estoque || '',
-    parcelamento:   p.installments || p.parcelamento || '',
-    link:           p.link || (p.asin ? buildAmazonLink(p.asin) : '#'),
-    imagem:         p.image || p.imagem || '',
-    descricao:      (p.description || p.descricao || '').substring(0, 300),
-    features:       p.features || [],
-    destaque:       p.destaque || false,
-    is_prime:       p.is_prime || false,
-  };
-}
-
-async function loadProdutosJson() {
-  try {
-    const res = await fetch('produtos.json');
-    if (!res.ok) return [];
-    const data = await res.json();
-    // Suporta array direto ou { produtos: [...] }
-    const list = Array.isArray(data) ? data : (data.produtos || data.products || []);
-    return list.map(mapJsonProduct);
-  } catch(e) {
-    console.warn('[PromoClub] produtos.json não encontrado ou inválido:', e.message);
-    return [];
-  }
-}
-
-
-// ── STORE COLORS ─────────────────────────────────────────
-const STORE_COLORS = {
-  'Amazon': '#f59e0b',
-  'Shopee': '#f97316',
-  'Hinode': '#dc2626',
-};
-
-// ── PRODUTOS (inline) ─────────────────────────────────────
-const PRODUTOS = [
-  {
-    id:'tcl-32s5k',nome:'Smart TV TCL 32" QLED Full HD Google TV Wi-Fi Bluetooth HDR10',
-    loja:'Amazon',categoria:'Eletrônicos',
-    menor_preco:false,preco_de:'R$ 1.299,00',preco_por:'R$ 1.048,10',desconto:'19%',
-    avaliacao:4.4,avaliacoes:'88',badge:'hot',
-    estoque:'Mais de 500 vendidos',
-    parcelamento:'12x de R$ 87,37',
-    link:'https://www.amazon.com.br/TCL-Polegadas-Bluetooth-Google-32S5K/dp/B0FTGL2XBC?linkCode=ll2&tag=carva00-20',
-    imagem:'https://m.media-amazon.com/images/I/61jW+tFc5DL._AC_SL1000_.jpg',
-    descricao:'Smart TV compacta QLED Full HD com Google TV, Netflix, YouTube, Chromecast e 20W RMS.',
-    features:['QLED Full HD 32" HDR10 Dolby Audio','Google TV — Netflix, YouTube, Disney+','Chromecast e Miracast integrados','Wi-Fi, Bluetooth 5.0, 2x HDMI','20W RMS']
-  },
-  {
-    id:'iphone-17-pro',nome:'Apple iPhone 17 Pro Max (1 TB) — Laranja cósmico',
-    loja:'Amazon',categoria:'Eletrônicos',
-    menor_preco:true,preco_de:'R$ 15.499,00',preco_por:'R$ 11.789,10',desconto:'24%',
-    avaliacao:4.4,avaliacoes:'88',badge:'hot',
-    parcelamento:'12x de R$ 1.091,62',
-    link:'https://www.amazon.com.br/Apple-iPhone-17-Pro-Max/dp/B0FQHGM3B1?linkCode=ll2&tag=carva00-20',
-    imagem:'https://m.media-amazon.com/images/I/51k0qRQFcuL._AC_SL1000_.jpg',
-    descricao:'iPhone 17 Pro Max com chip A19 Pro, câmera tripla 48MP, tela Super Retina XDR 6,9" ProMotion 120Hz.',
-    features:['Tela 6,9" Super Retina XDR OLED 120Hz','Chip A19 Pro (3nm)','12 GB RAM | até 2 TB','Câmeras 48MP Principal + Ultra-wide + Telefoto','iOS 26, IP68, Wi-Fi 7']
-  },
-  {
-    id:'aoc-25g3zm',nome:'Monitor Gamer AOC Destiny 24,5 Polegadas 25G3ZM',
-    loja:'Amazon',categoria:'Informática',
-    menor_preco:true,preco_de:'R$ 1.799,00',preco_por:'R$ 999,00',desconto:'44%',
-    avaliacao:4.4,avaliacoes:'1.358',badge:'hot',
-    estoque:'Mais de 100 vendidos',
-    parcelamento:'12x de R$ 83,25',
-    link:'https://www.amazon.com.br/Monitor-AOC-DESTINY-FreeSync-25G3ZM/dp/B0CJ9NVNW6?linkCode=ll2&tag=carva00-20',
-    imagem:'https://m.media-amazon.com/images/I/61aBgNvGk0L._AC_SL1000_.jpg',
-    descricao:'Monitor Gamer 240Hz, 0,5ms, AMD FreeSync Premium, Full HD 1920x1080.',
-    features:['240Hz de taxa de atualização','0,5ms de resposta','AMD FreeSync Premium','Full HD 1920x1080','Flicker Free e Low Blue Light']
-  },
-
-  {
-    id: "iphone-16-128gb-rosa",
-    nome: "Apple iPhone 16 (128 GB) - Rosa",
-    loja: "Amazon",
-    categoria: "Eletrônicos",
-    menor_preco_30: false,
-    menor_preco: false,
-    preco_de: "R$ 6.799,00",
-    preco_por: "R$ 4.589,00",
-    desconto: "25%",
-    avaliacao: 4.8,
-    avaliacoes: "",
-    badge: "hot",
-    destaque: true,
-    estoque: "Cupom SMART250 sujeito a elegibilidade",
-    parcelamento: "12x de R$ 424,99 sem juros",
-    link: "https://www.amazon.com.br/dp/B0DJFT8HZC?tag=carva00-20",
-    imagem: "https://m.media-amazon.com/images/I/71Z-rd+PWgL._AC_SX679_.jpg",
-    descricao: "iPhone 16 com 128 GB, tela Super Retina XDR, chip A18, USB-C e sistema de cameras avancado. Oferta premium para quem busca smartphone Apple atual com desconto e cupom elegivel.",
-    features: [
-      "Tela Super Retina XDR",
-      "Chip A18",
-      "Camera avancada",
-      "USB-C",
-      "Cupom SMART250 visto, se elegivel"
-    ]
-  },
-
-  {
-    id: "havit-fuxi-h3-wireless",
-    nome: "Havit Fone de Ouvido Headset Gamer Fuxi-H3 Wireless Bluetooth USB-C",
-    loja: "Amazon",
-    categoria: "Informática",
-    menor_preco_30: false,
-    menor_preco: false,
-    preco_de: "R$ 265,45",
-    preco_por: "R$ 151,98",
-    desconto: "42%",
-    avaliacao: 4.6,
-    avaliacoes: "",
-    badge: "hot",
-    destaque: true,
-    estoque: "Oferta do dia",
-    parcelamento: "5x de R$ 30,42 sem juros",
-    link: "https://www.amazon.com.br/dp/B0CHJXCJTW?tag=carva00-20",
-    imagem: "https://m.media-amazon.com/images/I/71g1gS6qGmL._AC_SX679_.jpg",
-    descricao: "Headset gamer Havit Fuxi-H3 com conexao sem fio 2.4 GHz, Bluetooth, cabo USB-C e uso tambem com fio. Boa opcao para setup gamer e trabalho.",
-    features: [
-      "Wireless 2.4 GHz",
-      "Bluetooth",
-      "USB-C",
-      "Uso com fio e sem fio",
-      "Microfone integrado"
-    ]
-  },
-
-  {
-    id: "havit-h2232d-gamer-rgb",
-    nome: "Havit Headphone Gamer H2232d RGB com Microfone e Falante 50mm",
-    loja: "Amazon",
-    categoria: "Informática",
-    menor_preco_30: false,
-    menor_preco: false,
-    preco_de: "R$ 169,00",
-    preco_por: "R$ 81,90",
-    desconto: "51%",
-    avaliacao: 4.6,
-    avaliacoes: "",
-    badge: "hot",
-    destaque: true,
-    estoque: "Cupom PRIME10 sujeito a elegibilidade",
-    parcelamento: "12x de R$ 7,57",
-    link: "https://www.amazon.com.br/dp/B07N78G8GB?tag=carva00-20",
-    imagem: "https://m.media-amazon.com/images/I/516HwNOJoUL._AC_SX679_.jpg",
-    descricao: "Headset gamer Havit H2232d com iluminacao RGB, microfone, falante de 50 mm e conector 3.5 mm. Oferta de entrada com desconto alto.",
-    features: [
-      "Iluminacao RGB",
-      "Microfone integrado",
-      "Falante de 50 mm",
-      "Conector 3.5 mm",
-      "Cupom PRIME10 visto, se elegivel"
-    ]
-  },
-
-  {
-    id: "bettdow-smartwatch-alexa-ip68",
-    nome: "Bettdow SmartWatch com Alexa, IP68 e 100+ modos esportivos",
-    loja: "Amazon",
-    categoria: "Eletrônicos",
-    menor_preco_30: false,
-    menor_preco: false,
-    preco_de: "R$ 186,00",
-    preco_por: "R$ 120,37",
-    desconto: "31%",
-    avaliacao: 4.5,
-    avaliacoes: "",
-    badge: "new",
-    destaque: false,
-    estoque: "Oferta do dia",
-    parcelamento: "4x de R$ 31,70 sem juros",
-    link: "https://www.amazon.com.br/dp/B0DNHGQHMY?tag=carva00-20",
-    imagem: "https://m.media-amazon.com/images/I/61jq8y1sVZL._AC_SX679_.jpg",
-    descricao: "Smartwatch com tela touch, Alexa, resistencia IP68, notificacoes e mais de 100 modos esportivos. Gadget barato para chamar clique em tecnologia.",
-    features: [
-      "Alexa integrada",
-      "Resistencia IP68",
-      "100+ modos esportivos",
-      "Notificacoes no pulso",
-      "Modelo unissex"
-    ]
-  },
-
-  {
-    id: "philips-ambilight-55-4k-55pug8100",
-    nome: "Philips Smart TV Ambilight 55\" 4K 55PUG8100/78 HDR10+ Dolby Atmos",
-    loja: "Amazon",
-    categoria: "Eletrônicos",
-    menor_preco_30: false,
-    menor_preco: false,
-    preco_de: "R$ 3.199,00",
-    preco_por: "R$ 2.459,00",
-    desconto: "23%",
-    avaliacao: 4.1,
-    avaliacoes: "",
-    badge: "hot",
-    destaque: true,
-    estoque: "Promocao TVPROMO sujeita a elegibilidade",
-    parcelamento: "10x de R$ 245,90 sem juros",
-    link: "https://www.amazon.com.br/dp/B0FPBQQ4TN?tag=carva00-20",
-    imagem: "https://m.media-amazon.com/images/I/61HN+7ldJnL._AC_SX425_.jpg",
-    descricao: "Smart TV Philips Ambilight de 55 polegadas com resolucao 4K, HDR10+, Dolby Atmos, VRR/ALLM, Bluetooth e comando de voz.",
-    features: [
-      "Tela 55\" 4K",
-      "Ambilight",
-      "HDR10+ e Dolby Atmos",
-      "VRR/ALLM",
-      "Bluetooth e comando de voz"
-    ]
-  },
-
-  {
-    id: "dualshock-4-ps4-preto",
-    nome: "Controle DualShock 4 PlayStation 4 Preto",
-    loja: "Amazon",
-    categoria: "Games",
-    menor_preco_30: false,
-    menor_preco: false,
-    preco_de: "R$ 349,90",
-    preco_por: "R$ 232,40",
-    desconto: "28%",
-    avaliacao: 4.8,
-    avaliacoes: "",
-    badge: "top",
-    destaque: false,
-    estoque: "Oferta gamer",
-    parcelamento: "6x de R$ 41,65 sem juros",
-    link: "https://www.amazon.com.br/dp/B07FN1MZBH?tag=carva00-20",
-    imagem: "https://m.media-amazon.com/images/I/61kwdPH8+xL._AC_SX679_.jpg",
-    descricao: "Controle DualShock 4 preto para PlayStation 4, sem fio, com touchpad e otima avaliacao. Produto conhecido e forte para publico gamer.",
-    features: [
-      "Controle sem fio",
-      "Touchpad integrado",
-      "PlayStation 4",
-      "Alta avaliacao",
-      "Oferta gamer"
-    ]
-  },
-
-  {
-    id: "redragon-harpe-wireless-preto",
-    nome: "Teclado Membrana Gamer Redragon Harpe Wireless Preto",
-    loja: "Amazon",
-    categoria: "Informática",
-    menor_preco_30: false,
-    menor_preco: true,
-    preco_de: "R$ 268,75",
-    preco_por: "R$ 199,99",
-    desconto: "25%",
-    avaliacao: 4.5,
-    avaliacoes: "",
-    badge: "new",
-    destaque: false,
-    estoque: "Menor preco em 365 dias",
-    parcelamento: "6x de R$ 33,34 sem juros",
-    link: "https://www.amazon.com.br/dp/B0DG6PX7HM?tag=carva00-20",
-    imagem: "https://m.media-amazon.com/images/I/71lTY0XIO6L._AC_SX679_.jpg",
-    descricao: "Teclado gamer Redragon Harpe Wireless preto, membrana, ideal para setup gamer sem fio com preco abaixo do historico visto na oferta.",
-    features: [
-      "Wireless",
-      "Membrana gamer",
-      "Cor preta",
-      "Setup gamer",
-      "Menor preco em 365 dias visto"
-    ]
-  },
-
-  {
-    id: "motorola-edge-70-pro-5g",
-    nome: "Smartphone Motorola Edge 70 PRO 5G 256GB 24GB RAM Boost",
-    loja: "Amazon",
-    categoria: "Eletrônicos",
-    menor_preco_30: false,
-    menor_preco: false,
-    preco_de: "",
-    preco_por: "R$ 4.049,10",
-    desconto: "",
-    avaliacao: 5,
-    avaliacoes: "",
-    badge: "hot",
-    destaque: true,
-    estoque: "Cupom de R$ 1.000 sujeito a elegibilidade",
-    parcelamento: "12x de R$ 374,99 sem juros",
-    link: "https://www.amazon.com.br/dp/B0GZLL5D74?tag=carva00-20",
-    imagem: "https://m.media-amazon.com/images/I/61QCeDQ0JaL._AC_SX679_.jpg",
-    descricao: "Motorola Edge 70 PRO 5G com 256 GB, RAM Boost, tela 1.5K extreme AMOLED 144 Hz, bateria de 6500 mAh e resistencia IP68/IP69.",
-    features: [
-      "5G e 256 GB",
-      "Tela AMOLED 144 Hz",
-      "Bateria 6500 mAh",
-      "IP68/IP69",
-      "Cupom de R$ 1.000 visto, se elegivel"
-    ]
-  },
-
-  {
-    id: "finish-powerball-91-tabletes",
-    nome: "Finish Powerball Detergente para Lava Loucas 91 Tabletes",
-    loja: "Amazon",
-    categoria: "Casa",
-    menor_preco_30: false,
-    menor_preco: false,
-    preco_de: "R$ 277,78",
-    preco_por: "R$ 133,85",
-    desconto: "51%",
-    avaliacao: 4.9,
-    avaliacoes: "",
-    badge: "top",
-    destaque: false,
-    estoque: "Achado fora de tecnologia",
-    parcelamento: "",
-    link: "https://www.amazon.com.br/dp/B07Y3B33KG?tag=carva00-20",
-    imagem: "https://m.media-amazon.com/images/I/61Nf8UQrPOL._AC_SX522_.jpg",
-    descricao: "Detergente Finish Powerball para lava-loucas em embalagem economica com 91 tabletes. Achado fora de tecnologia com desconto muito forte.",
-    features: [
-      "91 tabletes",
-      "Embalagem economica",
-      "R$ 1,47 por unidade visto",
-      "Alta avaliacao",
-      "51% de desconto visto"
-    ]
-  },
-
-  {
-    id: "creatina-dark-lab-1kg",
-    nome: "Creatina Pura 1kg Dark Lab Monohidratada Sem Sabor",
-    loja: "Amazon",
-    categoria: "Saúde",
-    menor_preco_30: false,
-    menor_preco: false,
-    preco_de: "",
-    preco_por: "R$ 69,90",
-    desconto: "",
-    avaliacao: 4.8,
-    avaliacoes: "",
-    badge: "new",
-    destaque: false,
-    estoque: "Cupom de R$ 7 sujeito a elegibilidade",
-    parcelamento: "2x de R$ 34,95 sem juros",
-    link: "https://www.amazon.com.br/dp/B0CDNJ3S3D?tag=carva00-20",
-    imagem: "https://m.media-amazon.com/images/I/51Wn0lqHRsL._AC_SX522_.jpg",
-    descricao: "Creatina pura Dark Lab 1 kg monohidratada, sem sabor, com cupom visto na pagina. Bom achado fora de tecnologia por ticket e procura.",
-    features: [
-      "1 kg",
-      "Monohidratada",
-      "Sem sabor",
-      "Cupom de R$ 7 visto",
-      "Alta avaliacao"
-    ]
-  }
-];
-
-// ── CUPONS DESTAQUE (sync com cupons.html) ───────────────
-const CUPONS_DESTAQUE = [
-  {id:'pc150',codigo:'PC150',valor:'R$150 OFF',titulo:'R$150 OFF em PCs e Informática',descricao:'Categorias PC e Informática',condicao:'Categoria PC/Informática',validade:'Tempo limitado',tipo:'codigo',link:'https://amzn.to/4fiE8NQ?tag=carva00-20'},
-  {id:'tvsom250',codigo:'TVSOM250',valor:'R$200 OFF',titulo:'R$200 OFF em TVs e Áudio acima de R$1.499',descricao:'TVs, Áudio e Som',condicao:'Mín. R$1.499 · TVs e Áudio',validade:'Tempo limitado',tipo:'codigo',hot:true,link:'https://amzn.to/4fiE8NQ?tag=carva00-20'},
-  {id:'maiochegou',codigo:'MAIOCHEGOU',valor:'R$100 OFF',titulo:'R$100 OFF em pedidos acima de R$999',descricao:'Para compras acima de R$999',condicao:'Mínimo R$999',validade:'Tempo limitado',tipo:'codigo',hot:true,link:'https://amzn.to/4fiE8NQ?tag=carva00-20'},
-  {id:'souprime',codigo:'SOUPRIME',valor:'R$100 OFF',titulo:'R$100 OFF — Cupom Prime Day',descricao:'Exclusivo membros Amazon Prime',condicao:'Membros Prime',validade:'Prime Day',tipo:'prime',hot:true,link:'https://amzn.to/4fiE8NQ?tag=carva00-20'},
-];
-
-// ── STATE ─────────────────────────────────────────────────
-let activeStore='todos',sortBy='discount',query='';
-let favs=JSON.parse(localStorage.getItem('pc_favs')||'[]');
-
-// ── BOOT ──────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', async () => {
-  // produtos.json é fonte de verdade
-  // Se o JSON carregar com produtos, substitui tudo; senão mantém inline como fallback
-  try {
-    const jsonProds = await loadProdutosJson();
-    if (jsonProds.length > 0) {
-      PRODUTOS.length = 0;
-      jsonProds.forEach(p => PRODUTOS.push(p));
-      console.log('[PromoClub] ' + PRODUTOS.length + ' produtos carregados do JSON');
-    } else {
-      console.warn('[PromoClub] JSON vazio ou ausente — usando produtos inline como fallback');
-    }
-  } catch(e) {
-    console.warn('[PromoClub] Erro ao carregar JSON:', e.message);
-  }
-  // Build store pills dynamically from PRODUTOS
-  const lojas = ['todos', ...new Set(PRODUTOS.map(p => p.loja).filter(Boolean))];
-  document.getElementById('storePills').innerHTML = lojas.map((l,i) =>
-    `<button class="pill ${i===0?'on':''}" onclick="filterStore('${l}',this)">${l==='todos'?'Todos':l}</button>`
-  ).join('');
-  render();
-  renderCupons();
-  animStats();
-  document.getElementById('sortSel').addEventListener('change',e=>{sortBy=e.target.value;render()});
-  document.getElementById('searchInput').addEventListener('input',e=>{query=e.target.value.toLowerCase();render()});
-  document.getElementById('heroSearch').addEventListener('keydown',e=>{if(e.key==='Enter')doHeroSearch()});
-});
-
-function doHeroSearch(){
-  const v=document.getElementById('heroSearch').value.trim();
-  if(v){window.location.href='ofertas.html?q='+encodeURIComponent(v);}
-}
-
-// ── FILTER ────────────────────────────────────────────────
-function filterStore(s,btn){
-  activeStore=s;
-  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));
-  btn.classList.add('on');
-  render();
-}
-
-// ── RENDER ────────────────────────────────────────────────
-function render(){
-  let list=[...PRODUTOS];
-  if(activeStore!=='todos')list=list.filter(p=>p.loja===activeStore);
-  if(query)list=list.filter(p=>p.nome.toLowerCase().includes(query)||p.loja.toLowerCase().includes(query)||(p.descricao||'').toLowerCase().includes(query));
-  if(sortBy==='discount')list.sort((a,b)=>pct(b)-pct(a));
-  else if(sortBy==='price-asc')list.sort((a,b)=>price(a)-price(b));
-  else list.sort((a,b)=>price(b)-price(a));
-  document.getElementById('countInfo').innerHTML=`<strong>${list.length}</strong> resultado${list.length!==1?'s':''}`;
-  document.getElementById('mainGrid').innerHTML=list.length
-    ?list.map(p=>cardHTML(p)).join('')
-    :`<div class="empty"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><p>Nenhum produto encontrado</p><span>Tente outro filtro</span></div>`;
-}
-
-const pct=p=>parseInt(p.desconto)||0;
-const price=p=>parseFloat((p.preco_por||'0').replace(/[^\d,]/g,'').replace(',','.'))||0;
-
-// ── STARS ─────────────────────────────────────────────────
-function stars(r){
-  const f=`<svg viewBox="0 0 20 20"><path fill="#6366f1" d="M10 1l2.39 7.26H19l-5.57 4.04 2.12 6.7L10 15.27l-5.55 3.73 2.12-6.7L1 8.26h6.61z"/></svg>`;
-  const e=`<svg viewBox="0 0 20 20"><path fill="#1a2233" d="M10 1l2.39 7.26H19l-5.57 4.04 2.12 6.7L10 15.27l-5.55 3.73 2.12-6.7L1 8.26h6.61z"/></svg>`;
-  return Array.from({length:5},(_,i)=>i<Math.round(r)?f:e).join('');
-}
-
-// ── CARD HTML ─────────────────────────────────────────────
-function cardHTML(p){
-  const isFav=favs.includes(p.id);
-  const inst=price(p)>0?`12x R$ ${(price(p)/12).toFixed(2).replace('.',',')} s/j`:'';
-  const storeColor=STORE_COLORS[p.loja]||'var(--text3)';
-  const badgeMap={hot:'b-hot',new:'b-new',top:'b-top'};
-  return `
-  <div class="card" onclick="openModal('${p.id}')">
-    ${p.badge?`<div class="card-badge ${badgeMap[p.badge]||'b-hot'}">${p.badge==='hot'?'Em Alta':p.badge==='new'?'Novo':'Top'}</div>`:''}
-    <button class="card-fav ${isFav?'on':''}" onclick="toggleFav(event,'${p.id}')" aria-label="Salvar">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="${isFav?'#ef4444':'none'}" stroke="#ef4444" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-    </button>
-    <div class="card-img">
-      <img src="${p.imagem}" alt="${p.nome}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23111827%22 width=%22100%22 height=%22100%22/%3E%3C/svg%3E'">
+<!-- MODAL -->
+<div id="modalBg" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" onclick="if(event.target===this)closeModal()">
+  <div class="bg-gray-900 border border-white/10 rounded-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto relative">
+    <button onclick="closeModal()" class="absolute top-3 right-3 w-7 h-7 bg-gray-800 border border-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white z-10">✕</button>
+    <div class="bg-gray-800/60 flex items-center justify-center p-8 rounded-t-2xl" style="min-height:180px">
+      <img id="mImg" src="" alt="" class="max-h-44 w-full object-contain">
     </div>
-    <div class="card-body">
-      <div class="card-store"><span class="card-store-dot" style="background:${storeColor}"></span>${p.loja} · ${p.categoria}</div>
-      <div class="card-name">${p.nome}</div>
-      <div class="card-stars"><div class="card-stars-row">${stars(p.avaliacao||4.5)}</div><span class="card-stars-count">${p.avaliacao||'—'} (${p.avaliacoes||'0'})</span></div>
-      <div class="card-pricing">
-        ${p.menor_preco?'<div class="card-lowest">Menor preço em 365 dias</div>':''}
-        ${p.menor_preco_30?'<div class="card-lowest" style="background:#f59e0b">Menor preço em 30 dias</div>':''}
-        <div class="card-price-row">
-          ${p.desconto?`<span class="card-disc">-${p.desconto}</span>`:''}
-          <span class="card-price">${p.preco_por}</span>
-          ${p.preco_de?`<span class="card-old">De: ${p.preco_de}</span>`:''}
-        </div>
-        ${inst?`<div class="card-install">${inst}</div>`:''}
+    <div class="p-5">
+      <div class="text-xs text-gray-500 uppercase tracking-wide mb-1" id="mStore"></div>
+      <h3 class="font-bold text-white text-base leading-tight mb-2" id="mName"></h3>
+      <p class="text-gray-400 text-xs leading-relaxed mb-3" id="mDesc"></p>
+      <div id="mLowest" class="mb-2"></div>
+      <div class="flex items-baseline gap-2 mb-1">
+        <span class="text-red-400 font-bold text-base" id="mDisc"></span>
+        <span class="font-mono font-semibold text-white text-2xl" id="mPrice"></span>
       </div>
-      ${p.estoque?`<div class="card-stock">${p.estoque}</div>`:''}
-      <a class="card-btn" href="${p.link}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation();trackClick('${p.id}')">
-        Ver oferta <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      <div class="text-gray-500 text-xs line-through mb-1" id="mOld"></div>
+      <div class="text-gray-400 text-xs mb-4" id="mInstall"></div>
+      <div id="mFeats" class="mb-4 space-y-1"></div>
+      <a id="mBtn" href="#" target="_blank" rel="nofollow noopener" class="flex items-center justify-center gap-2 w-full gold-gradient text-black font-bold text-sm py-3 rounded-xl hover:brightness-110 transition-all">
+        Ver oferta <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
+    </div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+// ── CARD HTML ─────────────────────────────────────────────
+function productCard(p, compact = false) {
+  const pct = parseInt(p.desconto) || 0;
+  const price = parsePrice(p.preco_por);
+  const inst = price > 0 ? `12x R$ ${(price/12).toFixed(2).replace('.',',')} s/j` : '';
+  const storeColor = {Amazon:'#f59e0b',Shopee:'#f97316',Hinode:'#dc2626'}[p.loja] || '#6b7280';
+  return `
+  <div class="card-hover bg-gray-900 border border-white/8 rounded-xl overflow-hidden flex flex-col cursor-pointer group ${compact ? 'flex-shrink-0 w-48 snap-start' : ''}" onclick="openModal('${p.id}')">
+    <div class="relative bg-gray-800/60 aspect-square flex items-center justify-center p-3 overflow-hidden">
+      ${badgeHTML(p.badge)}
+      <img src="${p.imagem}" alt="${p.nome}" loading="lazy" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2280%22%3E%3Crect fill=%22%231a2233%22 width=%2280%22 height=%2280%22/%3E%3C/svg%3E'">
+      <button class="absolute top-2 right-2 w-7 h-7 bg-black/60 backdrop-blur border border-white/10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:border-red-500/40" onclick="event.stopPropagation();toggleFavCard(this,'${p.id}')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="${Favs.has(p.id)?'#ef4444':'none'}" stroke="#ef4444" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+    </div>
+    <div class="p-3 flex flex-col flex-1 gap-1.5">
+      <div class="flex items-center gap-1.5 text-xs text-gray-500">
+        <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:${storeColor}"></span>
+        ${p.loja} · ${p.categoria}
+      </div>
+      <div class="text-white text-xs font-medium leading-snug line-clamp-2 flex-1">${p.nome}</div>
+      ${p.avaliacao ? `<div class="flex items-center gap-1">${stars(p.avaliacao)}<span class="text-gray-500 text-xs">${p.avaliacao} (${p.avaliacoes})</span></div>` : ''}
+      <div class="mt-auto">
+        ${p.menor_preco ? '<span class="text-xs bg-red-500 text-white font-bold px-1.5 py-0.5 rounded block w-fit mb-1">Menor preço em 365 dias</span>' : ''}
+        ${p.menor_preco_30 ? '<span class="text-xs bg-yellow-500 text-black font-bold px-1.5 py-0.5 rounded block w-fit mb-1">Menor preço em 30 dias</span>' : ''}
+        <div class="flex items-baseline gap-1.5 flex-wrap">
+          ${pct ? `<span class="text-red-400 font-bold text-sm">-${p.desconto}</span>` : ''}
+          <span class="font-mono font-semibold text-white text-base">${p.preco_por}</span>
+          ${p.preco_de ? `<span class="text-gray-600 text-xs line-through">${p.preco_de}</span>` : ''}
+        </div>
+        ${inst ? `<div class="text-gray-500 text-xs">${inst}</div>` : ''}
+        ${p.estoque ? `<div class="text-green-400 text-xs">${p.estoque}</div>` : ''}
+      </div>
+      <a href="${p.link}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()" class="mt-1 gold-gradient text-black font-bold text-xs py-2 rounded-lg text-center hover:brightness-110 transition-all">Ver oferta</a>
     </div>
   </div>`;
 }
 
-// ── CUPONS ────────────────────────────────────────────────
-function renderCupons(){
-  document.getElementById('cuponsGrid').innerHTML=CUPONS_DESTAQUE.map((c,i)=>`
-  <div class="coupon">
-    <div class="coupon-accent"></div>
-    <div class="coupon-inner">
-      <div class="coupon-top">
-        <div class="coupon-badges">
-          <span class="coupon-badge ${c.tipo==='prime'?'cb-prime':c.tipo==='app'?'cb-app':'cb-code'}">${c.tipo==='prime'?'Prime':c.tipo==='app'?'App':'Código'}</span>
-          ${c.hot?'<span class="coupon-badge cb-hot">Popular</span>':''}
-          <span class="coupon-badge cb-ok">Verificado</span>
-        </div>
-        <span class="coupon-value">${c.valor}</span>
+function toggleFavCard(btn, id) {
+  const added = Favs.toggle(id);
+  const svg = btn.querySelector('svg');
+  if (svg) svg.setAttribute('fill', added ? '#ef4444' : 'none');
+  showToast(added ? 'Salvo!' : 'Removido');
+}
+
+function openModal(id) {
+  const p = allProds.find(x => x.id === id); if (!p) return;
+  document.getElementById('mImg').src = p.imagem;
+  document.getElementById('mStore').textContent = p.loja + ' · ' + p.categoria;
+  document.getElementById('mName').textContent = p.nome;
+  document.getElementById('mDesc').textContent = p.descricao || '';
+  document.getElementById('mOld').textContent = p.preco_de ? 'De: ' + p.preco_de : '';
+  document.getElementById('mPrice').textContent = p.preco_por;
+  document.getElementById('mDisc').textContent = p.desconto ? '-' + p.desconto : '';
+  document.getElementById('mInstall').textContent = parsePrice(p.preco_por) > 0 ? '12x de R$ ' + (parsePrice(p.preco_por)/12).toFixed(2).replace('.',',') + ' sem juros' : '';
+  const lo = document.getElementById('mLowest');
+  lo.innerHTML = p.menor_preco ? '<span class="text-xs bg-red-500 text-white font-bold px-2 py-0.5 rounded">Menor preço em 365 dias</span>' : p.menor_preco_30 ? '<span class="text-xs bg-yellow-500 text-black font-bold px-2 py-0.5 rounded">Menor preço em 30 dias</span>' : '';
+  document.getElementById('mBtn').href = p.link;
+  document.getElementById('mFeats').innerHTML = (p.features||[]).map(f => `<div class="flex items-start gap-2 text-xs text-gray-400 py-1 border-b border-white/5"><span class="text-green-400 mt-0.5">✓</span>${f}</div>`).join('');
+  document.getElementById('modalBg').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() { document.getElementById('modalBg').classList.add('hidden'); document.body.style.overflow = ''; }
+
+// ── STATE ─────────────────────────────────────────────────
+let allProds = [], activeStore = 'todos', sortBy = 'discount';
+
+async function init() {
+  allProds = await loadProdutos();
+  const cupons = await loadCupons();
+
+  // Stats
+  const avg = allProds.length ? Math.round(allProds.reduce((s,p)=>s+(parseInt(p.desconto)||0),0)/allProds.length) : 0;
+  document.getElementById('statProds').textContent = allProds.length;
+  document.getElementById('statDisc').textContent = avg + '%';
+  document.getElementById('statCupons').textContent = cupons.length || CUPONS_FALLBACK.length;
+
+  // Hot slider
+  const hot = allProds.filter(p=>p.badge==='hot'||p.badge==='super'||p.destaque).slice(0,10);
+  document.getElementById('hotGrid').innerHTML = hot.map(p=>productCard(p,true)).join('') || '<p class="text-gray-500 text-sm px-4">Carregando...</p>';
+
+  // Store pills
+  const lojas = ['todos', ...new Set(allProds.map(p=>p.loja))];
+  document.getElementById('storePills').innerHTML = lojas.map(l =>
+    `<button onclick="filterStore('${l}',this)" class="pill text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${l==='todos'?'bg-yellow-500/10 border-yellow-500/30 text-yellow-300':'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:border-white/20'}">${l==='todos'?'Todos':l}</button>`
+  ).join('');
+
+  // Cupons strip
+  const cuponsToShow = (cupons.length ? cupons : CUPONS_FALLBACK).slice(0,4);
+  document.getElementById('cuponsStrip').innerHTML = cuponsToShow.map(c => couponStripCard(c)).join('');
+
+  renderProducts();
+}
+
+function couponStripCard(c) {
+  return `<div class="bg-gray-900 border border-white/8 rounded-xl overflow-hidden">
+    <div class="h-0.5 bg-gradient-to-r from-yellow-600 to-yellow-400"></div>
+    <div class="p-4">
+      <div class="flex items-start justify-between gap-2 mb-2">
+        <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">${c.store||c.loja||'Amazon'}</span>
+        <span class="font-mono font-bold text-white text-sm">${c.desconto||c.valor||''}</span>
       </div>
-      <div class="coupon-title">${c.titulo}</div>
-      <div class="coupon-desc">${c.descricao}</div>
-      <div class="coupon-meta">
-        <span class="coupon-meta-item"><strong>Condição:</strong> ${c.condicao}</span>
-        <span class="coupon-meta-item"><strong>Validade:</strong> ${c.validade}</span>
-      </div>
-      <div class="coupon-bottom">
-        <div class="coupon-reveal-wrap" id="rev-${i}">
-          <button class="coupon-ver" onclick="verCupom(event,${i},'${c.codigo}','${c.link}')">
-            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            Ver Cupom
-          </button>
-          <div class="coupon-revealed" id="code-${i}">
-            <div class="coupon-code-box">
-              <span class="coupon-code-val">${c.codigo}</span>
-              <button class="coupon-copy" id="cp-${i}" onclick="copyCoupon(event,'${c.codigo}',${i})">Copiar</button>
-            </div>
-          </div>
+      <div class="text-white text-xs font-semibold leading-snug mb-1">${c.titulo||c.title||''}</div>
+      <div class="text-gray-500 text-xs mb-3">${c.condicao||c.condition||''}</div>
+      <div class="flex items-center gap-2">
+        <div class="flex-1 flex items-center bg-gray-800 border border-dashed border-white/15 rounded-lg overflow-hidden">
+          <span class="font-mono text-xs font-bold text-white px-2.5 py-2 flex-1 tracking-wider">${c.codigo||c.code||''}</span>
+          <button onclick="copyCode(event,'${c.codigo||c.code||''}')" class="gold-gradient text-black text-xs font-bold px-3 py-2">Copiar</button>
         </div>
       </div>
     </div>
-  </div>`).join('');
+  </div>`;
 }
 
-function verCupom(e,i,code,link){
+function copyCode(e, code) {
   e.stopPropagation();
-  window.open(link,'_blank','noopener,noreferrer');
-  const btn=e.currentTarget;
-  const codeEl=document.getElementById('code-'+i);
-  if(codeEl){codeEl.style.display='block';btn.style.display='none';}
-  toast('Link aberto! Copie o código 👇');
+  if (code) { navigator.clipboard.writeText(code).then(() => showToast('Código ' + code + ' copiado!')); }
 }
 
-function copyCoupon(e,code,i){
-  e.stopPropagation();
-  navigator.clipboard.writeText(code).then(()=>{
-    const btn=document.getElementById('cp-'+i);
-    if(btn){btn.classList.add('done');btn.textContent='Copiado!';}
-    setTimeout(()=>{if(btn){btn.classList.remove('done');btn.textContent='Copiar';}},2500);
-    toast('Código '+code+' copiado!');
+function filterStore(store, btn) {
+  activeStore = store;
+  document.querySelectorAll('.pill').forEach(p => {
+    p.className = p.className.replace('bg-yellow-500/10 border-yellow-500/30 text-yellow-300','bg-white/5 border-white/10 text-gray-400 hover:text-white hover:border-white/20');
   });
+  btn.className = btn.className.replace('bg-white/5 border-white/10 text-gray-400 hover:text-white hover:border-white/20','bg-yellow-500/10 border-yellow-500/30 text-yellow-300');
+  renderProducts();
 }
 
-// ── STATS ─────────────────────────────────────────────────
-function animStats(){
-  const total=PRODUTOS.length;
-  const avg=total>0?Math.round(PRODUTOS.reduce((s,p)=>s+pct(p),0)/total):0;
-  animNum('sProducts',total);
-  animNum('sDiscount',avg,'%');
-  animNum('sCoupons',CUPONS_DESTAQUE.length);
-}
-function animNum(id,target,suffix=''){
-  let curr=0;const step=Math.max(1,Math.ceil(target/40));
-  const el=document.getElementById(id);if(!el)return;
-  const t=setInterval(()=>{curr=Math.min(curr+step,target);el.innerHTML=curr+suffix+(suffix===''&&id==='sDiscount'?'':'');if(curr>=target)clearInterval(t);},25);
+function renderProducts() {
+  let list = [...allProds];
+  if (activeStore !== 'todos') list = list.filter(p => p.loja === activeStore);
+  const q = document.getElementById('heroSearchInput')?.value?.toLowerCase() || '';
+  if (q) list = list.filter(p => p.nome.toLowerCase().includes(q) || p.loja.toLowerCase().includes(q));
+  if (sortBy === 'discount') list.sort((a,b) => (parseInt(b.desconto)||0)-(parseInt(a.desconto)||0));
+  else if (sortBy === 'price-asc') list.sort((a,b) => parsePrice(a.preco_por)-parsePrice(b.preco_por));
+  else list.sort((a,b) => parsePrice(b.preco_por)-parsePrice(a.preco_por));
+  document.getElementById('countLabel').textContent = list.length + ' resultado' + (list.length!==1?'s':'');
+  document.getElementById('mainGrid').innerHTML = list.length ? list.map(p=>productCard(p)).join('') : '<p class="col-span-full text-center text-gray-500 py-16">Nenhum produto encontrado</p>';
 }
 
-// ── MODAL ─────────────────────────────────────────────────
-function openModal(id){
-  const p=PRODUTOS.find(x=>x.id===id);if(!p)return;
-  document.getElementById('mImg').src=p.imagem;
-  document.getElementById('mImg').alt=p.nome;
-  document.getElementById('mStore').textContent=p.loja+' · '+p.categoria;
-  document.getElementById('mName').textContent=p.nome;
-  document.getElementById('mDesc').textContent=p.descricao||'';
-  document.getElementById('mOld').textContent=p.preco_de?`De: ${p.preco_de}`:'';
-  document.getElementById('mPrice').textContent=p.preco_por;
-  const lo=document.getElementById('mLowest');
-  if (p.menor_preco) { lo.textContent='Menor preço em 365 dias'; lo.className='m-lowest'; lo.style.background=''; }
-  else if (p.menor_preco_30) { lo.textContent='Menor preço em 30 dias'; lo.className='m-lowest'; lo.style.background='#f59e0b'; }
-  else { lo.textContent=''; lo.className=''; }
-  const de=document.getElementById('mDisc');
-  de.textContent=p.desconto?`-${p.desconto}`:'';
-  const inst=price(p)>0?`12x de R$ ${(price(p)/12).toFixed(2).replace('.',',')} sem juros`:'';
-  document.getElementById('mInstall').textContent=inst;
-  document.getElementById('mBtn').href=p.link;
-  document.getElementById('mBtn').onclick=()=>trackClick(p.id);
-  const chk=`<div class="m-feat-check"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>`;
-  document.getElementById('mFeats').innerHTML=(p.features||[]).map(f=>`<div class="m-feat">${chk}<span>${f}</span></div>`).join('');
-  document.getElementById('modalBg').classList.add('open');
-  document.body.style.overflow='hidden';
+function goSearch() {
+  const q = document.getElementById('heroSearch').value.trim();
+  if (q) window.location.href = 'ofertas.html?q=' + encodeURIComponent(q);
 }
-function maybeClose(e){if(e.target===document.getElementById('modalBg'))closeModal();}
-function closeModal(){document.getElementById('modalBg').classList.remove('open');document.body.style.overflow='';}
+document.getElementById('heroSearch').addEventListener('keydown', e => { if(e.key==='Enter') goSearch(); });
+document.getElementById('heroSearchInput').addEventListener('input', renderProducts);
+document.getElementById('sortSel').addEventListener('change', e => { sortBy = e.target.value; renderProducts(); });
 
-// ── FAVS ──────────────────────────────────────────────────
-function toggleFav(e,id){
-  e.stopPropagation();
-  const i=favs.indexOf(id);
-  if(i>=0){favs.splice(i,1);toast('Removido');}
-  else{favs.push(id);toast('Salvo!');}
-  localStorage.setItem('pc_favs',JSON.stringify(favs));
-  render();
-}
+// Fallback cupons if no cupons.json
+const CUPONS_FALLBACK = [
+  {codigo:'BOMDIA10',desconto:'10% OFF',titulo:'10% OFF acima de R$200',condicao:'Mínimo R$200',store:'Amazon'},
+  {codigo:'PC150',desconto:'R$150 OFF',titulo:'R$150 OFF em PCs e Informática',condicao:'Categoria PC/Info',store:'Amazon'},
+  {codigo:'TVSOM250',desconto:'R$200 OFF',titulo:'R$200 OFF em TVs acima de R$1.499',condicao:'Mín. R$1.499',store:'Amazon'},
+  {codigo:'SOUPRIME',desconto:'R$100 OFF',titulo:'R$100 OFF Cupom Prime Day',condicao:'Membros Prime',store:'Amazon'},
+];
 
-// ── TRACK ─────────────────────────────────────────────────
-function trackClick(id){console.log('[PromoClub] click:',id);}
-
-// ── DRAWER ────────────────────────────────────────────────
-function openDrawer(){document.getElementById('drawer').classList.add('open');document.body.style.overflow='hidden';}
-function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.body.style.overflow='';}
-
-// ── INTERCEPTOR ───────────────────────────────────────────
-document.addEventListener('click',function(e){
-  const a=e.target.closest('a[href]');if(!a)return;
-  const href=a.getAttribute('href')||'';
-  if(!href.includes('amazon.com')&&!href.includes('amzn.to'))return;
-  if(href.includes('tag='+AFILIADO_TAG))return;
-  e.preventDefault();
-  const u=new URL(href);u.searchParams.set('tag',AFILIADO_TAG);
-  window.open(u.toString(),'_blank','noopener,noreferrer');
-},true);
-
-// ── TOAST ─────────────────────────────────────────────────
-let _tt;
-function toast(msg){
-  clearTimeout(_tt);const el=document.getElementById('toast');
-  el.textContent=msg;el.classList.add('show');
-  _tt=setTimeout(()=>el.classList.remove('show'),3000);
-}
+init();
 </script>
 </body>
 </html>
