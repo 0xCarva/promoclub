@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}   # ← importante
+          token: ${{ secrets.PAT_GITHUB }}
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -25,19 +25,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests beautifulsoup4
 
-      - name: Rodar script de atualização
+      - name: Rodar script
         run: python scripts/update_site.py
 
-      - name: Commit changes
+      - name: Commit & Push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
           if git diff --quiet produtos.json; then
-            echo "✅ Nenhum produto novo. Nada para commitar."
+            echo "✅ Nenhum produto novo."
           else
             git add produtos.json
             git commit -m "🔄 Atualização automática de produtos Amazon - $(date +'%d/%m/%Y %H:%M')"
             git push
-            echo "✅ Produtos atualizados e commitado com sucesso!"
+            echo "✅ Atualização concluída com sucesso!"
           fi
