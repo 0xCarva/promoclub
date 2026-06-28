@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}   # ← importante
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -26,8 +28,16 @@ jobs:
       - name: Rodar script de atualização
         run: python scripts/update_site.py
 
-      - name: Commit e Push se houver mudanças
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "🔄 Atualização automática de produtos Amazon - $(date +'%d/%m/%Y %H:%M')"
-          file_pattern: produtos.json
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          if git diff --quiet produtos.json; then
+            echo "✅ Nenhum produto novo. Nada para commitar."
+          else
+            git add produtos.json
+            git commit -m "🔄 Atualização automática de produtos Amazon - $(date +'%d/%m/%Y %H:%M')"
+            git push
+            echo "✅ Produtos atualizados e commitado com sucesso!"
+          fi
