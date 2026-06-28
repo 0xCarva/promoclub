@@ -2,8 +2,8 @@ name: Atualizar Produtos (Amazon)
 
 on:
   schedule:
-    - cron: '0 10 * * *'      # Todo dia às 10h (horário de Brasília)
-  workflow_dispatch:          # Permite rodar manualmente
+    - cron: '0 10 * * *'
+  workflow_dispatch:
 
 jobs:
   update:
