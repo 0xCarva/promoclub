@@ -23,9 +23,9 @@ jobs:
       - name: Instalar dependências
         run: |
           python -m pip install --upgrade pip
-          pip install requests beautifulsoup4
+          pip install amzpy curl_cffi fake-useragent
 
-      - name: Rodar script
+      - name: Rodar script de atualização
         run: python scripts/update_site.py
 
       - name: Commit & Push
@@ -39,5 +39,5 @@ jobs:
             git add produtos.json
             git commit -m "🔄 Atualização automática de produtos Amazon - $(date +'%d/%m/%Y %H:%M')"
             git push
-            echo "✅ Atualização concluída com sucesso!"
+            echo "✅ Atualização concluída!"
           fi
