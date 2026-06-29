@@ -19,45 +19,29 @@ def scrape_hinode():
 
     try:
         r = session.get(url, timeout=30)
+        print(f"Status: {r.status_code} | Tamanho: {len(r.text)} caracteres")
+
         soup = BeautifulSoup(r.text, 'html.parser')
+        
+        # Salvar um pedaço da página para debug
+        with open("hinode_debug.html", "w", encoding="utf-8") as f:
+            f.write(r.text[:50000])  # primeiros 50k caracteres
 
-        # Ajustar conforme a estrutura real da Hinode
-        items = soup.select('div.product-item, .produto, .item-produto')  # ajuste os seletores
+        print("✅ Página salva como hinode_debug.html (abra no navegador)")
 
-        for item in items:
-            title = item.select_one('h2, .product-name, .titulo')
-            title = title.get_text(strip=True) if title else ""
+        # Tente diferentes seletores
+        possible_selectors = [
+            'div.product', 'div.produto', '.product-item', '.item', 
+            'div[class*="product"]', 'a[href*="produto"]'
+        ]
 
-            price = item.select_one('.price, .preco, .valor')
-            price_text = price.get_text(strip=True) if price else ""
-
-            original_price = item.select_one('.old-price, .preco-antigo')
-            original_text = original_price.get_text(strip=True) if original_price else ""
-
-            image = item.select_one('img')
-            image_url = image['src'] if image else ""
-
-            link = item.select_one('a')
-            link_url = link['href'] if link else url
-
-            if title and price_text:
-                produtos.append({
-                    "title": title[:180],
-                    "price": price_text,
-                    "original_price": original_text,
-                    "discount": "",
-                    "image": image_url if image_url.startswith('http') else f"https://www.hinode.com.br{image_url}",
-                    "link": link_url if link_url.startswith('http') else f"https://www.hinode.com.br{link_url}",
-                    "store": "Hinode",
-                    "badge": "Hinode",
-                    "category": "Beleza",  # vamos melhorar depois
-                    "asin": "",  # Hinode não usa ASIN
-                })
+        for selector in possible_selectors:
+            items = soup.select(selector)
+            print(f"Selector '{selector}' encontrou {len(items)} itens")
 
     except Exception as e:
-        print(f"Erro ao raspar Hinode: {e}")
+        print(f"Erro: {e}")
 
-    print(f"✅ Hinode: {len(produtos)} produtos encontrados")
     return produtos
 
 if __name__ == "__main__":
