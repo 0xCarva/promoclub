@@ -7,46 +7,53 @@ from bs4 import BeautifulSoup
 
 # ================== CONFIG ==================
 AFILIADO_TAG = "carva00-20"
-MAX_PAGES = 4
-MIN_PRICE = 30          # Ignorar produtos muito baratos/ruins
+MAX_PAGES = 3
+MIN_PRICE = 25
 OUTPUT_FILE = "produtos.json"
 
-# ================== FUNÇÕES ==================
+# ================== HELPERS ==================
 def criar_link_afiliado(asin):
     return f"https://www.amazon.com.br/dp/{asin}?tag={AFILIADO_TAG}&linkCode=ll2"
 
 def limpar_texto(texto):
-    return " ".join(texto.split()).strip() if texto else ""
+    return " ".join(str(texto).split()).strip() if texto else ""
 
+def parse_price(text):
+    if not text: return 0
+    cleaned = ''.join(c for c in str(text) if c.isdigit() or c in ',.')
+    try:
+        return float(cleaned.replace(',', '.'))
+    except:
+        return 0
+
+# ================== SCRAPER ==================
 def buscar_ofertas_detalhadas():
     produtos = []
     session = requests.Session()
     session.headers.update({
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
         "Accept-Language": "pt-BR,pt;q=0.9",
     })
 
-    # Categorias mais relevantes e com boas promoções
     queries = [
         "headset gamer", "teclado gamer", "mouse gamer", "monitor gamer",
-        "tv smart 4k", "notebook gamer", "placa de video", "smartwatch",
-        "fones bluetooth", "caixa de som bluetooth", "câmera webcam",
-        "ofertas do dia", "tv 4k", "computador gamer"
+        "tv smart 4k", "notebook", "fones bluetooth", "caixa de som",
+        "smartwatch", "ofertas do dia"
     ]
 
     print(f"🔍 Buscando em {len(queries)} categorias...")
 
     for query in queries:
         for page in range(1, MAX_PAGES + 1):
-            url = f"https://www.amazon.com.br/s?k={query.replace(' ', '+')}&page={page}&s=price-asc"
+            url = f"https://www.amazon.com.br/s?k={query.replace(' ', '+')}&page={page}"
             try:
                 r = session.get(url, timeout=30)
-                if r.status_code != 200:
-                    continue
+                print(f"   → {query} | P{page} | {r.status_code}")
 
                 soup = BeautifulSoup(r.text, 'html.parser')
 
-                cards = soup.select('div[data-asin][data-component-type="s-search-result"]')
+                # Seletores mais amplos e resistentes
+                cards = soup.find_all('div', attrs={'data-asin': True})
 
                 for card in cards:
                     asin = card.get('data-asin')
@@ -54,61 +61,49 @@ def buscar_ofertas_detalhadas():
                         continue
 
                     # Título
-                    title_tag = card.select_one('h2 a span, h2 span')
-                    title = limpar_texto(title_tag.get_text()) if title_tag else ""
-
-                    if len(title) < 30:
+                    title = limpar_texto(card.select_one('h2 a span, h2 span, .a-size-medium'))
+                    if not title or len(title) < 25:
                         continue
 
-                    # Preços
-                    price_tag = card.select_one('.a-price .a-offscreen')
-                    price = limpar_texto(price_tag.get_text()) if price_tag else ""
-
-                    original_tag = card.select_one('.a-text-price .a-offscreen')
-                    original_price = limpar_texto(original_tag.get_text()) if original_tag else ""
+                    # Preço atual
+                    price_tag = card.select_one('.a-price .a-offscreen, .a-price-whole, .a-price')
+                    price = limpar_texto(price_tag) if price_tag else ""
 
                     preco_num = parse_price(price)
                     if preco_num < MIN_PRICE:
                         continue
 
+                    # Preço original
+                    original = limpar_texto(card.select_one('.a-text-price .a-offscreen'))
+
                     # Imagem
-                    img_tag = card.select_one('img.s-image')
-                    image = img_tag['src'] if img_tag else ""
+                    img = card.select_one('img.s-image')
+                    image = img['src'] if img else ""
 
                     produto = {
                         "title": title,
                         "price": price,
-                        "original_price": original_price,
+                        "original_price": original,
                         "discount": "",
                         "asin": asin,
                         "image": image,
                         "link": criar_link_afiliado(asin),
                         "store": "Amazon",
                         "badge": "Amazon",
-                        "category": query.title().replace("Gamer", "Gamer"),
-                        "description": title[:180] + "..." if len(title) > 180 else title,
+                        "category": query.title(),
+                        "description": title[:200],
                     }
                     produtos.append(produto)
 
             except Exception as e:
-                print(f"   Erro em {query} página {page}: {e}")
+                print(f"   Erro: {e}")
                 continue
 
-            time.sleep(random.uniform(6, 12))
+            time.sleep(random.uniform(7, 14))
 
-    # Remover duplicatas
     produtos = list({p['asin']: p for p in produtos}.values())
-    print(f"✅ Total final: {len(produtos)} produtos de qualidade")
+    print(f"✅ Total coletado: {len(produtos)} produtos")
     return produtos
-
-def parse_price(str_price):
-    if not str_price:
-        return 0
-    cleaned = ''.join(c for c in str_price if c.isdigit() or c in ',.')
-    try:
-        return float(cleaned.replace(',', '.'))
-    except:
-        return 0
 
 # ================== MAIN ==================
 if __name__ == "__main__":
@@ -122,10 +117,8 @@ if __name__ == "__main__":
             "total_produtos": len(produtos),
             "produtos": produtos
         }
-
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-
-        print(f"💾 {OUTPUT_FILE} atualizado com {len(produtos)} produtos!")
+        print(f"💾 Salvo {len(produtos)} produtos!")
     else:
         print("⚠️ Nenhum produto coletado.")
