@@ -103,9 +103,15 @@ if __name__ == "__main__":
         print("⚠️ Nenhum produto encontrado no JSON.")
 
     # Enviar produtos (melhores primeiro)
-    sorted_produtos = sorted(produtos, key=lambda x: float(x.get('discount', '0').replace('%', '') or 0), reverse=True)
-    for p in sorted_produtos[:6]:   # máximo 6 por vez
-        enviar_produto(p)
-        time.sleep(5)
+    def get_discount_value(p):
+        disc = p.get('discount', '0')
+        if not disc or isinstance(disc, str) and '%' not in disc:
+            return 0
+        try:
+            return float(''.join(c for c in str(disc) if c.isdigit() or c == '.'))
+        except:
+            return 0
+
+    sorted_produtos = sorted(produtos, key=get_discount_value, reverse=True)
 
     print("✅ Envio concluído!")
