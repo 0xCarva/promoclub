@@ -1,7 +1,20 @@
 {
-  "ultima_atualizacao": "30/06/2026 12:08",
-  "total_produtos": 185,
+  "ultima_atualizacao": "30/06/2026 18:56",
+  "total_produtos": 186,
   "produtos": [
+    {
+      "title": "Lattitude Brave Deo Colônia 100ml",
+      "price": "R$ 129,12",
+      "original_price": "R$ 169,90",
+      "discount": "20%",
+      "asin": "010255",
+      "image": "https://hinodegroup.vtexassets.com/arquivos/ids/167797-1600-auto?v=639179883530100000&width=1600&height=auto&aspect=true",
+      "link": "https://www.hinode.com.br/lattitude-brave-deo-colonia-100ml/p?id_consultor=76173688",
+      "store": "Hinode",
+      "badge": "Hinode",
+      "installments": "",
+      "category": "Fragrâncias", "Fragrâncias Masculinas"
+    },
     {
       "title": "Teclado Gamer Membrana Redragon Netherbane Pro RGB Preto Full Size K521RGB-KS PT",
       "price": "R$ 166,90",
