@@ -390,11 +390,11 @@ async function init() {
   const hot = allProds.filter(p=>p.badge==='hot'||p.badge==='super'||p.destaque).slice(0,10);
   document.getElementById('hotGrid').innerHTML = hot.map(p=>productCard(p,true)).join('') || '<p class="text-gray-500 text-sm px-4">Carregando...</p>';
 
-  // Store pills
-  const lojas = ['todos', ...new Set(allProds.map(p=>p.loja))];
-  document.getElementById('storePills').innerHTML = lojas.map(l =>
-    `<button onclick="filterStore('${l}',this)" class="pill text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${l==='todos'?'bg-yellow-500/10 border-yellow-500/30 text-yellow-300':'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:border-white/20'}">${l==='todos'?'Todos':l}</button>`
-  ).join('');
+// Store pills
+const lojas = ['Todos', ...new Set(allProds.map(p => p.store || p.loja || 'Outros'))];
+document.getElementById('storePills').innerHTML = lojas.map(l => `
+  <button onclick="filterStore('${l}',this)" class="pill text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${l==='Todos'?'bg-yellow-500/10 border-yellow-500/30 text-yellow-300':'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:border-white/20'}">${l}</button>
+`).join('');
 
   // Cupons strip
   const cuponsToShow = (cupons.length ? cupons : CUPONS_FALLBACK).slice(0,4);
