@@ -439,7 +439,7 @@ function filterStore(store, btn) {
 
 function renderProducts() {
   let list = [...allProds];
-  if (activeStore !== 'todos') list = list.filter(p => p.loja === activeStore);
+  if (activeStore !== 'Todos') list = list.filter(p => (p.store || p.loja) === activeStore);
   const q = document.getElementById('heroSearchInput')?.value?.toLowerCase() || '';
   if (q) list = list.filter(p => p.nome.toLowerCase().includes(q) || p.loja.toLowerCase().includes(q));
   if (sortBy === 'discount') list.sort((a,b) => (parseInt(b.desconto)||0)-(parseInt(a.desconto)||0));
