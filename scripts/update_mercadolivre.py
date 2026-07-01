@@ -2,20 +2,23 @@ import json
 from datetime import datetime
 import requests
 import time
+import os
 
-# Coloque seu token aqui
-ACCESS_TOKEN = "SEU_ACCESS_TOKEN_AQUI"
-
+ACCESS_TOKEN = os.getenv("MERCADO_LIVRE_TOKEN")
 OUTPUT_FILE = "produtos/mercadolivre.json"
 
 def scrape_mercadolivre():
+    if not ACCESS_TOKEN:
+        print("❌ Token não encontrado")
+        return []
+
     produtos = []
     headers = {
         "Authorization": f"Bearer {ACCESS_TOKEN}"
     }
 
-    # Exemplo: busca por promoções
-    url = "https://api.mercadolibre.com/sites/MLB/search?sort=price_asc&limit=50"
+    # Busca inicial (ajuste conforme necessário)
+    url = "https://api.mercadolibre.com/sites/MLB/search?sort=price_asc&limit=50&q=promoção"
 
     try:
         r = requests.get(url, headers=headers, timeout=30)
