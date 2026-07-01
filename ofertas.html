@@ -29,7 +29,7 @@ body{font-family:'Inter',sans-serif;background:#080b14}
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
   <h1 class="text-3xl font-bold mb-6">Todas as Ofertas</h1>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="productsGrid"></div>
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6" id="productsGrid"></div>
 </div>
 
 <script src="shared.js"></script>
@@ -40,9 +40,9 @@ async function init() {
 
   const grid = document.getElementById('productsGrid');
   grid.innerHTML = produtos.map(p => `
-    <div class="card-hover bg-gray-900 border border-white/8 rounded-xl overflow-hidden flex flex-col">
+    <div class="card-hover bg-gray-900 border border-white/8 rounded-xl overflow-hidden flex flex-col group">
       <div class="relative bg-gray-800 aspect-square flex items-center justify-center p-4">
-        <img src="${p.image}" class="max-h-full object-contain" onerror="this.src='https://via.placeholder.com/300?text=Sem+Imagem'">
+        <img src="${p.image}" alt="${p.title}" class="max-h-full object-contain transition-transform group-hover:scale-105" onerror="this.src='https://via.placeholder.com/300?text=Sem+Imagem'">
         <span class="absolute top-3 left-3 bg-red-600 text-white text-xs px-2 py-1 rounded font-bold">${p.store}</span>
       </div>
       <div class="p-4 flex-1 flex flex-col">
