@@ -53,7 +53,7 @@ function Favs() {
   return {
     has: (id) => favs.includes(id),
     toggle: (id) => {
-      if (favs.includes(id)) favs = favs.filter(x=>x!==id);
+      if (favs.includes(id)) favs = favs.filter(x => x !== id);
       else favs.push(id);
       localStorage.setItem('favs', JSON.stringify(favs));
       return favs.includes(id);
@@ -61,7 +61,7 @@ function Favs() {
   };
 }
 
-const FavsInstance = Favs();
+window.Favs = Favs();
 
 function showToast(msg) {
   const t = document.createElement('div');
