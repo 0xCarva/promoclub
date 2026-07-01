@@ -180,6 +180,39 @@ body{font-family:'Inter',sans-serif;background:#080b14}
 
 <script src="shared.js"></script>
 <script>
+
+function productCard(p){
+  const title = p.title || p.nome || 'Produto sem nome';
+  const price = p.price || p.preco_por || 'R$ --';
+  const original = p.original_price || p.preco_de || '';
+  const discount = p.discount || '';
+  const store = p.store || p.loja || 'Loja';
+  const category = p.category || p.categoria || '';
+  const image = p.image || p.imagem || '';
+  const link = p.link || '#';
+
+  return `
+  <div class="card-hover bg-gray-900 border border-white/8 rounded-xl overflow-hidden flex flex-col cursor-pointer group" onclick="openModal(this)">
+    <div class="relative bg-gray-800 aspect-square flex items-center justify-center p-3 overflow-hidden">
+      <img src="${image}" alt="${title}" loading="lazy" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105">
+      <span class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded">${store}</span>
+    </div>
+    <div class="p-3 flex flex-col flex-1 gap-1.5">
+      <div class="flex items-center gap-1 text-xs text-gray-500">
+        <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-red-500"></span>
+        ${store} · ${category}
+      </div>
+      <div class="text-white text-xs font-medium leading-snug line-clamp-2 flex-1">${title}</div>
+      <div class="mt-auto">
+        ${discount ? `<span class="text-red-400 font-bold text-sm">${discount}</span>` : ''}
+        <div class="font-mono font-semibold text-white text-base">${price}</div>
+        ${original ? `<div class="text-gray-500 text-xs line-through">${original}</div>` : ''}
+      </div>
+      <a href="${link}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()" class="mt-1 gold-gradient text-black font-bold text-xs py-2 rounded-lg text-center hover:brightness-110 transition-all">Ver oferta</a>
+    </div>
+  </div>`;
+}
+  
 async function init() {
   allProds = await loadProdutos();
   buildSidebarFilters();
