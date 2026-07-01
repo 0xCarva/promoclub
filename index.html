@@ -36,7 +36,7 @@ body { font-family: 'Inter', sans-serif; background: #080b14; }
 </head>
 <body class="text-gray-100 min-h-screen">
 
-<!-- NAV (mantido igual) -->
+<!-- NAV -->
 <nav class="nav-blur sticky top-0 z-50 border-b border-white/5">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-3 h-14">
     <a href="index.html" class="flex-shrink-0 mr-3" aria-label="PromoClub">
@@ -190,19 +190,130 @@ body { font-family: 'Inter', sans-serif; background: #080b14; }
   <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3" id="mainGrid"></div>
 </div>
 
-<!-- HINODE BANNER (mantido) -->
+<!-- HINODE BANNER -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
-  <!-- seu banner Hinode original -->
+  <div class="rounded-2xl p-6 sm:p-8 relative overflow-hidden" style="background:linear-gradient(135deg,#1a0505 0%,#2d0a0a 100%);border:1px solid rgba(220,38,38,.15)">
+    <div class="absolute top-0 right-0 w-48 h-48 rounded-full blur-3xl" style="background:rgba(220,38,38,.06)"></div>
+    <div class="relative">
+      <span class="inline-flex items-center gap-1.5 bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide mb-4">Hinode · Parceiro oficial</span>
+      <h3 class="text-xl sm:text-2xl font-extrabold text-white mb-2 leading-tight">Produtos de beleza e bem-estar<br>com preços exclusivos</h3>
+      <p class="text-gray-400 text-sm mb-5 max-w-md">Acesse a loja Hinode com descontos via nosso link de consultor. Perfumes, skincare, maquiagem e muito mais.</p>
+      <div class="flex gap-3 flex-wrap">
+        <a href="https://www.hinode.com.br/?id_consultor=76173688" target="_blank" rel="nofollow noopener" class="bg-red-600 hover:bg-red-700 text-white font-bold text-sm px-5 py-2.5 rounded-lg transition-all flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Ver loja Hinode
+        </a>
+        <a href="https://grupohinode.com/faca-parte/quero-ser-um-consultor?id_consultor=76173688" target="_blank" rel="nofollow noopener" class="bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-400 font-bold text-sm px-5 py-2.5 rounded-lg transition-all">
+          Seja um consultor
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- FOOTER (mantido) -->
-<footer class="border-t border-white/5 bg-gray-900/50 py-8 px-4 sm:px-6">
-  <!-- seu footer original -->
+<!-- SOCIAL -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
+  <h2 class="font-bold text-base flex items-center gap-2 mb-5"><span class="w-1 h-4 bg-pink-500 rounded-full"></span>Siga e fique por dentro</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    <a href="https://t.me/promoclubhub" target="_blank" class="card-hover flex items-center gap-4 p-5 rounded-xl border border-blue-500/15 bg-blue-500/5 hover:border-blue-500/30 transition-all">
+      <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-xl bg-blue-500/15">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      </div>
+      <div class="flex-1">
+        <div class="font-bold text-white text-sm">Telegram</div>
+        <div class="text-gray-500 text-xs">@promoclubhub</div>
+        <div class="text-gray-400 text-xs mt-1">Alertas em tempo real de ofertas e cupons</div>
+      </div>
+      <span class="text-blue-400 text-xs font-semibold bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full whitespace-nowrap">Entrar grátis</span>
+    </a>
+    <a href="https://www.instagram.com/promoclubhub/" target="_blank" class="card-hover flex items-center gap-4 p-5 rounded-xl border border-pink-500/15 bg-pink-500/5 hover:border-pink-500/30 transition-all">
+      <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-xl bg-pink-500/15">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="12" cy="12" r="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.5" fill="#e1306c"/></svg>
+      </div>
+      <div class="flex-1">
+        <div class="font-bold text-white text-sm">Instagram</div>
+        <div class="text-gray-500 text-xs">@promoclubhub</div>
+        <div class="text-gray-400 text-xs mt-1">Ofertas em stories e reels todo dia</div>
+      </div>
+      <span class="text-pink-400 text-xs font-semibold bg-pink-500/10 border border-pink-500/20 px-3 py-1 rounded-full whitespace-nowrap">Seguir</span>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/5 bg-gray-900/50 py-10 px-4 sm:px-6 mt-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 pb-8 border-b border-white/5 mb-6">
+      <div class="col-span-2 sm:col-span-1">
+        <a href="index.html" class="inline-block mb-3">
+          <svg class="h-7" viewBox="0 0 200 52" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="gf1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c9a84c"/><stop offset="50%" stop-color="#f5d078"/><stop offset="100%" stop-color="#c9a84c"/></linearGradient><linearGradient id="gf2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/><stop offset="30%" stop-color="#f5d078"/><stop offset="70%" stop-color="#f5d078"/><stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/></linearGradient></defs>
+            <line x1="4" y1="14" x2="196" y2="14" stroke="url(#gf2)" stroke-width="0.7"/>
+            <text x="100" y="34" font-family="Inter,sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#gf1)">PROMO</text>
+            <line x1="4" y1="42" x2="54" y2="42" stroke="url(#gf2)" stroke-width="0.7"/>
+            <line x1="146" y1="42" x2="196" y2="42" stroke="url(#gf2)" stroke-width="0.7"/>
+            <text x="100" y="50" font-family="Inter,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#gf1)">CLUB</text>
+          </svg>
+        </a>
+        <p class="text-gray-500 text-xs leading-relaxed max-w-44">Promoções, cupons e ofertas da Amazon, Shopee, Hinode e mais.</p>
+        <div class="flex gap-2 mt-3">
+          <a href="https://t.me/promoclubhub" target="_blank" class="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 hover:border-blue-500/40 transition-all">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/promoclubhub/" target="_blank" class="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 hover:border-pink-500/40 transition-all">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke="#e1306c" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="#e1306c"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h5 class="text-gray-300 text-xs font-bold uppercase tracking-widest mb-3">Navegação</h5>
+        <a href="index.html" class="block text-gray-500 hover:text-gray-300 text-xs mb-2 transition-colors">Home</a>
+        <a href="ofertas.html" class="block text-gray-500 hover:text-gray-300 text-xs mb-2 transition-colors">Ofertas</a>
+        <a href="cupons.html" class="block text-gray-500 hover:text-gray-300 text-xs mb-2 transition-colors">Cupons</a>
+      </div>
+      <div>
+        <h5 class="text-gray-300 text-xs font-bold uppercase tracking-widest mb-3">Parceiros</h5>
+        <a href="https://www.amazon.com.br?tag=carva00-20" target="_blank" class="block text-gray-500 hover:text-gray-300 text-xs mb-2 transition-colors">Amazon</a>
+        <a href="https://www.hinode.com.br/?id_consultor=76173688" target="_blank" class="block text-gray-500 hover:text-gray-300 text-xs mb-2 transition-colors">Hinode</a>
+      </div>
+      <div>
+        <h5 class="text-gray-300 text-xs font-bold uppercase tracking-widest mb-3">Legal</h5>
+        <a href="#" class="block text-gray-500 hover:text-gray-300 text-xs mb-2 transition-colors">Privacidade</a>
+        <a href="#" class="block text-gray-500 hover:text-gray-300 text-xs mb-2 transition-colors">Termos</a>
+        <a href="#" class="block text-gray-500 hover:text-gray-300 text-xs mb-2 transition-colors">Afiliados</a>
+      </div>
+    </div>
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-gray-600 text-xs text-center sm:text-left max-w-lg">Este site participa de programas de afiliados. Somos remunerados por indicações qualificadas, sem custo adicional para você.</p>
+      <span class="text-gray-600 text-xs whitespace-nowrap">© 2025 PromoClub · carvapromoclub@gmail.com</span>
+    </div>
+  </div>
 </footer>
 
-<!-- MODAL (mantido) -->
+<!-- MODAL -->
 <div id="modalBg" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" onclick="if(event.target===this)closeModal()">
-  <!-- seu modal original -->
+  <div class="bg-gray-900 border border-white/10 rounded-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto relative">
+    <button onclick="closeModal()" class="absolute top-3 right-3 w-7 h-7 bg-gray-800 border border-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white z-10">✕</button>
+    <div class="bg-gray-800/60 flex items-center justify-center p-8 rounded-t-2xl" style="min-height:180px">
+      <img id="mImg" src="" alt="" class="max-h-44 w-full object-contain">
+    </div>
+    <div class="p-5">
+      <div class="text-xs text-gray-500 uppercase tracking-wide mb-1" id="mStore"></div>
+      <h3 class="font-bold text-white text-base leading-tight mb-2" id="mName"></h3>
+      <p class="text-gray-400 text-xs leading-relaxed mb-3" id="mDesc"></p>
+      <div id="mLowest" class="mb-2"></div>
+      <div class="flex items-baseline gap-2 mb-1">
+        <span class="text-red-400 font-bold text-base" id="mDisc"></span>
+        <span class="font-mono font-semibold text-white text-2xl" id="mPrice"></span>
+      </div>
+      <div class="text-gray-500 text-xs line-through mb-1" id="mOld"></div>
+      <div class="text-gray-400 text-xs mb-4" id="mInstall"></div>
+      <div id="mFeats" class="mb-4 space-y-1"></div>
+      <a id="mBtn" href="#" target="_blank" rel="nofollow noopener" class="flex items-center justify-center gap-2 w-full gold-gradient text-black font-bold text-sm py-3 rounded-xl hover:brightness-110 transition-all">
+        Ver oferta <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </div>
 </div>
 
 <script src="shared.js"></script>
@@ -236,15 +347,41 @@ function productCard(p, compact = false) {
   </div>`;
 }
 
+function toggleFavCard(btn, id) {
+  const added = Favs.toggle(id);
+  const svg = btn.querySelector('svg');
+  if (svg) svg.setAttribute('fill', added ? '#ef4444' : 'none');
+  showToast(added ? 'Salvo!' : 'Removido');
+}
+
+function openModal(id) {
+  const p = allProds.find(x => x.id === id); if (!p) return;
+  document.getElementById('mImg').src = p.imagem;
+  document.getElementById('mStore').textContent = p.loja + ' · ' + p.categoria;
+  document.getElementById('mName').textContent = p.nome;
+  document.getElementById('mDesc').textContent = p.descricao || '';
+  document.getElementById('mOld').textContent = p.preco_de ? 'De: ' + p.preco_de : '';
+  document.getElementById('mPrice').textContent = p.preco_por;
+  document.getElementById('mDisc').textContent = p.desconto ? '-' + p.desconto : '';
+  document.getElementById('mInstall').textContent = parsePrice(p.preco_por) > 0 ? '12x de R$ ' + (parsePrice(p.preco_por)/12).toFixed(2).replace('.',',') + ' sem juros' : '';
+  const lo = document.getElementById('mLowest');
+  lo.innerHTML = p.menor_preco ? '<span class="text-xs bg-red-500 text-white font-bold px-2 py-0.5 rounded">Menor preço em 365 dias</span>' : p.menor_preco_30 ? '<span class="text-xs bg-yellow-500 text-black font-bold px-2 py-0.5 rounded">Menor preço em 30 dias</span>' : '';
+  document.getElementById('mBtn').href = p.link;
+  document.getElementById('mFeats').innerHTML = (p.features||[]).map(f => `<div class="flex items-start gap-2 text-xs text-gray-400 py-1 border-b border-white/5"><span class="text-green-400 mt-0.5">✓</span>${f}</div>`).join('');
+  document.getElementById('modalBg').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() { document.getElementById('modalBg').classList.add('hidden'); document.body.style.overflow = ''; }
+
 // ── STATE ─────────────────────────────────────────────────
-let allProds = [], activeStore = 'Todos', sortBy = 'discount';
+let allProds = [], activeStore = 'todos', sortBy = 'discount';
 
 async function init() {
   allProds = await loadProdutos();
   const cupons = await loadCupons();
 
   // Stats
-  const avg = allProds.length ? Math.round(allProds.reduce((s,p)=>s+(parseInt(p.discount)||0),0)/allProds.length) : 0;
+  const avg = allProds.length ? Math.round(allProds.reduce((s,p)=>s+(parseInt(p.desconto)||0),0)/allProds.length) : 0;
   document.getElementById('statProds').textContent = allProds.length;
   document.getElementById('statDisc').textContent = avg + '%';
   document.getElementById('statCupons').textContent = cupons.length || CUPONS_FALLBACK.length;
@@ -256,7 +393,7 @@ async function init() {
   // Store pills
   const lojas = ['Todos', ...new Set(allProds.map(p => p.store || p.loja || 'Outros'))];
   document.getElementById('storePills').innerHTML = lojas.map(l => `
-    <button onclick="filterStore('${l}',this)" class="pill text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${l==='Todos'?'bg-yellow-500/10 border-yellow-500/30 text-yellow-300':'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:border-white/20'}">${l}</button>
+  <button onclick="filterStore('${l}',this)" class="pill text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${l==='Todos'?'bg-yellow-500/10 border-yellow-500/30 text-yellow-300':'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:border-white/20'}">${l}</button>
   `).join('');
 
   // Cupons strip
@@ -264,6 +401,31 @@ async function init() {
   document.getElementById('cuponsStrip').innerHTML = cuponsToShow.map(c => couponStripCard(c)).join('');
 
   renderProducts();
+}
+
+function couponStripCard(c) {
+  return `<div class="bg-gray-900 border border-white/8 rounded-xl overflow-hidden">
+    <div class="h-0.5 bg-gradient-to-r from-yellow-600 to-yellow-400"></div>
+    <div class="p-4">
+      <div class="flex items-start justify-between gap-2 mb-2">
+        <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">${c.store||c.loja||'Amazon'}</span>
+        <span class="font-mono font-bold text-white text-sm">${c.desconto||c.valor||''}</span>
+      </div>
+      <div class="text-white text-xs font-semibold leading-snug mb-1">${c.titulo||c.title||''}</div>
+      <div class="text-gray-500 text-xs mb-3">${c.condicao||c.condition||''}</div>
+      <div class="flex items-center gap-2">
+        <div class="flex-1 flex items-center bg-gray-800 border border-dashed border-white/15 rounded-lg overflow-hidden">
+          <span class="font-mono text-xs font-bold text-white px-2.5 py-2 flex-1 tracking-wider">${c.codigo||c.code||''}</span>
+          <button onclick="copyCode(event,'${c.codigo||c.code||''}')" class="gold-gradient text-black text-xs font-bold px-3 py-2">Copiar</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function copyCode(e, code) {
+  e.stopPropagation();
+  if (code) { navigator.clipboard.writeText(code).then(() => showToast('Código ' + code + ' copiado!')); }
 }
 
 function filterStore(store, btn) {
@@ -277,9 +439,14 @@ function filterStore(store, btn) {
 
 function renderProducts() {
   let list = [...allProds];
-  if (activeStore !== 'Todos') list = list.filter(p => (p.store || p.loja) === activeStore);
-  document.getElementById('countLabel').textContent = list.length + ' resultado' + (list.length !== 1 ? 's' : '');
-  document.getElementById('mainGrid').innerHTML = list.length ? list.map(p => productCard(p)).join('') : '<p class="col-span-full text-center text-gray-500 py-16">Nenhum produto encontrado</p>';
+  if (activeStore !== 'todos') list = list.filter(p => p.loja === activeStore);
+  const q = document.getElementById('heroSearchInput')?.value?.toLowerCase() || '';
+  if (q) list = list.filter(p => p.nome.toLowerCase().includes(q) || p.loja.toLowerCase().includes(q));
+  if (sortBy === 'discount') list.sort((a,b) => (parseInt(b.desconto)||0)-(parseInt(a.desconto)||0));
+  else if (sortBy === 'price-asc') list.sort((a,b) => parsePrice(a.preco_por)-parsePrice(b.preco_por));
+  else list.sort((a,b) => parsePrice(b.preco_por)-parsePrice(a.preco_por));
+  document.getElementById('countLabel').textContent = list.length + ' resultado' + (list.length!==1?'s':'');
+  document.getElementById('mainGrid').innerHTML = list.length ? list.map(p=>productCard(p)).join('') : '<p class="col-span-full text-center text-gray-500 py-16">Nenhum produto encontrado</p>';
 }
 
 function goSearch() {
@@ -290,7 +457,7 @@ document.getElementById('heroSearch').addEventListener('keydown', e => { if(e.ke
 document.getElementById('heroSearchInput').addEventListener('input', renderProducts);
 document.getElementById('sortSel').addEventListener('change', e => { sortBy = e.target.value; renderProducts(); });
 
-// Fallback cupons
+// Fallback cupons if no cupons.json
 const CUPONS_FALLBACK = [
   {codigo:'BOMDIA10',desconto:'10% OFF',titulo:'10% OFF acima de R$200',condicao:'Mínimo R$200',store:'Amazon'},
   {codigo:'PC150',desconto:'R$150 OFF',titulo:'R$150 OFF em PCs e Informática',condicao:'Categoria PC/Info',store:'Amazon'},
