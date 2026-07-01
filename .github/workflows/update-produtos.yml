@@ -2,7 +2,7 @@ name: Atualizar Site + Telegram
 
 on:
   schedule:
-    - cron: '0 10 * * *'   # Todo dia às 10h
+    - cron: '0 10 * * *'
   workflow_dispatch:
 
 jobs:
@@ -28,6 +28,14 @@ jobs:
       - name: Atualizar Hinode
         run: python scripts/update_hinode.py
 
+      - name: Atualizar Mercado Livre
+        env:
+          MERCADO_LIVRE_TOKEN: ${{ secrets.MERCADO_LIVRE_TOKEN }}
+        run: python scripts/update_mercadolivre.py
+
+      - name: Mesclar todos os produtos
+        run: python scripts/merge_produtos.py
+
       - name: Enviar para Telegram
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
@@ -43,7 +51,7 @@ jobs:
             echo "✅ Nenhum produto novo."
           else
             git add produtos.json
-            git commit -m "🌸 Atualização Hinode + Telegram - $(date +'%d/%m/%Y %H:%M')"
+            git commit -m "🌟 Atualização Hinode + Mercado Livre - $(date +'%d/%m/%Y %H:%M')"
             git push
             echo "✅ Concluído!"
           fi
