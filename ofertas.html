@@ -244,11 +244,22 @@ async function init(){
 }
 
 function buildSidebarFilters(){
-  const lojas=[...new Set(allProds.map(p=>p.loja))];
-  const cats=[...new Set(allProds.map(p=>p.categoria))].sort();
-  const mkCheck=(val,set,id)=>`<label class="flex items-center gap-2 cursor-pointer group"><input type="checkbox" class="accent-yellow-400 w-3.5 h-3.5" onchange="toggleFilter('${val}','${set}',this)"><span class="text-gray-400 group-hover:text-white text-xs transition-colors">${val}</span></label>`;
-  ['lojaFilters','lojaFiltersMob'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=lojas.map(l=>mkCheck(l,'loja',id)).join('');});
-  const cf=document.getElementById('catFilters');if(cf)cf.innerHTML=cats.map(c=>mkCheck(c,'cat','cf')).join('');
+  const lojas = [...new Set(allProds.map(p => p.store || p.loja || 'Outros'))];
+  const cats = [...new Set(allProds.map(p => p.category || p.categoria || 'Outros'))].sort();
+  
+  const mkCheck = (val, set, id) => `
+    <label class="flex items-center gap-2 cursor-pointer group">
+      <input type="checkbox" class="accent-yellow-400 w-3.5 h-3.5" onchange="toggleFilter('${val}','${set}',this)">
+      <span class="text-gray-400 group-hover:text-white text-xs transition-colors">${val}</span>
+    </label>`;
+
+  ['lojaFilters','lojaFiltersMob'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = lojas.map(l => mkCheck(l, 'loja', id)).join('');
+  });
+
+  const cf = document.getElementById('catFilters');
+  if (cf) cf.innerHTML = cats.map(c => mkCheck(c, 'cat', 'cf')).join('');
 }
 
 function toggleFilter(val,set,cb){
@@ -263,21 +274,17 @@ function clearAll(){activeCats.clear();activeLojas.clear();minDisc=0;minRating=0
 function toggleMobileFilters(){document.getElementById('mobileFilters').classList.toggle('hidden');}
 
 function render(){
-  let list=[...allProds];
-  if(activeLojas.size>0)list=list.filter(p=>activeLojas.has(p.loja));
-  if(activeCats.size>0)list=list.filter(p=>activeCats.has(p.categoria));
-  if(query)list=list.filter(p=>p.nome.toLowerCase().includes(query)||(p.descricao||'').toLowerCase().includes(query));
-  if(minDisc>0)list=list.filter(p=>pct(p)>=minDisc);
-  if(minRating>0)list=list.filter(p=>(p.avaliacao||0)>=minRating);
-  if(sortBy==='discount')list.sort((a,b)=>pct(b)-pct(a));
-  else if(sortBy==='price-asc')list.sort((a,b)=>price(a)-price(b));
-  else if(sortBy==='price-desc')list.sort((a,b)=>price(b)-price(a));
-  else list.sort((a,b)=>(b.avaliacao||0)-(a.avaliacao||0));
-  const total=list.length,pages=Math.ceil(total/PER_PAGE);
-  page=Math.min(page,pages||1);
-  document.getElementById('countLabel').textContent=total+' resultado'+(total!==1?'s':'');
-  document.getElementById('productsGrid').innerHTML=list.slice((page-1)*PER_PAGE,page*PER_PAGE).map(p=>productCard(p)).join('')||'<p class="col-span-full text-center text-gray-500 py-20">Nenhum produto encontrado</p>';
-  renderPag(pages);
+  let list = [...allProds];
+  if (activeLojas.size > 0) list = list.filter(p => activeLojas.has(p.store || p.loja));
+  if (activeCats.size > 0) list = list.filter(p => activeCats.has(p.category || p.categoria));
+  if (query) list = list.filter(p => (p.title || p.nome || '').toLowerCase().includes(query));
+  if (minDisc > 0) list = list.filter(p => (parseInt(p.discount) || 0) >= minDisc);
+  
+  const total = list.length;
+  document.getElementById('countLabel').textContent = total + ' resultado' + (total !== 1 ? 's' : '');
+  
+  document.getElementById('productsGrid').innerHTML = list.map(p => productCard(p)).join('') || 
+    '<p class="col-span-full text-center text-gray-500 py-20">Nenhum produto encontrado</p>';
 }
 function renderPag(pages){
   const el=document.getElementById('pagination');
