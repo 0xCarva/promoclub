@@ -184,32 +184,29 @@ body{font-family:'Inter',sans-serif;background:#080b14}
 const BADGE_CFG={hot:{label:'🔥 Em Alta',cls:'bg-red-500 text-white'},new:{label:'✨ Novo',cls:'bg-blue-500 text-white'},top:{label:'⭐ Top',cls:'bg-indigo-500 text-white'},super:{label:'💥 Super',cls:'bg-orange-500 text-white'},flash:{label:'⚡ Flash',cls:'bg-yellow-500 text-black'},prime:{label:'★ Prime',cls:'bg-blue-600 text-white'}};
 
 function productCard(p){
-  const pct=parseInt(p.desconto)||0;
-  const price=parsePrice(p.preco_por);
-  const inst=price>0?`12x R$ ${(price/12).toFixed(2).replace('.',',')} s/j`:'';
-  const sc={Amazon:'#f59e0b',Shopee:'#f97316',Hinode:'#dc2626'}[p.loja]||'#6b7280';
-  const badge=p.badge&&BADGE_CFG[p.badge]?`<span class="absolute top-2 left-2 z-10 text-xs font-bold px-2 py-0.5 rounded-full ${BADGE_CFG[p.badge].cls}">${BADGE_CFG[p.badge].label}</span>`:'';
-  return `<div class="card-hover bg-gray-900 border border-white/8 rounded-xl overflow-hidden flex flex-col cursor-pointer group" onclick="openModal('${p.id}')">
+  const title = p.title || p.nome || 'Produto sem nome';
+  const price = p.price || p.preco_por || 'R$ --';
+  const store = p.store || p.loja || 'Loja';
+  const category = p.category || p.categoria || '';
+  const image = p.image || p.imagem || '';
+  const link = p.link || '#';
+
+  return `
+  <div class="card-hover bg-gray-900 border border-white/8 rounded-xl overflow-hidden flex flex-col cursor-pointer group" onclick="openModal(this)">
     <div class="relative bg-gray-800/60 aspect-square flex items-center justify-center p-3 overflow-hidden">
-      ${badge}
-      <img src="${p.imagem}" alt="${p.nome}" loading="lazy" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22%3E%3Crect fill=%22%231a2233%22 width=%2260%22 height=%2260%22/%3E%3C/svg%3E'">
+      <img src="${image}" alt="${title}" loading="lazy" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105">
+      <span class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded">${store}</span>
     </div>
     <div class="p-3 flex flex-col flex-1 gap-1.5">
-      <div class="flex items-center gap-1 text-xs text-gray-500"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:${sc}"></span>${p.loja} · ${p.categoria}</div>
-      <div class="text-white text-xs font-medium leading-snug line-clamp-2 flex-1">${p.nome}</div>
-      ${p.avaliacao?`<div class="flex items-center gap-1 text-xs text-gray-500">${stars(p.avaliacao)} ${p.avaliacao} (${p.avaliacoes})</div>`:''}
-      <div class="mt-auto">
-        ${p.menor_preco?'<span class="text-xs bg-red-500 text-white font-bold px-1.5 py-0.5 rounded block w-fit mb-1">Menor preço em 365 dias</span>':''}
-        ${p.menor_preco_30?'<span class="text-xs bg-yellow-500 text-black font-bold px-1.5 py-0.5 rounded block w-fit mb-1">Menor preço em 30 dias</span>':''}
-        <div class="flex items-baseline gap-1.5 flex-wrap">
-          ${pct?`<span class="text-red-400 font-bold text-sm">-${p.desconto}</span>`:''}
-          <span class="font-mono font-semibold text-white text-base">${p.preco_por}</span>
-          ${p.preco_de?`<span class="text-gray-600 text-xs line-through">${p.preco_de}</span>`:''}
-        </div>
-        ${inst?`<div class="text-gray-500 text-xs">${inst}</div>`:''}
-        ${p.estoque?`<div class="text-green-400 text-xs">${p.estoque}</div>`:''}
+      <div class="flex items-center gap-1 text-xs text-gray-500">
+        <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-red-500"></span>
+        ${store} · ${category}
       </div>
-      <a href="${p.link}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()" class="mt-1 gold-gradient text-black font-bold text-xs py-2 rounded-lg text-center hover:brightness-110 transition-all">Ver oferta</a>
+      <div class="text-white text-xs font-medium leading-snug line-clamp-2 flex-1">${title}</div>
+      <div class="mt-auto">
+        <div class="font-mono font-semibold text-white text-base">${price}</div>
+      </div>
+      <a href="${link}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()" class="mt-1 gold-gradient text-black font-bold text-xs py-2 rounded-lg text-center hover:brightness-110 transition-all">Ver oferta</a>
     </div>
   </div>`;
 }
