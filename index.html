@@ -379,6 +379,7 @@ let allProds = [], activeStore = 'todos', sortBy = 'discount';
 async function init() {
   allProds = await loadProdutos();
   const cupons = await loadCupons();
+  activeStore = 'Todos';
 
   // Stats
   const avg = allProds.length ? Math.round(allProds.reduce((s,p)=>s+(parseInt(p.desconto)||0),0)/allProds.length) : 0;
