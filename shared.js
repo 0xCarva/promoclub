@@ -3,7 +3,7 @@ const AFILIADO_TAG = 'carva00-20';
 
 async function loadProdutos() {
   try {
-    const res = await fetch('produtos.json');
+    const res = await fetch('produtos/produtos.json');
     const data = await res.json();
     return data.produtos || [];
   } catch(e) {
