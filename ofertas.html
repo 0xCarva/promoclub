@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as ofertas com filtros por loja, categoria e desconto — PromoClub">
 <title>Ofertas — PromoClub</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -19,42 +20,284 @@ body{font-family:'Inter',sans-serif;background:#080b14}
 </head>
 <body class="text-gray-100 min-h-screen">
 
+<!-- NAV -->
 <nav class="nav-blur sticky top-0 z-50 border-b border-white/5">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-3 h-14">
-    <a href="index.html" class="flex-shrink-0 mr-3">PromoClub</a>
-    <a href="ofertas.html" class="text-yellow-300">Ofertas</a>
-    <a href="cupons.html">Cupons</a>
+    <a href="index.html" class="flex-shrink-0 mr-3" aria-label="PromoClub">
+      <svg class="h-8" viewBox="0 0 200 52" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c9a84c"/><stop offset="40%" stop-color="#f5d078"/><stop offset="100%" stop-color="#c9a84c"/></linearGradient><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/><stop offset="30%" stop-color="#f5d078"/><stop offset="70%" stop-color="#f5d078"/><stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/></linearGradient></defs>
+        <line x1="4" y1="14" x2="196" y2="14" stroke="url(#g2)" stroke-width="0.7"/>
+        <g transform="translate(172,2) scale(0.85)"><circle cx="6" cy="4" r="2" fill="none" stroke="url(#g1)" stroke-width="1"/><path d="M2 7 L0 15 L12 15 L14 7 Z" fill="none" stroke="url(#g1)" stroke-width="1" stroke-linejoin="round"/><circle cx="7" cy="11" r="1.2" fill="url(#g1)"/></g>
+        <text x="100" y="34" font-family="Inter,sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#g1)">PROMO</text>
+        <line x1="4" y1="42" x2="54" y2="42" stroke="url(#g2)" stroke-width="0.7"/>
+        <line x1="146" y1="42" x2="196" y2="42" stroke="url(#g2)" stroke-width="0.7"/>
+        <text x="100" y="50" font-family="Inter,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#g1)">CLUB</text>
+      </svg>
+    </a>
+    <div class="hidden md:flex items-center gap-1">
+      <a href="index.html" class="text-gray-400 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-md hover:bg-white/5 transition-all">Home</a>
+      <a href="ofertas.html" class="text-yellow-300 text-xs font-semibold px-3 py-1.5 rounded-md border-b border-yellow-400">Ofertas</a>
+      <a href="cupons.html" class="text-gray-400 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-md hover:bg-white/5 transition-all">Cupons</a>
+    </div>
+    <div class="hidden md:flex flex-1 max-w-sm mx-auto">
+      <div class="flex items-center w-full bg-white/5 border border-white/10 rounded-lg px-3 gap-2 focus-within:border-yellow-500/40 transition-colors">
+        <svg class="w-3.5 h-3.5 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="searchInput" type="text" placeholder="Buscar produtos..." class="bg-transparent text-sm text-gray-100 placeholder-gray-500 outline-none w-full py-2">
+      </div>
+    </div>
+    <div class="hidden md:flex items-center gap-2 ml-auto">
+      <a href="https://www.instagram.com/promoclubhub/" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-lg border border-white/10 hover:border-pink-500/40 transition-all">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="12" cy="12" r="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.5" fill="#e1306c"/></svg>
+      </a>
+      <a href="https://t.me/promoclubhub" target="_blank" class="w-8 h-8 flex items-center justify-center rounded-lg border border-white/10 hover:border-blue-500/40 transition-all">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      </a>
+      <a href="https://t.me/promoclubhub" target="_blank" class="gold-gradient text-black text-xs font-bold px-4 py-2 rounded-lg hover:brightness-110 transition-all">Entrar no grupo</a>
+    </div>
+    <button onclick="openDrawer()" class="md:hidden ml-auto w-8 h-8 flex items-center justify-center rounded-lg border border-white/10">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
   </div>
 </nav>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-  <h1 class="text-3xl font-bold mb-6">Todas as Ofertas</h1>
-  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6" id="productsGrid"></div>
+<!-- DRAWER -->
+<div id="drawerBg" class="hidden fixed inset-0 z-40 bg-black/70 backdrop-blur-sm" onclick="closeDrawer()"></div>
+<div id="drawer" class="fixed top-0 right-0 bottom-0 z-50 w-64 bg-gray-900 border-l border-white/10 translate-x-full transition-transform duration-300 flex flex-col">
+  <div class="flex items-center justify-between p-4 border-b border-white/10"><span class="gold-text font-bold text-sm">Menu</span><button onclick="closeDrawer()" class="text-gray-400 hover:text-white">✕</button></div>
+  <div class="flex flex-col gap-1 p-4">
+    <a href="index.html" class="text-gray-400 hover:text-white text-sm px-3 py-2.5 rounded-lg hover:bg-white/5 transition-all">Home</a>
+    <a href="ofertas.html" class="text-yellow-300 font-semibold text-sm px-3 py-2.5 rounded-lg bg-white/5">Ofertas</a>
+    <a href="cupons.html" class="text-gray-400 hover:text-white text-sm px-3 py-2.5 rounded-lg hover:bg-white/5 transition-all">Cupons</a>
+  </div>
+  <div class="mt-auto p-4 border-t border-white/10">
+    <a href="https://t.me/promoclubhub" target="_blank" class="gold-gradient text-black text-sm font-bold px-4 py-2.5 rounded-lg text-center block">Entrar no grupo grátis</a>
+  </div>
 </div>
+
+<!-- PAGE HEADER -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-4">
+  <h1 class="text-2xl font-extrabold tracking-tight mb-1">Marketplace de <span class="gold-text">Ofertas</span></h1>
+  <p class="text-gray-500 text-sm">Os melhores preços, validados e atualizados diariamente.</p>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 pb-16 flex gap-6 items-start">
+
+  <!-- SIDEBAR -->
+  <aside class="hidden lg:block w-52 flex-shrink-0 sticky top-20">
+    <div class="bg-gray-900 border border-white/8 rounded-xl p-4 space-y-5">
+      <div>
+        <div class="text-yellow-400 text-xs font-bold uppercase tracking-widest mb-3">Lojas</div>
+        <div class="space-y-1.5" id="lojaFilters"></div>
+      </div>
+      <div class="border-t border-white/8 pt-4">
+        <div class="text-yellow-400 text-xs font-bold uppercase tracking-widest mb-3">Categorias</div>
+        <div class="space-y-1.5" id="catFilters"></div>
+      </div>
+      <div class="border-t border-white/8 pt-4">
+        <div class="text-yellow-400 text-xs font-bold uppercase tracking-widest mb-2">Desconto mínimo</div>
+        <input type="range" id="discRange" min="0" max="80" step="5" value="0" oninput="updateRange(this)" class="w-full accent-yellow-400">
+        <div class="flex justify-between text-xs text-gray-500 mt-1"><span>0%</span><span id="rangeVal" class="text-yellow-400 font-semibold">0%+</span><span>80%</span></div>
+      </div>
+      <div class="border-t border-white/8 pt-4">
+        <div class="text-yellow-400 text-xs font-bold uppercase tracking-widest mb-2">Avaliação</div>
+        <button onclick="setStars(4,this)" class="star-btn flex items-center gap-1 text-xs text-gray-400 hover:text-white w-full py-1 transition-colors">⭐⭐⭐⭐ 4+ estrelas</button>
+        <button onclick="setStars(4.5,this)" class="star-btn flex items-center gap-1 text-xs text-gray-400 hover:text-white w-full py-1 transition-colors">⭐⭐⭐⭐⭐ 4.5+</button>
+      </div>
+      <button onclick="clearAll()" class="w-full text-xs text-gray-400 hover:text-white border border-white/10 hover:border-yellow-500/40 hover:gold-gradient hover:text-black py-2 rounded-lg transition-all">Limpar filtros</button>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="flex-1 min-w-0">
+    <!-- TOP BAR -->
+    <div class="flex items-center gap-2 mb-4 flex-wrap">
+      <div class="flex lg:hidden items-center flex-1 min-w-40 bg-white/5 border border-white/10 rounded-lg px-3 gap-2">
+        <svg class="w-3.5 h-3.5 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="searchInputMob" type="text" placeholder="Buscar..." class="bg-transparent text-sm text-gray-100 placeholder-gray-500 outline-none w-full py-2">
+      </div>
+      <select id="sortSel" class="bg-gray-900 border border-white/10 text-gray-300 text-xs px-3 py-2 rounded-lg outline-none cursor-pointer">
+        <option value="discount">Maior desconto</option>
+        <option value="price-asc">Menor preço</option>
+        <option value="price-desc">Maior preço</option>
+        <option value="rating">Melhor avaliação</option>
+      </select>
+      <button onclick="toggleMobileFilters()" class="lg:hidden gold-gradient text-black text-xs font-bold px-3 py-2 rounded-lg">Filtros</button>
+      <span class="text-gray-500 text-xs ml-auto" id="countLabel"></span>
+    </div>
+
+    <!-- MOBILE FILTERS -->
+    <div id="mobileFilters" class="hidden lg:hidden bg-gray-900 border border-white/8 rounded-xl p-4 mb-4 grid grid-cols-2 gap-4">
+      <div>
+        <div class="text-yellow-400 text-xs font-bold uppercase tracking-widest mb-2">Lojas</div>
+        <div id="lojaFiltersMob" class="space-y-1"></div>
+      </div>
+      <div>
+        <div class="text-yellow-400 text-xs font-bold uppercase tracking-widest mb-2">Desconto mínimo</div>
+        <input type="range" id="discRangeMob" min="0" max="80" step="5" value="0" oninput="updateRangeMob(this)" class="w-full accent-yellow-400">
+        <div class="text-yellow-400 text-xs font-semibold mt-1" id="rangeValMob">0%+</div>
+      </div>
+    </div>
+
+    <!-- GRID -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3" id="productsGrid"></div>
+    <!-- PAGINATION -->
+    <div class="flex justify-center gap-1.5 mt-8" id="pagination"></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="modalBg" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" onclick="if(event.target===this)closeModal()">
+  <div class="bg-gray-900 border border-white/10 rounded-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto relative">
+    <button onclick="closeModal()" class="absolute top-3 right-3 w-7 h-7 bg-gray-800 border border-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white z-10">✕</button>
+    <div class="bg-gray-800/60 flex items-center justify-center p-8 rounded-t-2xl" style="min-height:180px">
+      <img id="mImg" src="" alt="" class="max-h-44 w-full object-contain">
+    </div>
+    <div class="p-5">
+      <div class="text-xs text-gray-500 uppercase tracking-wide mb-1" id="mStore"></div>
+      <h3 class="font-bold text-white text-base leading-tight mb-2" id="mName"></h3>
+      <p class="text-gray-400 text-xs leading-relaxed mb-3" id="mDesc"></p>
+      <div id="mLowest" class="mb-2"></div>
+      <div class="flex items-baseline gap-2 mb-1"><span class="text-red-400 font-bold text-base" id="mDisc"></span><span class="font-mono font-semibold text-white text-2xl" id="mPrice"></span></div>
+      <div class="text-gray-500 text-xs line-through mb-1" id="mOld"></div>
+      <div class="text-gray-400 text-xs mb-4" id="mInstall"></div>
+      <div id="mFeats" class="mb-4 space-y-1"></div>
+      <a id="mBtn" href="#" target="_blank" rel="nofollow noopener" class="flex items-center justify-center gap-2 w-full gold-gradient text-black font-bold text-sm py-3 rounded-xl hover:brightness-110 transition-all">
+        Ver oferta <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/5 bg-gray-900/50 py-8 px-4 sm:px-6">
+  <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    <a href="index.html"><svg class="h-7" viewBox="0 0 200 52" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gf" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c9a84c"/><stop offset="50%" stop-color="#f5d078"/><stop offset="100%" stop-color="#c9a84c"/></linearGradient><linearGradient id="gl" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/><stop offset="30%" stop-color="#f5d078"/><stop offset="70%" stop-color="#f5d078"/><stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/></linearGradient></defs><line x1="4" y1="14" x2="196" y2="14" stroke="url(#gl)" stroke-width="0.7"/><text x="100" y="34" font-family="Inter,sans-serif" font-size="26" font-weight="800" letter-spacing="4" text-anchor="middle" fill="url(#gf)">PROMO</text><line x1="4" y1="42" x2="54" y2="42" stroke="url(#gl)" stroke-width="0.7"/><line x1="146" y1="42" x2="196" y2="42" stroke="url(#gl)" stroke-width="0.7"/><text x="100" y="50" font-family="Inter,sans-serif" font-size="11" font-weight="500" letter-spacing="7" text-anchor="middle" fill="url(#gf)">CLUB</text></svg></a>
+    <p class="text-gray-600 text-xs text-center max-w-md">Este site participa de programas de afiliados. Somos remunerados por indicações qualificadas, sem custo adicional para você.</p>
+    <span class="text-gray-600 text-xs">© 2025 PromoClub</span>
+  </div>
+</footer>
 
 <script src="shared.js"></script>
 <script>
-async function init() {
-  const produtos = await loadProdutos();
-  console.log("Produtos carregados:", produtos.length);
+// O resto do script original (que você enviou)
+const BADGE_CFG={hot:{label:'🔥 Em Alta',cls:'bg-red-500 text-white'},new:{label:'✨ Novo',cls:'bg-blue-500 text-white'},top:{label:'⭐ Top',cls:'bg-indigo-500 text-white'},super:{label:'💥 Super',cls:'bg-orange-500 text-white'},flash:{label:'⚡ Flash',cls:'bg-yellow-500 text-black'},prime:{label:'★ Prime',cls:'bg-blue-600 text-white'}};
 
-  const grid = document.getElementById('productsGrid');
-  grid.innerHTML = produtos.map(p => `
-    <div class="card-hover bg-gray-900 border border-white/8 rounded-xl overflow-hidden flex flex-col group">
-      <div class="relative bg-gray-800 aspect-square flex items-center justify-center p-4">
-        <img src="${p.image}" alt="${p.title}" class="max-h-full object-contain transition-transform group-hover:scale-105" onerror="this.src='https://via.placeholder.com/300?text=Sem+Imagem'">
-        <span class="absolute top-3 left-3 bg-red-600 text-white text-xs px-2 py-1 rounded font-bold">${p.store}</span>
-      </div>
-      <div class="p-4 flex-1 flex flex-col">
-        <div class="text-white font-medium line-clamp-2 mb-3">${p.title}</div>
-        <div class="mt-auto">
-          <div class="text-2xl font-bold text-white">${p.price}</div>
-          <a href="${p.link}" target="_blank" class="mt-4 block text-center bg-yellow-500 hover:bg-yellow-400 text-black font-bold py-3 rounded-lg transition">Ver Oferta</a>
-        </div>
-      </div>
+function productCard(p){
+  const pct=parseInt(p.desconto)||0;
+  const price=parsePrice(p.preco_por);
+  const inst=price>0?`12x R$ ${(price/12).toFixed(2).replace('.',',')} s/j`:'';
+  const sc={Amazon:'#f59e0b',Shopee:'#f97316',Hinode:'#dc2626'}[p.loja]||'#6b7280';
+  const badge=p.badge&&BADGE_CFG[p.badge]?`<span class="absolute top-2 left-2 z-10 text-xs font-bold px-2 py-0.5 rounded-full ${BADGE_CFG[p.badge].cls}">${BADGE_CFG[p.badge].label}</span>`:'';
+  return `<div class="card-hover bg-gray-900 border border-white/8 rounded-xl overflow-hidden flex flex-col cursor-pointer group" onclick="openModal('${p.id}')">
+    <div class="relative bg-gray-800/60 aspect-square flex items-center justify-center p-3 overflow-hidden">
+      ${badge}
+      <img src="${p.imagem}" alt="${p.nome}" loading="lazy" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22%3E%3Crect fill=%22%231a2233%22 width=%2260%22 height=%2260%22/%3E%3C/svg%3E'">
     </div>
-  `).join('') || '<p class="col-span-full text-center py-12 text-gray-500">Nenhum produto encontrado</p>';
+    <div class="p-3 flex flex-col flex-1 gap-1.5">
+      <div class="flex items-center gap-1 text-xs text-gray-500"><span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:${sc}"></span>${p.loja} · ${p.categoria}</div>
+      <div class="text-white text-xs font-medium leading-snug line-clamp-2 flex-1">${p.nome}</div>
+      ${p.avaliacao?`<div class="flex items-center gap-1 text-xs text-gray-500">${stars(p.avaliacao)} ${p.avaliacao} (${p.avaliacoes})</div>`:''}
+      <div class="mt-auto">
+        ${p.menor_preco?'<span class="text-xs bg-red-500 text-white font-bold px-1.5 py-0.5 rounded block w-fit mb-1">Menor preço em 365 dias</span>':''}
+        ${p.menor_preco_30?'<span class="text-xs bg-yellow-500 text-black font-bold px-1.5 py-0.5 rounded block w-fit mb-1">Menor preço em 30 dias</span>':''}
+        <div class="flex items-baseline gap-1.5 flex-wrap">
+          ${pct?`<span class="text-red-400 font-bold text-sm">-${p.desconto}</span>`:''}
+          <span class="font-mono font-semibold text-white text-base">${p.preco_por}</span>
+          ${p.preco_de?`<span class="text-gray-600 text-xs line-through">${p.preco_de}</span>`:''}
+        </div>
+        ${inst?`<div class="text-gray-500 text-xs">${inst}</div>`:''}
+        ${p.estoque?`<div class="text-green-400 text-xs">${p.estoque}</div>`:''}
+      </div>
+      <a href="${p.link}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()" class="mt-1 gold-gradient text-black font-bold text-xs py-2 rounded-lg text-center hover:brightness-110 transition-all">Ver oferta</a>
+    </div>
+  </div>`;
 }
+
+function openModal(id){
+  const p=allProds.find(x=>x.id===id);if(!p)return;
+  document.getElementById('mImg').src=p.imagem;
+  document.getElementById('mStore').textContent=p.loja+' · '+p.categoria;
+  document.getElementById('mName').textContent=p.nome;
+  document.getElementById('mDesc').textContent=p.descricao||'';
+  document.getElementById('mOld').textContent=p.preco_de?'De: '+p.preco_de:'';
+  document.getElementById('mPrice').textContent=p.preco_por;
+  document.getElementById('mDisc').textContent=p.desconto?'-'+p.desconto:'';
+  document.getElementById('mInstall').textContent=parsePrice(p.preco_por)>0?'12x de R$ '+(parsePrice(p.preco_por)/12).toFixed(2).replace('.',',')+' sem juros':'';
+  const lo=document.getElementById('mLowest');
+  lo.innerHTML=p.menor_preco?'<span class="text-xs bg-red-500 text-white font-bold px-2 py-0.5 rounded">Menor preço em 365 dias</span>':p.menor_preco_30?'<span class="text-xs bg-yellow-500 text-black font-bold px-2 py-0.5 rounded">Menor preço em 30 dias</span>':'';
+  document.getElementById('mBtn').href=p.link;
+  document.getElementById('mFeats').innerHTML=(p.features||[]).map(f=>`<div class="flex items-start gap-2 text-xs text-gray-400 py-1 border-b border-white/5"><span class="text-green-400 mt-0.5">✓</span>${f}</div>`).join('');
+  document.getElementById('modalBg').classList.remove('hidden');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('modalBg').classList.add('hidden');document.body.style.overflow='';}
+
+let allProds=[],activeCats=new Set(),activeLojas=new Set(),minDisc=0,minRating=0,sortBy='discount',query='';
+const PER_PAGE=20;let page=1;
+const pct=p=>parseInt(p.desconto)||0;
+const price=p=>parseFloat((p.preco_por||'0').replace(/[^\d,]/g,'').replace(',','.'))||0;
+
+async function init(){
+  allProds=await loadProdutos();
+  buildSidebarFilters();
+  const q=new URLSearchParams(location.search).get('q')||'';
+  if(q){query=q;const si=document.getElementById('searchInput');if(si)si.value=q;}
+  render();
+}
+
+function buildSidebarFilters(){
+  const lojas=[...new Set(allProds.map(p=>p.loja))];
+  const cats=[...new Set(allProds.map(p=>p.categoria))].sort();
+  const mkCheck=(val,set,id)=>`<label class="flex items-center gap-2 cursor-pointer group"><input type="checkbox" class="accent-yellow-400 w-3.5 h-3.5" onchange="toggleFilter('${val}','${set}',this)"><span class="text-gray-400 group-hover:text-white text-xs transition-colors">${val}</span></label>`;
+  ['lojaFilters','lojaFiltersMob'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=lojas.map(l=>mkCheck(l,'loja',id)).join('');});
+  const cf=document.getElementById('catFilters');if(cf)cf.innerHTML=cats.map(c=>mkCheck(c,'cat','cf')).join('');
+}
+
+function toggleFilter(val,set,cb){
+  const s=set==='loja'?activeLojas:activeCats;
+  if(cb.checked)s.add(val);else s.delete(val);
+  page=1;render();
+}
+function updateRange(el){minDisc=parseInt(el.value);document.getElementById('rangeVal').textContent=el.value+'%+';page=1;render();}
+function updateRangeMob(el){minDisc=parseInt(el.value);document.getElementById('rangeValMob').textContent=el.value+'%+';const d=document.getElementById('discRange');if(d)d.value=el.value;page=1;render();}
+function setStars(v,btn){document.querySelectorAll('.star-btn').forEach(b=>b.classList.remove('text-yellow-400'));minRating=minRating===v?0:v;if(minRating)btn.classList.add('text-yellow-400');page=1;render();}
+function clearAll(){activeCats.clear();activeLojas.clear();minDisc=0;minRating=0;query='';document.getElementById('searchInput').value='';document.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);document.querySelectorAll('.star-btn').forEach(b=>b.classList.remove('text-yellow-400'));['discRange','discRangeMob'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=0;});document.getElementById('rangeVal').textContent='0%+';page=1;render();}
+function toggleMobileFilters(){document.getElementById('mobileFilters').classList.toggle('hidden');}
+
+function render(){
+  let list=[...allProds];
+  if(activeLojas.size>0)list=list.filter(p=>activeLojas.has(p.loja));
+  if(activeCats.size>0)list=list.filter(p=>activeCats.has(p.categoria));
+  if(query)list=list.filter(p=>p.nome.toLowerCase().includes(query)||(p.descricao||'').toLowerCase().includes(query));
+  if(minDisc>0)list=list.filter(p=>pct(p)>=minDisc);
+  if(minRating>0)list=list.filter(p=>(p.avaliacao||0)>=minRating);
+  if(sortBy==='discount')list.sort((a,b)=>pct(b)-pct(a));
+  else if(sortBy==='price-asc')list.sort((a,b)=>price(a)-price(b));
+  else if(sortBy==='price-desc')list.sort((a,b)=>price(b)-price(a));
+  else list.sort((a,b)=>(b.avaliacao||0)-(a.avaliacao||0));
+  const total=list.length,pages=Math.ceil(total/PER_PAGE);
+  page=Math.min(page,pages||1);
+  document.getElementById('countLabel').textContent=total+' resultado'+(total!==1?'s':'');
+  document.getElementById('productsGrid').innerHTML=list.slice((page-1)*PER_PAGE,page*PER_PAGE).map(p=>productCard(p)).join('')||'<p class="col-span-full text-center text-gray-500 py-20">Nenhum produto encontrado</p>';
+  renderPag(pages);
+}
+function renderPag(pages){
+  const el=document.getElementById('pagination');
+  if(pages<=1){el.innerHTML='';return;}
+  let h=`<button onclick="goPage(${page-1})" ${page===1?'disabled':''} class="w-8 h-8 rounded-lg bg-gray-900 border border-white/10 text-gray-400 disabled:opacity-30 hover:border-yellow-500/40 transition-all text-sm">‹</button>`;
+  for(let i=1;i<=pages;i++){
+    if(pages>7&&i>3&&i<pages-1&&Math.abs(i-page)>1){if(i===4)h+='<span class="text-gray-600 px-1">…</span>';continue;}
+    h+=`<button onclick="goPage(${i})" class="w-8 h-8 rounded-lg text-xs font-semibold transition-all ${i===page?'gold-gradient text-black':'bg-gray-900 border border-white/10 text-gray-400 hover:border-yellow-500/40'}">${i}</button>`;
+  }
+  h+=`<button onclick="goPage(${page+1})" ${page===pages?'disabled':''} class="w-8 h-8 rounded-lg bg-gray-900 border border-white/10 text-gray-400 disabled:opacity-30 hover:border-yellow-500/40 transition-all text-sm">›</button>`;
+  el.innerHTML=h;
+}
+function goPage(p){const pages=Math.ceil(allProds.length/PER_PAGE);if(p<1||p>pages)return;page=p;render();window.scrollTo({top:0,behavior:'smooth'});}
+
+document.getElementById('sortSel').addEventListener('change',e=>{sortBy=e.target.value;page=1;render();});
+document.getElementById('searchInput').addEventListener('input',e=>{query=e.target.value.toLowerCase();page=1;render();});
+document.getElementById('searchInputMob').addEventListener('input',e=>{query=e.target.value.toLowerCase();page=1;render();});
 
 init();
 </script>
