@@ -180,66 +180,9 @@ body{font-family:'Inter',sans-serif;background:#080b14}
 
 <script src="shared.js"></script>
 <script>
-// O resto do script original (que você enviou)
-const BADGE_CFG={hot:{label:'🔥 Em Alta',cls:'bg-red-500 text-white'},new:{label:'✨ Novo',cls:'bg-blue-500 text-white'},top:{label:'⭐ Top',cls:'bg-indigo-500 text-white'},super:{label:'💥 Super',cls:'bg-orange-500 text-white'},flash:{label:'⚡ Flash',cls:'bg-yellow-500 text-black'},prime:{label:'★ Prime',cls:'bg-blue-600 text-white'}};
-
-function productCard(p){
-  const title = p.title || p.nome || 'Produto sem nome';
-  const price = p.price || p.preco_por || 'R$ --';
-  const store = p.store || p.loja || 'Loja';
-  const category = p.category || p.categoria || '';
-  const image = p.image || p.imagem || '';
-  const link = p.link || '#';
-
-  return `
-  <div class="card-hover bg-gray-900 border border-white/8 rounded-xl overflow-hidden flex flex-col cursor-pointer group" onclick="openModal(this)">
-    <div class="relative bg-gray-800/60 aspect-square flex items-center justify-center p-3 overflow-hidden">
-      <img src="${image}" alt="${title}" loading="lazy" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105">
-      <span class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded">${store}</span>
-    </div>
-    <div class="p-3 flex flex-col flex-1 gap-1.5">
-      <div class="flex items-center gap-1 text-xs text-gray-500">
-        <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-red-500"></span>
-        ${store} · ${category}
-      </div>
-      <div class="text-white text-xs font-medium leading-snug line-clamp-2 flex-1">${title}</div>
-      <div class="mt-auto">
-        <div class="font-mono font-semibold text-white text-base">${price}</div>
-      </div>
-      <a href="${link}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()" class="mt-1 gold-gradient text-black font-bold text-xs py-2 rounded-lg text-center hover:brightness-110 transition-all">Ver oferta</a>
-    </div>
-  </div>`;
-}
-
-function openModal(id){
-  const p=allProds.find(x=>x.id===id);if(!p)return;
-  document.getElementById('mImg').src=p.imagem;
-  document.getElementById('mStore').textContent=p.loja+' · '+p.categoria;
-  document.getElementById('mName').textContent=p.nome;
-  document.getElementById('mDesc').textContent=p.descricao||'';
-  document.getElementById('mOld').textContent=p.preco_de?'De: '+p.preco_de:'';
-  document.getElementById('mPrice').textContent=p.preco_por;
-  document.getElementById('mDisc').textContent=p.desconto?'-'+p.desconto:'';
-  document.getElementById('mInstall').textContent=parsePrice(p.preco_por)>0?'12x de R$ '+(parsePrice(p.preco_por)/12).toFixed(2).replace('.',',')+' sem juros':'';
-  const lo=document.getElementById('mLowest');
-  lo.innerHTML=p.menor_preco?'<span class="text-xs bg-red-500 text-white font-bold px-2 py-0.5 rounded">Menor preço em 365 dias</span>':p.menor_preco_30?'<span class="text-xs bg-yellow-500 text-black font-bold px-2 py-0.5 rounded">Menor preço em 30 dias</span>':'';
-  document.getElementById('mBtn').href=p.link;
-  document.getElementById('mFeats').innerHTML=(p.features||[]).map(f=>`<div class="flex items-start gap-2 text-xs text-gray-400 py-1 border-b border-white/5"><span class="text-green-400 mt-0.5">✓</span>${f}</div>`).join('');
-  document.getElementById('modalBg').classList.remove('hidden');
-  document.body.style.overflow='hidden';
-}
-function closeModal(){document.getElementById('modalBg').classList.add('hidden');document.body.style.overflow='';}
-
-let allProds=[],activeCats=new Set(),activeLojas=new Set(),minDisc=0,minRating=0,sortBy='discount',query='';
-const PER_PAGE=20;let page=1;
-const pct=p=>parseInt(p.desconto)||0;
-const price=p=>parseFloat((p.preco_por||'0').replace(/[^\d,]/g,'').replace(',','.'))||0;
-
-async function init(){
-  allProds=await loadProdutos();
+async function init() {
+  allProds = await loadProdutos();
   buildSidebarFilters();
-  const q=new URLSearchParams(location.search).get('q')||'';
-  if(q){query=q;const si=document.getElementById('searchInput');if(si)si.value=q;}
   render();
 }
 
@@ -247,61 +190,40 @@ function buildSidebarFilters(){
   const lojas = [...new Set(allProds.map(p => p.store || p.loja || 'Outros'))];
   const cats = [...new Set(allProds.map(p => p.category || p.categoria || 'Outros'))].sort();
   
-  const mkCheck = (val, set, id) => `
+  const mkCheck = (val, set) => `
     <label class="flex items-center gap-2 cursor-pointer group">
       <input type="checkbox" class="accent-yellow-400 w-3.5 h-3.5" onchange="toggleFilter('${val}','${set}',this)">
       <span class="text-gray-400 group-hover:text-white text-xs transition-colors">${val}</span>
     </label>`;
 
-  ['lojaFilters','lojaFiltersMob'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.innerHTML = lojas.map(l => mkCheck(l, 'loja', id)).join('');
-  });
-
-  const cf = document.getElementById('catFilters');
-  if (cf) cf.innerHTML = cats.map(c => mkCheck(c, 'cat', 'cf')).join('');
+  const lojaEl = document.getElementById('lojaFilters');
+  if (lojaEl) lojaEl.innerHTML = lojas.map(l => mkCheck(l, 'loja')).join('');
+  
+  const catEl = document.getElementById('catFilters');
+  if (catEl) catEl.innerHTML = cats.map(c => mkCheck(c, 'cat')).join('');
 }
 
 function toggleFilter(val,set,cb){
-  const s=set==='loja'?activeLojas:activeCats;
-  if(cb.checked)s.add(val);else s.delete(val);
-  page=1;render();
+  if (set === 'loja') {
+    if (cb.checked) activeLojas.add(val);
+    else activeLojas.delete(val);
+  } else {
+    if (cb.checked) activeCats.add(val);
+    else activeCats.delete(val);
+  }
+  render();
 }
-function updateRange(el){minDisc=parseInt(el.value);document.getElementById('rangeVal').textContent=el.value+'%+';page=1;render();}
-function updateRangeMob(el){minDisc=parseInt(el.value);document.getElementById('rangeValMob').textContent=el.value+'%+';const d=document.getElementById('discRange');if(d)d.value=el.value;page=1;render();}
-function setStars(v,btn){document.querySelectorAll('.star-btn').forEach(b=>b.classList.remove('text-yellow-400'));minRating=minRating===v?0:v;if(minRating)btn.classList.add('text-yellow-400');page=1;render();}
-function clearAll(){activeCats.clear();activeLojas.clear();minDisc=0;minRating=0;query='';document.getElementById('searchInput').value='';document.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);document.querySelectorAll('.star-btn').forEach(b=>b.classList.remove('text-yellow-400'));['discRange','discRangeMob'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=0;});document.getElementById('rangeVal').textContent='0%+';page=1;render();}
-function toggleMobileFilters(){document.getElementById('mobileFilters').classList.toggle('hidden');}
 
 function render(){
   let list = [...allProds];
   if (activeLojas.size > 0) list = list.filter(p => activeLojas.has(p.store || p.loja));
   if (activeCats.size > 0) list = list.filter(p => activeCats.has(p.category || p.categoria));
-  if (query) list = list.filter(p => (p.title || p.nome || '').toLowerCase().includes(query));
-  if (minDisc > 0) list = list.filter(p => (parseInt(p.discount) || 0) >= minDisc);
-  
-  const total = list.length;
-  document.getElementById('countLabel').textContent = total + ' resultado' + (total !== 1 ? 's' : '');
   
   document.getElementById('productsGrid').innerHTML = list.map(p => productCard(p)).join('') || 
     '<p class="col-span-full text-center text-gray-500 py-20">Nenhum produto encontrado</p>';
 }
-function renderPag(pages){
-  const el=document.getElementById('pagination');
-  if(pages<=1){el.innerHTML='';return;}
-  let h=`<button onclick="goPage(${page-1})" ${page===1?'disabled':''} class="w-8 h-8 rounded-lg bg-gray-900 border border-white/10 text-gray-400 disabled:opacity-30 hover:border-yellow-500/40 transition-all text-sm">‹</button>`;
-  for(let i=1;i<=pages;i++){
-    if(pages>7&&i>3&&i<pages-1&&Math.abs(i-page)>1){if(i===4)h+='<span class="text-gray-600 px-1">…</span>';continue;}
-    h+=`<button onclick="goPage(${i})" class="w-8 h-8 rounded-lg text-xs font-semibold transition-all ${i===page?'gold-gradient text-black':'bg-gray-900 border border-white/10 text-gray-400 hover:border-yellow-500/40'}">${i}</button>`;
-  }
-  h+=`<button onclick="goPage(${page+1})" ${page===pages?'disabled':''} class="w-8 h-8 rounded-lg bg-gray-900 border border-white/10 text-gray-400 disabled:opacity-30 hover:border-yellow-500/40 transition-all text-sm">›</button>`;
-  el.innerHTML=h;
-}
-function goPage(p){const pages=Math.ceil(allProds.length/PER_PAGE);if(p<1||p>pages)return;page=p;render();window.scrollTo({top:0,behavior:'smooth'});}
 
-document.getElementById('sortSel').addEventListener('change',e=>{sortBy=e.target.value;page=1;render();});
-document.getElementById('searchInput').addEventListener('input',e=>{query=e.target.value.toLowerCase();page=1;render();});
-document.getElementById('searchInputMob').addEventListener('input',e=>{query=e.target.value.toLowerCase();page=1;render();});
+let allProds = [], activeCats = new Set(), activeLojas = new Set();
 
 init();
 </script>
