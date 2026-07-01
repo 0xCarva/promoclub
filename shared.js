@@ -4,6 +4,7 @@ const AFILIADO_TAG = 'carva00-20';
 async function loadProdutos() {
   try {
     const res = await fetch('produtos/produtos.json');
+    if (!res.ok) throw new Error('404');
     const data = await res.json();
     return data.produtos || [];
   } catch(e) {
