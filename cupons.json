@@ -1,29 +1,41 @@
 [
   {
+    "id": "1",
+    "tipo": "codigo",
     "codigo": "VERIFIQUE NA PÁGINA",
-    "desconto": "Até 30% OFF",
+    "valor": "Até 30% OFF",
+    "titulo": "Até 30% OFF em produtos selecionados",
+    "descricao": "Desconto no checkout.",
     "condicao": "Em produtos selecionados",
-    "limite": "Válido por tempo limitado",
-    "link": "https://www.amazon.com.br/deals",
+    "validade": "Tempo limitado",
     "store": "Amazon",
-    "badge": "Cupom"
+    "link": "https://www.amazon.com.br/deals?tag=carva00-20",
+    "hot": false
   },
   {
+    "id": "2",
+    "tipo": "codigo",
     "codigo": "BOLANAREDE10",
-    "desconto": "15% OFF",
+    "valor": "15% OFF",
+    "titulo": "15% OFF em compras a partir de R$800",
+    "descricao": "Limitado a R$200.",
     "condicao": "Em compras a partir de R$800",
-    "limite": "Limitado a R$200",
-    "link": "https://www.amazon.com.br/b?ie=UTF8&node=18351186011&linkCode=ll2&tag=carva00-20&linkId=475d8cb4f2bd87dc82dc964c59e6f22b&ref_=as_li_ss_tl",
+    "validade": "Tempo limitado",
     "store": "Amazon",
-    "badge": "Cupom"
+    "link": "https://www.amazon.com.br/b?ie=UTF8&node=18351186011&linkCode=ll2&tag=carva00-20",
+    "hot": false
   },
   {
+    "id": "3",
+    "tipo": "codigo",
     "codigo": "PRIMEIRACOMPRA",
-    "desconto": "5% OFF",
+    "valor": "5% OFF",
+    "titulo": "5% OFF na sua primeira compra",
+    "descricao": "Em produtos não promocionados.",
     "condicao": "Na sua primeira compra",
-    "limite": "Em produtos não promocionados",
-    "link": "https://www.hinode.com.br/fragrancias/?id_consultor=76173688",
+    "validade": "Tempo limitado",
     "store": "Hinode",
-    "badge": "Cupom"
+    "link": "https://www.hinode.com.br/fragrancias/?id_consultor=76173688",
+    "hot": false
   }
 ]
