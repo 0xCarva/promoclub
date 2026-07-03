@@ -14,15 +14,15 @@
   },
   {
     "id": "2",
-    "tipo": "codigo",
-    "codigo": "BOLANAREDE10",
-    "valor": "15% OFF",
-    "titulo": "15% OFF em compras a partir de R$800",
-    "descricao": "",
-    "condicao": "Em compras a partir de R$800 (Limitado a R$200)",
+    "tipo": "resgate",
+    "codigo": "VERIFIQUE NA PÁGINA",
+    "valor": "25% OFF",
+    "titulo": "25% OFF (Limitado a R$20)",
+    "descricao": "Este cupom possui um número limitado de usos, o resgate não garante a utilização. 25% OFF nas compras acima de R$0 (Limite de R$20).",
+    "condicao": "Em compras acima de R$0 (Limitado a R$20)",
     "validade": "Tempo limitado",
-    "store": "Amazon",
-    "link": "https://www.amazon.com.br/b?ie=UTF8&node=18351186011&linkCode=ll2&tag=carva00-20",
+    "store": "Shopee",
+    "link": "https://s.shopee.com.br/7prM61SVnt",
     "hot": false
   },
   {
