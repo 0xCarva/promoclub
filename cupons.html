@@ -191,8 +191,8 @@ function couponCard(c) {
   </div>`;
 }
 
-function verCupom(id, code){
-  window.open(LINK_AFILIADO,'_blank','noopener,noreferrer');
+function verCupom(id, code, link){
+  window.open(link || LINK_AFILIADO, '_blank', 'noopener,noreferrer');
   const wrap = document.getElementById('rev-'+id);
   if(!wrap) return;
   wrap.innerHTML = `<div class="flex overflow-hidden rounded-lg border border-dashed border-white/15 bg-gray-800">
