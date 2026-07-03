@@ -17,4 +17,13 @@
     "store": "Amazon",
     "badge": "Cupom"
   }
+  {
+    "codigo": "PRIMEIRACOMPRA",
+    "desconto": "5% OFF",
+    "condicao": "Na sua primeira compra",
+    "limite": "Em produtos não promocionados",
+    "link": "https://www.hinode.com.br/fragrancias/?id_consultor=76173688",
+    "store": "Hinode",
+    "badge": "Cupom"
+  }
 ]
