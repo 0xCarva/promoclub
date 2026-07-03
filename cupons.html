@@ -232,7 +232,10 @@ function render(){
 
 async function init(){
   const fromJson = await loadCupons();
-  allCupons = fromJson.length ? fromJson : FALLBACK_CUPONS;
+  allCupons = fromJson.length ? fromJson : [];
+  if (allCupons.length === 0) {
+    console.log("Nenhum cupom no JSON");
+  }
   render();
 }
 
