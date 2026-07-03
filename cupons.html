@@ -170,6 +170,7 @@ function couponCard(c) {
       <div class="flex items-start justify-between gap-2 mb-3">
         <div class="flex gap-1.5 flex-wrap">
           <span class="text-xs font-bold px-2 py-0.5 rounded-full border ${tc.cls}">${tc.label}</span>
+          ${c.store ? `<span class="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400">${c.store}</span>` : ''}
           ${c.hot ? '<span class="text-xs font-bold px-2 py-0.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400">Popular</span>' : ''}
           <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-500/8 border border-green-500/15 text-green-400">✓ Verificado</span>
         </div>
@@ -182,7 +183,7 @@ function couponCard(c) {
         <span><strong class="text-gray-400">Validade:</strong> ${c.validade}</span>
       </div>
       <div id="rev-${c.id}">
-        <button onclick="verCupom('${c.id}','${c.codigo}','${c.link}')" class="w-full gold-gradient text-black font-bold text-xs py-2.5 rounded-lg flex items-center justify-center gap-1.5 hover:brightness-110 transition-all">
+        <button onclick="verCupom('${c.id}','${c.codigo}','${c.link || LINK_AFILIADO}')" class="w-full gold-gradient text-black font-bold text-xs py-2.5 rounded-lg flex items-center justify-center gap-1.5 hover:brightness-110 transition-all">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           Ver Cupom
         </button>
