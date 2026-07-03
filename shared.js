@@ -16,9 +16,10 @@ async function loadProdutos() {
 async function loadCupons() {
   try {
     const res = await fetch('cupons.json');
-    const data = await res.json();
-    return data || [];
+    if (!res.ok) throw new Error('404');
+    return await res.json();
   } catch(e) {
+    console.error('Erro ao carregar cupons', e);
     return [];
   }
 }
