@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 AFILIADO_HINODE = "76173688"
-OUTPUT_FILE = "../produtos/hinode.json"
+OUTPUT_FILE = "/produtos/hinode.json"
 
 def scrape_hinode():
     produtos = []
