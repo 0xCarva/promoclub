@@ -1,35 +1,57 @@
-import json
-from datetime import datetime
-from pathlib import Path
+name: Atualizar Site + Telegram
 
-def merge_all():
-    all_produtos = []
-    sources = ["amazon", "hinode", "shopee", "mercadolivre"]
+on:
+  schedule:
+    - cron: '0 10 * * *'
+  workflow_dispatch:
 
-    for source in sources:
-        file = Path(f"produtos/{source}.json")
-        if file.exists():
-            try:
-                with open(file, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    produtos = data.get("produtos", [])
-                    for p in produtos:
-                        p["source"] = source
-                    all_produtos.extend(produtos)
-                print(f"✅ Carregado {len(produtos)} de {source}")
-            except:
-                print(f"⚠️ Erro ao carregar {source}")
+jobs:
+  update:
+    runs-on: ubuntu-latest
 
-    data = {
-        "ultima_atualizacao": datetime.now().strftime("%d/%m/%Y %H:%M"),
-        "total_produtos": len(all_produtos),
-        "produtos": all_produtos
-    }
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_GITHUB }}
 
-    with open("produtos.json", "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+      - name: Setup Python + Chrome
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-    print(f"💾 Total combinado: {len(all_produtos)} produtos")
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 selenium webdriver-manager
 
-if __name__ == "__main__":
-    merge_all()
+      - name: Atualizar Hinode
+        run: python scripts/update_hinode.py
+
+      - name: Atualizar Mercado Livre (se tiver)
+        env:
+          MERCADO_LIVRE_TOKEN: ${{ secrets.MERCADO_LIVRE_TOKEN }}
+        run: python scripts/update_mercadolivre.py || echo "Mercado Livre pulado"
+
+      - name: Mesclar todos os produtos
+        run: python scripts/merge_produtos.py
+
+      - name: Enviar para Telegram
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/post_telegram.py
+
+      - name: Commit & Push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          if git diff --quiet produtos.json; then
+            echo "✅ Nenhum produto novo."
+          else
+            git add produtos.json
+            git commit -m "🌟 Atualização Hinode - $(date +'%d/%m/%Y %H:%M')"
+            git push
+            echo "✅ Concluído!"
+          fi
