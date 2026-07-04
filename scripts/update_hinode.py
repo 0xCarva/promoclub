@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 AFILIADO_HINODE = "76173688"
-OUTPUT_FILE = "produtos/hinode.json"
+OUTPUT_FILE = "../produtos/hinode.json"
 
 def scrape_hinode():
     produtos = []
@@ -22,18 +22,20 @@ def scrape_hinode():
     try:
         url = f"https://www.hinode.com.br/?id_consultor={AFILIADO_HINODE}"
         driver.get(url)
-        time.sleep(12)
+        time.sleep(10)
 
-        for _ in range(5):
+        for _ in range(6):
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             time.sleep(4)
 
-        items = driver.find_elements(By.CSS_SELECTOR, 'div.vtex-product-summary-2-x-element, article, div[class*="product"]')
+        items = driver.find_elements(By.CSS_SELECTOR, 'div, article, li, section')
+
+        print(f"Encontrados {len(items)} elementos potenciais")
 
         for item in items:
             try:
                 title = ""
-                for sel in ['h2', '.product-name', '.vtex-product-summary-2-x-productName', '.title', 'span']:
+                for sel in ['h1', 'h2', 'h3', '.product-name', '.title', 'span[class*="name"]']:
                     try:
                         el = item.find_element(By.CSS_SELECTOR, sel)
                         title = el.text.strip()
@@ -44,7 +46,7 @@ def scrape_hinode():
                 if len(title) < 15: continue
 
                 price = ""
-                for sel in ['.price', '.vtex-product-price-1-x-sellingPrice', '.preco-promocional', '.preco']:
+                for sel in ['.price', '.selling-price', '.promocional', 'span[class*="price"]']:
                     try:
                         el = item.find_element(By.CSS_SELECTOR, sel)
                         price = el.text.strip()
@@ -54,31 +56,32 @@ def scrape_hinode():
 
                 if not price: continue
 
-                image_url = ""
+                image = ""
                 try:
                     img = item.find_element(By.TAG_NAME, 'img')
-                    image_url = img.get_attribute('src') or img.get_attribute('data-src')
+                    image = img.get_attribute('src') or img.get_attribute('data-src')
                 except:
                     pass
 
-                link_url = url
+                link = ""
                 try:
-                    link = item.find_element(By.TAG_NAME, 'a')
-                    link_url = link.get_attribute('href')
+                    a = item.find_element(By.TAG_NAME, 'a')
+                    link = a.get_attribute('href')
                 except:
                     pass
 
-                produtos.append({
-                    "title": title[:180],
-                    "price": price,
-                    "original_price": "",
-                    "discount": "",
-                    "image": image_url,
-                    "link": link_url,
-                    "store": "Hinode",
-                    "badge": "Hinode",
-                    "category": "Beleza",
-                })
+                if title and price:
+                    produtos.append({
+                        "title": title[:180],
+                        "price": price,
+                        "original_price": "",
+                        "discount": "",
+                        "image": image,
+                        "link": link,
+                        "store": "Hinode",
+                        "badge": "Hinode",
+                        "category": "Beleza",
+                    })
             except:
                 continue
 
@@ -103,4 +106,4 @@ if __name__ == "__main__":
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
-    print(f"💾 Salvo em produtos/hinode.json")
+    print(f"💾 Salvo em {OUTPUT_FILE}")
