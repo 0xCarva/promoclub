@@ -15,6 +15,9 @@ jobs:
         with:
           token: ${{ secrets.PAT_GITHUB }}
 
+      - name: Criar pasta produtos
+        run: mkdir -p produtos
+
       - name: Setup Python + Chrome
         uses: actions/setup-python@v5
         with:
@@ -31,7 +34,7 @@ jobs:
       - name: Atualizar Mercado Livre
         env:
           MERCADO_LIVRE_TOKEN: ${{ secrets.MERCADO_LIVRE_TOKEN }}
-        run: python scripts/update_mercadolivre.py
+        run: python scripts/update_mercadolivre.py || echo "Mercado Livre pulado"
 
       - name: Mesclar todos os produtos
         run: python scripts/merge_produtos.py
@@ -51,7 +54,7 @@ jobs:
             echo "✅ Nenhum produto novo."
           else
             git add produtos.json
-            git commit -m "🌟 Atualização Hinode + Mercado Livre - $(date +'%d/%m/%Y %H:%M')"
+            git commit -m "🌟 Atualização Hinode - $(date +'%d/%m/%Y %H:%M')"
             git push
             echo "✅ Concluído!"
           fi
