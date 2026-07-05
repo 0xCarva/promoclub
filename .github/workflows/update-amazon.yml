@@ -1,0 +1,34 @@
+name: Atualizar Amazon Devices
+
+on:
+  schedule:
+    - cron: '0 10,22 * * *'   # Roda 2x por dia (7h e 19h horário de Brasília)
+  workflow_dispatch:         # Permite rodar manualmente
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: Rodar script Amazon Devices
+        run: python scripts/update_amazon_devices.py
+
+      - name: Commit e Push das atualizações
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add produtos/amazon_devices.json
+          git commit -m "Atualização automática Amazon Devices" || echo "Nenhuma mudança"
+          git push
