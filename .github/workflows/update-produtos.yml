@@ -45,6 +45,12 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python scripts/post_telegram.py
 
+      - name: Debug - Verificar arquivos
+        run: |
+          ls -la produtos/
+          ls -la produtos.json || echo "produtos.json não existe"
+          git status
+
       - name: Commit & Push
         run: |
           git config user.name "github-actions[bot]"
