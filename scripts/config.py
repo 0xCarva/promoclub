@@ -8,8 +8,8 @@ Configurações compartilhadas por todos os scripts do PromoClub Brasil.
 Existem duas formas de configurar o Bot do Telegram:
 
 1) (Mais simples) Preencha diretamente as strings abaixo:
-       TELEGRAM_BOT_TOKEN = "123456789:ABCdefGHIjklMNOpqrSTUvwxYZ"
-       TELEGRAM_CHAT_ID   = "-1001234567890"
+       TELEGRAM_BOT_TOKEN = ""
+       TELEGRAM_CHAT_ID   = ""
 
 2) (Mais seguro, recomendado em produção/GitHub Actions) Defina variáveis de
    ambiente com o mesmo nome, e o código abaixo vai usá-las automaticamente,
