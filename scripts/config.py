@@ -14,8 +14,8 @@ Existem duas formas de configurar o Bot do Telegram:
 2) (Mais seguro, recomendado em produção/GitHub Actions) Defina variáveis de
    ambiente com o mesmo nome, e o código abaixo vai usá-las automaticamente,
    sem precisar editar este arquivo nem expor o token no repositório público:
-       export TELEGRAM_BOT_TOKEN="123456789:ABCdefGHIjklMNOpqrSTUvwxYZ"
-       export TELEGRAM_CHAT_ID="-1001234567890"
+       export TELEGRAM_BOT_TOKEN=""
+       export TELEGRAM_CHAT_ID=""
 
    Como o GitHub Pages é público, a opção 2 é fortemente recomendada para não
    vazar o token do bot no histórico do repositório. Se for rodar via GitHub
