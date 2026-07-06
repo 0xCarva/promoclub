@@ -26,9 +26,7 @@ jobs:
         run: python scripts/update_amazon_devices.py
 
       - name: Commit e Push das atualizações
-        run: |
-          git config --global user.name "GitHub Action"
-          git config --global user.email "action@github.com"
-          git add produtos/amazon_devices.json
-          git commit -m "Atualização automática Amazon Devices" || echo "Nenhuma mudança"
-          git push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Atualização automática Amazon Devices"
+          file_pattern: produtos/amazon_devices.json
