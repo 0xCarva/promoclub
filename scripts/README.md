@@ -29,13 +29,24 @@ playwright install chromium
 
 ## 2) Configurar credenciais
 
-Edite `scripts/common/config.py` e preencha:
+O `config.py` não guarda nenhum valor sensível — ele apenas lê as variáveis
+de ambiente `TELEGRAM_TOKEN` e `TELEGRAM_CHAT_ID`.
 
-- `TELEGRAM_BOT_TOKEN`: token gerado pelo @BotFather no Telegram.
-- `TELEGRAM_CHAT_ID`: ID do canal/grupo (para canais, geralmente começa com `-100`).
+- No **GitHub Actions**: cadastre-as em Settings > Secrets and variables >
+  Actions (você já fez isso) e referencie-as no workflow, por exemplo:
 
-Ou, se preferir (recomendado para não expor o token no GitHub), defina como
-variáveis de ambiente com o mesmo nome antes de rodar os scripts.
+  ```yaml
+  env:
+    TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+    TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+  ```
+
+- Rodando **localmente**, exporte antes de executar:
+
+  ```bash
+  export TELEGRAM_TOKEN="seu_token_aqui"
+  export TELEGRAM_CHAT_ID="seu_chat_id_aqui"
+  ```
 
 ## 3) Adicionar produtos para monitorar
 
@@ -64,7 +75,7 @@ Cada execução:
 
 Para rodar periodicamente, você pode usar um cron job no seu servidor ou um
 workflow do GitHub Actions agendado (`schedule` com `cron`), lembrando de
-cadastrar `TELEGRAM_BOT_TOKEN` e `TELEGRAM_CHAT_ID` como *Secrets* do
+cadastrar `TELEGRAM_TOKEN` e `TELEGRAM_CHAT_ID` como *Secrets* do
 repositório nesse caso.
 
 ## Observações importantes

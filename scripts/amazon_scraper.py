@@ -8,7 +8,7 @@ canal do Telegram.
 COMO USAR:
 1) Adicione os links dos produtos (com ou sem a tag de afiliado, tanto faz)
    na lista PRODUCT_URLS abaixo.
-2) Configure TELEGRAM_BOT_TOKEN e TELEGRAM_CHAT_ID em common/config.py.
+2) Defina as variáveis de ambiente/Secrets TELEGRAM_TOKEN e TELEGRAM_CHAT_ID.
 3) Rode: python amazon_scraper.py
 """
 

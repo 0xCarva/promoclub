@@ -11,7 +11,7 @@ from typing import Any, Dict, List
 
 import requests
 
-from .config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+from .config import TELEGRAM_CHAT_ID, TELEGRAM_TOKEN
 
 
 def montar_legenda(produto: Dict[str, Any]) -> str:
@@ -47,15 +47,16 @@ def enviar_produto_telegram(produto: Dict[str, Any]) -> bool:
     Usa sendPhoto (com a imagem do produto) quando disponível; caso não haja
     imagem, cai para sendMessage. Retorna True se o Telegram confirmou o envio.
     """
-    if TELEGRAM_BOT_TOKEN.startswith("COLOQUE_") or TELEGRAM_CHAT_ID.startswith("COLOQUE_"):
+    if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_ID:
         raise RuntimeError(
-            "Configure TELEGRAM_BOT_TOKEN e TELEGRAM_CHAT_ID em common/config.py "
-            "(ou via variáveis de ambiente) antes de enviar mensagens."
+            "As variáveis de ambiente TELEGRAM_TOKEN e TELEGRAM_CHAT_ID não estão "
+            "definidas. Configure-as como Secrets do GitHub Actions ou exporte-as "
+            "localmente antes de rodar o script."
         )
 
     legenda = montar_legenda(produto)
     imagem = produto.get("imagem")
-    base_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}"
+    base_url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}"
 
     try:
         if imagem:

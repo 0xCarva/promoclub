@@ -15,7 +15,7 @@ primeiro se as tags og:title/og:image continuam presentes no HTML.
 COMO USAR:
 1) Adicione os links (podem ser os links curtos "s.shopee.com.br/...", o
    script segue o redirecionamento automaticamente) na lista PRODUCT_URLS.
-2) Configure TELEGRAM_BOT_TOKEN e TELEGRAM_CHAT_ID em common/config.py.
+2) Defina as variáveis de ambiente/Secrets TELEGRAM_TOKEN e TELEGRAM_CHAT_ID.
 3) Rode: python shopee_scraper.py
 """
 

@@ -14,7 +14,7 @@ e não a URL final sem os parâmetros de afiliado.
 
 COMO USAR:
 1) Adicione os links de afiliado (curtos ou completos) em PRODUCT_URLS.
-2) Configure TELEGRAM_BOT_TOKEN e TELEGRAM_CHAT_ID em common/config.py.
+2) Defina as variáveis de ambiente/Secrets TELEGRAM_TOKEN e TELEGRAM_CHAT_ID.
 3) Rode: python meli_scraper.py
 """
 
