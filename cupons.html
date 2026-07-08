@@ -123,8 +123,7 @@ body{font-family:'Inter',sans-serif;background:#080b14}
     <div class="flex items-center gap-2"><span class="w-1 h-4 gold-gradient rounded-full"></span><span class="font-bold text-sm">Cupons ativos</span><span class="text-gray-500 text-xs" id="cupCount"></span></div>
     <div class="flex gap-1.5 flex-wrap" id="filterPills">
       <button data-f="todos" onclick="filterC('todos',this)" class="cpill active text-xs font-semibold px-3 py-1.5 rounded-full border transition-all bg-yellow-500/10 border-yellow-500/30 text-yellow-300">Todos</button>
-      <button data-f="codigo" onclick="filterC('codigo',this)" class="cpill text-xs font-semibold px-3 py-1.5 rounded-full border transition-all bg-white/5 border-white/10 text-gray-400 hover:text-white">Código</button>
-      <button data-f="resgate" onclick="filterC('resgate',this)" class="cpill text-xs font-semibold px-3 py-1.5 rounded-full border transition-all bg-white/5 border-white/10 text-gray-400 hover:text-white">Resgate</button>
+      <button data-f="codigo" onclick="filterC('codigo',this)" class="cpill text-xs font-semibold px-3 py-1.5 rounded-full border transition-all bg-white/5 border-white/10 text-gray-400 hover:text-white">Com código</button>
       <button data-f="prime" onclick="filterC('prime',this)" class="cpill text-xs font-semibold px-3 py-1.5 rounded-full border transition-all bg-white/5 border-white/10 text-gray-400 hover:text-white">Prime</button>
       <button data-f="app" onclick="filterC('app',this)" class="cpill text-xs font-semibold px-3 py-1.5 rounded-full border transition-all bg-white/5 border-white/10 text-gray-400 hover:text-white">App</button>
     </div>
@@ -143,37 +142,38 @@ body{font-family:'Inter',sans-serif;background:#080b14}
 
 <script src="shared.js"></script>
 <script>
-async function loadCupons() {
-  try {
-    const res = await fetch('cupons.json');
-    return await res.json();
-  } catch(e) {
-    console.error('Erro ao carregar cupons', e);
-    return [];
-  }
-}
-
 const LINK_AFILIADO = 'https://amzn.to/4fiE8NQ?tag=carva00-20';
+const FALLBACK_CUPONS = [
+  {id:'bomdia10',tipo:'codigo',codigo:'BOMDIA10',valor:'10% OFF',titulo:'10% OFF acima de R$200',descricao:'Produtos selecionados na Amazon.',condicao:'Mínimo R$200',validade:'Tempo limitado',hot:false},
+  {id:'maiochegou',tipo:'codigo',codigo:'MAIOCHEGOU',valor:'R$100 OFF',titulo:'R$100 OFF acima de R$999',descricao:'Desconto no checkout.',condicao:'Mínimo R$999',validade:'Tempo limitado',hot:true},
+  {id:'bomdemais35',tipo:'codigo',codigo:'BOMDEMAIS35',valor:'R$35 OFF',titulo:'R$35 OFF acima de R$299',descricao:'Produtos selecionados.',condicao:'Mínimo R$299',validade:'Tempo limitado',hot:false},
+  {id:'seumomento',tipo:'codigo',codigo:'SEUMOMENTO',valor:'R$70 OFF',titulo:'R$70 OFF acima de R$699',descricao:'Cupom de uso geral.',condicao:'Mínimo R$699',validade:'Tempo limitado',hot:false},
+  {id:'fazopedido',tipo:'codigo',codigo:'FAZOPEDIDO',valor:'R$50 OFF',titulo:'R$50 OFF acima de R$499',descricao:'Verifique elegibilidade.',condicao:'Mínimo R$499',validade:'Tempo limitado',hot:false},
+  {id:'pc150',tipo:'codigo',codigo:'PC150',valor:'R$150 OFF',titulo:'R$150 OFF em PCs e Informática',descricao:'Exclusivo para PC e Informática.',condicao:'Categoria PC/Informática',validade:'Tempo limitado',hot:true},
+  {id:'tvsom250',tipo:'codigo',codigo:'TVSOM250',valor:'R$200 OFF',titulo:'R$200 OFF em TVs acima de R$1.499',descricao:'TVs, Áudio e Som.',condicao:'Mín. R$1.499 · TVs e Áudio',validade:'Tempo limitado',hot:true},
+  {id:'prime20app',tipo:'app',codigo:'PRIME20APP',valor:'R$20 OFF',titulo:'R$20 OFF Prime Day no App',descricao:'Exclusivo pelo app Amazon.',condicao:'App · Membros Prime',validade:'Prime Day',hot:true},
+  {id:'noprimeday40',tipo:'app',codigo:'40NOPRIMEDAY',valor:'R$40 OFF',titulo:'R$40 OFF Prime Day no App',descricao:'Exclusivo pelo aplicativo.',condicao:'App · Membros Prime',validade:'Prime Day',hot:false},
+  {id:'souprime',tipo:'prime',codigo:'SOUPRIME',valor:'R$100 OFF',titulo:'R$100 OFF Cupom Prime Day',descricao:'Desconto especial membros Prime.',condicao:'Membros Amazon Prime',validade:'Prime Day',hot:true},
+  {id:'app20off',tipo:'app',codigo:'APP20OFF',valor:'R$20 OFF',titulo:'R$20 OFF com R$100 na sacola',descricao:'Adicione R$100 e use o cupom.',condicao:'Mín. R$100 na sacola · App',validade:'Tempo limitado',hot:false},
+];
 
-const TIPO_CFG = {
-  codigo: {label:'Código',cls:'bg-yellow-500/10 border-yellow-500/20 text-yellow-300'},
-  prime: {label:'Prime',cls:'bg-blue-500/10 border-blue-500/20 text-blue-400'},
-  app: {label:'App',cls:'bg-green-500/10 border-green-500/20 text-green-400'},
-  resgate: {label:'Resgate',cls:'bg-purple-500/10 border-purple-500/20 text-purple-400'}
+const TIPO_CFG={
+  codigo:{label:'Código',cls:'bg-yellow-500/10 border-yellow-500/20 text-yellow-300'},
+  prime:{label:'Prime',cls:'bg-blue-500/10 border-blue-500/20 text-blue-400'},
+  app:{label:'App',cls:'bg-green-500/10 border-green-500/20 text-green-400'},
 };
 
-let allCupons = [], activeFilter = 'todos', query = '';
+let allCupons=[], activeFilter='todos', query='';
 
-function couponCard(c) {
-  const tc = TIPO_CFG[c.tipo] || TIPO_CFG.codigo;
+function couponCard(c){
+  const tc=TIPO_CFG[c.tipo]||TIPO_CFG.codigo;
   return `<div class="card-hover bg-gray-900 border border-white/8 rounded-xl overflow-hidden" data-tipo="${c.tipo}">
     <div class="h-0.5 bg-gradient-to-r from-yellow-600 to-yellow-400"></div>
     <div class="p-4">
       <div class="flex items-start justify-between gap-2 mb-3">
         <div class="flex gap-1.5 flex-wrap">
           <span class="text-xs font-bold px-2 py-0.5 rounded-full border ${tc.cls}">${tc.label}</span>
-          ${c.store ? `<span class="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400">${c.store}</span>` : ''}
-          ${c.hot ? '<span class="text-xs font-bold px-2 py-0.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400">Popular</span>' : ''}
+          ${c.hot?'<span class="text-xs font-bold px-2 py-0.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400">Popular</span>':''}
           <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-500/8 border border-green-500/15 text-green-400">✓ Verificado</span>
         </div>
         <span class="font-mono font-bold text-white text-lg whitespace-nowrap">${c.valor}</span>
@@ -185,7 +185,7 @@ function couponCard(c) {
         <span><strong class="text-gray-400">Validade:</strong> ${c.validade}</span>
       </div>
       <div id="rev-${c.id}">
-        <button onclick="verCupom('${c.id}','${c.codigo}','${c.link || LINK_AFILIADO}')" class="w-full gold-gradient text-black font-bold text-xs py-2.5 rounded-lg flex items-center justify-center gap-1.5 hover:brightness-110 transition-all">
+        <button onclick="verCupom('${c.id}','${c.codigo}')" class="w-full gold-gradient text-black font-bold text-xs py-2.5 rounded-lg flex items-center justify-center gap-1.5 hover:brightness-110 transition-all">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           Ver Cupom
         </button>
@@ -194,11 +194,11 @@ function couponCard(c) {
   </div>`;
 }
 
-function verCupom(id, code, link){
-  window.open(link || LINK_AFILIADO, '_blank', 'noopener,noreferrer');
-  const wrap = document.getElementById('rev-'+id);
+function verCupom(id, code){
+  window.open(LINK_AFILIADO,'_blank','noopener,noreferrer');
+  const wrap=document.getElementById('rev-'+id);
   if(!wrap) return;
-  wrap.innerHTML = `<div class="flex overflow-hidden rounded-lg border border-dashed border-white/15 bg-gray-800">
+  wrap.innerHTML=`<div class="flex overflow-hidden rounded-lg border border-dashed border-white/15 bg-gray-800">
     <span class="font-mono text-sm font-bold text-white px-3 py-2.5 flex-1 tracking-wider">${code}</span>
     <button onclick="copyC('${code}',this)" class="gold-gradient text-black text-xs font-bold px-4 hover:brightness-110 transition-all">Copiar</button>
   </div>`;
@@ -206,47 +206,50 @@ function verCupom(id, code, link){
 }
 
 function copyC(code, btn){
-  navigator.clipboard.writeText(code).then(() => {
-    btn.textContent = 'Copiado!';
-    setTimeout(() => btn.textContent = 'Copiar', 2500);
-    showToast('Código ' + code + ' copiado!');
+  navigator.clipboard.writeText(code).then(()=>{
+    btn.textContent='Copiado!';
+    setTimeout(()=>btn.textContent='Copiar', 2500);
+    showToast('Código '+code+' copiado!');
   });
 }
 
 function filterC(f, btn){
-  activeFilter = f;
-  document.querySelectorAll('.cpill').forEach(p => {
-    p.className = p.className.replace('bg-yellow-500/10 border-yellow-500/30 text-yellow-300','bg-white/5 border-white/10 text-gray-400 hover:text-white');
+  activeFilter=f;
+  document.querySelectorAll('.cpill').forEach(p=>{
+    p.className=p.className.replace('bg-yellow-500/10 border-yellow-500/30 text-yellow-300','bg-white/5 border-white/10 text-gray-400 hover:text-white');
   });
-  btn.className = btn.className.replace('bg-white/5 border-white/10 text-gray-400 hover:text-white','bg-yellow-500/10 border-yellow-500/30 text-yellow-300');
+  btn.className=btn.className.replace('bg-white/5 border-white/10 text-gray-400 hover:text-white','bg-yellow-500/10 border-yellow-500/30 text-yellow-300');
   render();
 }
 
 function render(){
-  let list = [...allCupons];
-  if (activeFilter !== 'todos') list = list.filter(c => c.tipo === activeFilter);
-  if (query) list = list.filter(c => (c.titulo + c.codigo + c.descricao).toLowerCase().includes(query));
-  list.sort((a,b) => (b.hot?1:0) - (a.hot?1:0));
-  document.getElementById('cupCount').textContent = list.length + ' cupom' + (list.length !== 1 ? 's' : '');
-  document.getElementById('cuponsGrid').innerHTML = list.length
-    ? list.map(c => couponCard(c)).join('')
+  let list=[...allCupons];
+  if(activeFilter!=='todos') list=list.filter(c=>c.tipo===activeFilter);
+  if(query) list=list.filter(c=>(c.titulo+c.codigo+c.descricao).toLowerCase().includes(query));
+  list.sort((a,b)=>(b.hot?1:0)-(a.hot?1:0));
+  document.getElementById('cupCount').textContent=list.length+' cupom'+(list.length!==1?'s':'');
+  document.getElementById('cuponsGrid').innerHTML=list.length
+    ? list.map(c=>couponCard(c)).join('')
     : '<p class="col-span-full text-center text-gray-500 py-16">Nenhum cupom encontrado</p>';
 }
 
 async function init(){
-  const fromJson = await loadCupons();
-  allCupons = fromJson.length ? fromJson : [];
-  if (allCupons.length === 0) {
-    console.log("Nenhum cupom no JSON");
-  }
+  const fromJson=await loadCupons();
+  allCupons=fromJson.length ? fromJson.map((c,i)=>({
+    id: c.id||c.codigo||('c'+i),
+    tipo: c.tipo||c.type||'codigo',
+    codigo: c.codigo||c.code||'',
+    valor: c.desconto||c.valor||'',
+    titulo: c.titulo||c.title||'',
+    descricao: c.descricao||c.description||c.condicao||'',
+    condicao: c.condicao||c.condition||'',
+    validade: c.validade||c.expiry||'Tempo limitado',
+    hot: c.hot||false,
+  })) : FALLBACK_CUPONS;
   render();
 }
 
-document.getElementById('searchInput').addEventListener('input', e => {
-  query = e.target.value.toLowerCase();
-  render();
-});
-
+document.getElementById('searchInput').addEventListener('input',e=>{query=e.target.value.toLowerCase();render();});
 init();
 </script>
 </body>

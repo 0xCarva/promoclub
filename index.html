@@ -320,29 +320,38 @@ body { font-family: 'Inter', sans-serif; background: #080b14; }
 <script>
 // ── CARD HTML ─────────────────────────────────────────────
 function productCard(p, compact = false) {
-  const title = p.title || p.nome || 'Produto';
-  const price = p.price || p.preco_por || 'R$ --';
-  const store = p.store || p.loja || 'Loja';
-  const category = p.category || p.categoria || '';
-  const image = p.image || p.imagem || '';
-  const link = p.link || '#';
-
+  const pct = parseInt(p.desconto) || 0;
+  const price = parsePrice(p.preco_por);
+  const inst = price > 0 ? `12x R$ ${(parseFloat((p.preco_por||'0').replace(/[R$\s.]/g,'').replace(',','.'))/12).toFixed(2).replace('.',',')} s/j` : '';
+  const storeColor = {Amazon:'#f59e0b',Shopee:'#f97316',Hinode:'#dc2626'}[p.loja] || '#6b7280';
   return `
-  <div class="card-hover bg-gray-900 border border-white/8 rounded-xl overflow-hidden flex flex-col ${compact ? 'flex-shrink-0 w-48 snap-start' : ''}" onclick="openModal(this)">
-    <div class="relative bg-gray-800 aspect-square flex items-center justify-center p-3 overflow-hidden">
-      <img src="${image}" alt="${title}" loading="lazy" class="w-full h-full object-contain transition-transform group-hover:scale-105">
-      <span class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded">${store}</span>
+  <div class="card-hover bg-gray-900 border border-white/8 rounded-xl overflow-hidden flex flex-col cursor-pointer group ${compact ? 'flex-shrink-0 w-48 snap-start' : ''}" onclick="openModal('${p.id}')">
+    <div class="relative bg-gray-800/60 aspect-square flex items-center justify-center p-3 overflow-hidden">
+      ${badgeHTML(p.badge)}
+      <img src="${p.imagem}" alt="${p.nome}" loading="lazy" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2280%22%3E%3Crect fill=%22%231a2233%22 width=%2280%22 height=%2280%22/%3E%3C/svg%3E'">
+      <button class="absolute top-2 right-2 w-7 h-7 bg-black/60 backdrop-blur border border-white/10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:border-red-500/40" onclick="event.stopPropagation();toggleFavCard(this,'${p.id}')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="${Favs.has(p.id)?'#ef4444':'none'}" stroke="#ef4444" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
     </div>
     <div class="p-3 flex flex-col flex-1 gap-1.5">
-      <div class="flex items-center gap-1 text-xs text-gray-500">
-        <span class="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-red-500"></span>
-        ${store} · ${category}
+      <div class="flex items-center gap-1.5 text-xs text-gray-500">
+        <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:${storeColor}"></span>
+        ${p.loja} · ${p.categoria}
       </div>
-      <div class="text-white text-xs font-medium leading-snug line-clamp-2 flex-1">${title}</div>
+      <div class="text-white text-xs font-medium leading-snug line-clamp-2 flex-1">${p.nome}</div>
+      ${p.avaliacao ? `<div class="flex items-center gap-1">${stars(p.avaliacao)}<span class="text-gray-500 text-xs">${p.avaliacao} (${p.avaliacoes})</span></div>` : ''}
       <div class="mt-auto">
-        <div class="font-mono font-semibold text-white text-base">${price}</div>
+        ${p.menor_preco ? '<span class="text-xs bg-red-500 text-white font-bold px-1.5 py-0.5 rounded block w-fit mb-1">Menor preço em 365 dias</span>' : ''}
+        ${p.menor_preco_30 ? '<span class="text-xs bg-yellow-500 text-black font-bold px-1.5 py-0.5 rounded block w-fit mb-1">Menor preço em 30 dias</span>' : ''}
+        <div class="flex items-baseline gap-1.5 flex-wrap">
+          ${pct ? `<span class="text-red-400 font-bold text-sm">-${p.desconto}</span>` : ''}
+          <span class="font-mono font-semibold text-white text-base">${p.preco_por}</span>
+          ${p.preco_de ? `<span class="text-gray-600 text-xs line-through">${p.preco_de}</span>` : ''}
+        </div>
+        ${inst ? `<div class="text-gray-500 text-xs">${inst}</div>` : ''}
+        ${p.estoque ? `<div class="text-green-400 text-xs">${p.estoque}</div>` : ''}
       </div>
-      <a href="${link}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()" class="mt-1 gold-gradient text-black font-bold text-xs py-2 rounded-lg text-center hover:brightness-110 transition-all">Ver oferta</a>
+      <a href="${p.link}" target="_blank" rel="nofollow noopener" onclick="event.stopPropagation()" class="mt-1 gold-gradient text-black font-bold text-xs py-2 rounded-lg text-center hover:brightness-110 transition-all">Ver oferta</a>
     </div>
   </div>`;
 }
@@ -379,7 +388,6 @@ let allProds = [], activeStore = 'todos', sortBy = 'discount';
 async function init() {
   allProds = await loadProdutos();
   const cupons = await loadCupons();
-  activeStore = 'Todos';
 
   // Stats
   const avg = allProds.length ? Math.round(allProds.reduce((s,p)=>s+(parseInt(p.desconto)||0),0)/allProds.length) : 0;
@@ -388,14 +396,14 @@ async function init() {
   document.getElementById('statCupons').textContent = cupons.length || CUPONS_FALLBACK.length;
 
   // Hot slider
-  const hot = allProds.slice(0,10);
-  document.getElementById('hotGrid').innerHTML = hot.map(p => productCard(p, true)).join('') || '<p class="text-gray-500 text-sm px-4">Nenhum produto em destaque</p>';
+  const hot = allProds.filter(p=>p.badge==='hot'||p.badge==='super'||p.destaque).slice(0,10);
+  document.getElementById('hotGrid').innerHTML = hot.map(p=>productCard(p,true)).join('') || '<p class="text-gray-500 text-sm px-4">Carregando...</p>';
 
   // Store pills
-  const lojas = ['Todos', ...new Set(allProds.map(p => p.store || p.loja || 'Outros'))];
-  document.getElementById('storePills').innerHTML = lojas.map(l => `
-  <button onclick="filterStore('${l}',this)" class="pill text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${l==='Todos'?'bg-yellow-500/10 border-yellow-500/30 text-yellow-300':'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:border-white/20'}">${l}</button>
-  `).join('');
+  const lojas = ['todos', ...new Set(allProds.map(p=>p.loja))];
+  document.getElementById('storePills').innerHTML = lojas.map(l =>
+    `<button onclick="filterStore('${l}',this)" class="pill text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${l==='todos'?'bg-yellow-500/10 border-yellow-500/30 text-yellow-300':'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:border-white/20'}">${l==='todos'?'Todos':l}</button>`
+  ).join('');
 
   // Cupons strip
   const cuponsToShow = (cupons.length ? cupons : CUPONS_FALLBACK).slice(0,4);
@@ -440,7 +448,7 @@ function filterStore(store, btn) {
 
 function renderProducts() {
   let list = [...allProds];
-  if (activeStore !== 'Todos') list = list.filter(p => (p.store || p.loja) === activeStore);
+  if (activeStore !== 'todos') list = list.filter(p => p.loja === activeStore);
   const q = document.getElementById('heroSearchInput')?.value?.toLowerCase() || '';
   if (q) list = list.filter(p => p.nome.toLowerCase().includes(q) || p.loja.toLowerCase().includes(q));
   if (sortBy === 'discount') list.sort((a,b) => (parseInt(b.desconto)||0)-(parseInt(a.desconto)||0));
