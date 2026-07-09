@@ -159,7 +159,7 @@ body { font-family: 'Inter', sans-serif; background: #080b14; }
     <h2 class="font-bold text-base flex items-center gap-2"><span class="w-1 h-4 gold-gradient rounded-full"></span>Mais procurados agora</h2>
     <a href="ofertas.html" class="text-yellow-500/70 hover:text-yellow-400 text-xs transition-colors">Ver todos →</a>
   </div>
-  <div class="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide" id="hotGrid" style="scrollbar-width:none"></div>
+  <div class="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide" id="hotGrid" style="scrollbar-width:none"><p class="text-gray-500 text-sm px-4 py-8">Carregando...</p></div>
 </div>
 
 <!-- COUPONS STRIP -->
@@ -187,7 +187,7 @@ body { font-family: 'Inter', sans-serif; background: #080b14; }
       </select>
     </div>
   </div>
-  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3" id="mainGrid"></div>
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3" id="mainGrid"><div class="col-span-full text-center py-16 text-gray-500 text-sm">Carregando produtos...</div></div>
 </div>
 
 <!-- HINODE BANNER -->
@@ -386,7 +386,14 @@ function closeModal() { document.getElementById('modalBg').classList.add('hidden
 let allProds = [], activeStore = 'todos', sortBy = 'discount';
 
 async function init() {
+  console.log('[PromoClub] Carregando produtos.json...');
   allProds = await loadProdutos();
+  console.log('[PromoClub] Produtos carregados:', allProds.length);
+  if (allProds.length === 0) {
+    const g = document.getElementById('mainGrid') || document.getElementById('productsGrid');
+    if (g) g.innerHTML = '<div class="col-span-full text-center py-16 text-gray-400 text-sm">Nenhum produto encontrado.<br><span class="text-gray-600 text-xs">Verifique se produtos.json está na raiz do repositório.</span></div>';
+    return;
+  }
   const cupons = await loadCupons();
 
   // Stats

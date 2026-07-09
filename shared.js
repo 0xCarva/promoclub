@@ -1,6 +1,6 @@
 // ── CONFIG ────────────────────────────────────────────────
-const TG_LINK = 'https://t.me/promoclubbrasil';
-const IG_LINK = 'https://www.instagram.com/promoclubbrasil/';
+const TG_LINK = 'https://t.me/promoclubhub';
+const IG_LINK = 'https://www.instagram.com/promoclubhub/';
 const AFILIADO_TAG = 'carva00-20';
 
 // ── HELPERS ───────────────────────────────────────────────
