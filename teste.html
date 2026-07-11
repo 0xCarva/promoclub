@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Teste PromoClub</title></head>
+<body style="font-family:monospace;background:#111;color:#eee;padding:20px">
+<h2>Diagnóstico PromoClub</h2>
+<pre id="out">Carregando...</pre>
+<script>
+async function run() {
+  const out = document.getElementById('out');
+  let log = '';
+
+  // Testa shared.js
+  log += '1. shared.js carregado: ';
+  log += (typeof loadProdutos === 'function') ? '✓ OK\n' : '✗ FALHOU — shared.js não carregou\n';
+
+  // Testa fetch do produtos.json
+  log += '2. Buscando produtos.json...\n';
+  try {
+    const res = await fetch('produtos.json?_=' + Date.now());
+    log += `   Status HTTP: ${res.status} ${res.ok ? '✓' : '✗'}\n`;
+    if (res.ok) {
+      const data = await res.json();
+      const n = Array.isArray(data) ? data.length : Object.keys(data).length;
+      log += `   Produtos no JSON: ${n} ✓\n`;
+    } else {
+      log += `   ERRO: arquivo não encontrado na raiz\n`;
+    }
+  } catch(e) {
+    log += `   ERRO: ${e.message}\n`;
+  }
+
+  // Testa loadProdutos
+  if (typeof loadProdutos === 'function') {
+    log += '3. Testando loadProdutos()...\n';
+    const prods = await loadProdutos();
+    log += `   Produtos mapeados: ${prods.length}\n`;
+    if (prods.length > 0) {
+      log += `   Primeiro: ${prods[0].nome.substring(0,50)}\n`;
+      log += `   Preço: ${prods[0].preco_por}\n`;
+    }
+  }
+
+  out.textContent = log;
+}
+</script>
+<script src="shared.js" onload="run()" onerror="document.getElementById('out').textContent='✗ ERRO: shared.js não encontrado na raiz'"></script>
+</body>
+</html>
